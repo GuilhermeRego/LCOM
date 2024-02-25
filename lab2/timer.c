@@ -5,11 +5,14 @@
 
 #include "i8254.h"
 
+#define TIMER_FREQ 1193182
+
+
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
-  /* To be implemented by the students */
+  if (freq > TIMER_FREQ || freq < 19) return 1;
   printf("%s is not yet implemented!\n", __func__);
 
-  return 1;
+  return 0;
 }
 
 int (timer_subscribe_int)(uint8_t *bit_no) {
