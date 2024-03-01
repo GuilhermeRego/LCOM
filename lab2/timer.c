@@ -10,25 +10,30 @@
 
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
   if (freq > TIMER_FREQ || freq < 19) return 1;               // Verificar se é inválido
-  uint8_t controlWord;                                 
-  timer_get_conf(timer, &controlWord);                        // Obter a config do timer e meter na controlWord
-  controlWord = (controlWord & 0x0F) | TIMER_LSB_MSB;         // Tirar o timer atual com & para metermos o que temos´
-                                                              // como input (timer) e ativar os bits 5 e 6 (?)
+
+  uint8_t controlWord;                                        // Temos de consultar a configuração atual do timer
+  if (timer_get_conf(timer, &controlWord) != 0) return 1;     // Extrair control word para controlWord
   
-  uint32_t time = TIMER_FREQ / freq;                          // Obter o tempo inicial
-  uint8_t msb, lsb;
-  util_get_LSB(time, lsb);                                    // Como estamos em LSB followed by MSB temos
-  util_get_MSB(time, msb);                                    // de retirá-los para depois meter no timer
-  controlWord |= (timer << 6);                                // Selecionar timer dado como input
+  controlWord |= TIMER_LSB_MSB;                               // Ativar os bits LSB followed by MSB (padrão)
+  controlWord &= (timer << 6);                                // Ativar bits 7 e 6 com o timer do input
+
+  uint32_t time = TIMER_FREQ / freq;                          // Calcular valor com a freq fornecida
   uint8_t selectedTimer;
-  if (!timer) selectedTimer = TIMER_0;                        // Extrair o timer dado como input e
-  else if (timer) selectedTimer = TIMER_1;                    // meter em selectedTimer para depois
-  else selectedTimer = TIMER_2;                               // configurarmos
-  
-  sys_outb(0x43, controlWord);                                // Avisar i8254 que vamos configurar o timer
-  sys_outb(selectedTimer, LSB);                               // Como é LSB followed by MSB, temos de meter
-  sys_outb(selectedTimer, MSB);                               // um de cada vez (vai ser sempre assim).
-                                                              // metemos o valor que queremos no timer pedido
+  if (!timer) selectedTimer = TIMER_0;                        // Extrair o timer conforme o input dado
+  else if (timer) selectedTimer = TIMER_1;                    // para ser mais fácil depois meter o time
+  else if (timer == 2) selectedTimer = TIMER_2;               // no selectedTimer
+  else return 1;
+
+  if (sys_outb(TIMER_CTRL, controlWord) != 0) return 1;       // Avisar que vamos fazer o que tá na controlWord ao controlador
+
+  uint16_t lsb;                                               // Como dissemos ao controlador que vamos fazer
+  uint16_t msb;                                               // com LSB followed by MSB, temos de separá-los
+  if (util_get_LSB(time, &lsb) != 0) return 1;                // para depois meter um de cada vez com sys_inb
+  if (util_get_MSB(time, &msb) != 0) return 1;                               
+
+  if (sys_inb(timer, lsb) != 0) return 1;                     // Meter no timer os lsb do time
+  if (sys_inb(timer, msb) != 0) return 1;                     // Meter no timer os msb do time
+
   return 0;
 }
 
@@ -53,18 +58,27 @@ void (timer_int_handler)() {
 
 int (timer_get_conf)(uint8_t timer, uint8_t *st) {
   if (st == NULL || timer >= 2 || timer == 0) return 1;       // Verificar se é inválido
-  uint8_t rb_cmd = BIT(7) | BIT(6) | BIT(5) | BIT(timer + 1)  // timer + 1 porque os bits 3,2 e 1 são os responsáveis por
-                                                              // selecionar o timer que queremos. Ou seja, timer = 1 ->
-                                                              // BIT(1 + 1) = BIT(2) -> selecionámos o bit 2 que é o do timer 2
-  sys_outb(0x43, rb_cmd);                                     // Avisar o i8254 que vamos ler a configuração
+
+  uint8_t rb_cmd = BIT(7) | BIT(6) | BIT(5) | BIT(timer + 1)  // BIT(7) e BIT(6) -> ativar o read back
+                                                              // BIT(5) -> não queremos ler o counter
+                                                              // BIT(timer + 1) -> ativar o bit do timer
+  sys_outb(TIMER_CTRL, rb_cmd);
   util_sys_inb(TIMER_0 + timer, st);                          // Lemos a configuração diretamente do registo associado ao timer
   return 0;                                                   // e metemos a config do timer em st
 }
 
-int (timer_display_conf)(uint8_t timer, uint8_t st,
-                        enum timer_status_field field) {
-  /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
+/* Acabar esta função: perceber como se resolve vendo os slides do souto */
+int (timer_display_conf)(uint8_t timer, uint8_t st, enum timer_status_field field) {
+  union timer_status_field_val data;                            // Estrutura de dado para guardarmos
 
+  switch (field) {
+    case tsf_all:                                               // Quer a configuração -> metemos no data.byte
+      data.byte = st;                                           // o status do comando read-back: st
+      break;
+    
+    // TODO
+  }
+
+  timer_print_config(timer, field, data);
   return 1;
 }
