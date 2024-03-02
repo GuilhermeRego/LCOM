@@ -2,6 +2,8 @@
     "files.associations": {
         "lcf.h": "c",
         "stdint.h": "c",
-        "random": "c"
+        "random": "c",
+        "__locale": "c",
+        "timer.h": "c"
     }
 }

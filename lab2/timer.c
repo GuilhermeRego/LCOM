@@ -26,8 +26,8 @@ int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
 
   if (sys_outb(TIMER_CTRL, controlWord) != 0) return 1;       // Avisar que vamos fazer o que tá na controlWord ao controlador
 
-  uint16_t lsb;                                               // Como dissemos ao controlador que vamos fazer
-  uint16_t msb;                                               // com LSB followed by MSB, temos de separá-los
+  uint8_t lsb;                                               // Como dissemos ao controlador que vamos fazer
+  uint8_t msb;                                               // com LSB followed by MSB, temos de separá-los
   if (util_get_LSB(time, &lsb) != 0) return 1;                // para depois meter um de cada vez com sys_inb
   if (util_get_MSB(time, &msb) != 0) return 1;                               
 
@@ -59,12 +59,12 @@ void (timer_int_handler)() {
 int (timer_get_conf)(uint8_t timer, uint8_t *st) {
   if (st == NULL || timer >= 2 || timer == 0) return 1;       // Verificar se é inválido
 
-  uint8_t rb_cmd = BIT(7) | BIT(6) | BIT(5) | BIT(timer + 1)  // BIT(7) e BIT(6) -> ativar o read back
+  uint8_t rb_cmd = BIT(7) | BIT(6) | BIT(5) | BIT(timer + 1); // BIT(7) e BIT(6) -> ativar o read back
                                                               // BIT(5) -> não queremos ler o counter
                                                               // BIT(timer + 1) -> ativar o bit do timer
-  sys_outb(TIMER_CTRL, rb_cmd);
-  util_sys_inb(TIMER_0 + timer, st);                          // Lemos a configuração diretamente do registo associado ao timer
-  return 0;                                                   // e metemos a config do timer em st
+  if (sys_outb(TIMER_CTRL, rb_cmd) != 0) return 1;            // Avisa o registo de controlo que vamos fazer rb
+  if (util_sys_inb(TIMER_0 + timer, st) != 0) return 1;       // Mete a configuração do timer em st
+  return 0;                                                   
 }
 
 /* Acabar esta função: perceber como se resolve vendo os slides do souto */
@@ -76,9 +76,31 @@ int (timer_display_conf)(uint8_t timer, uint8_t st, enum timer_status_field fiel
       data.byte = st;                                           // o status do comando read-back: st
       break;
     
-    // TODO
+    case tsf_mode:
+      st >>= 1;
+      st &= 0x07;
+      if (st == 6) data.count_mode = 2;
+      if (st == 7) data.count_mode = 3;
+      else data.count_mode = st;
+      break;
+
+    case tsf_base:
+      data.bcd = st & 0x01;
+      break;
+
+    case tsf_initial:
+      st >>= 4;
+      st &= 0x03;
+      if (!st) data.in_mode = INVAL_val;
+      else if (st) data.in_mode = LSB_only;
+      else if (st == 2) data.in_mode = MSB_only;
+      else if (st == 3) data.in_mode = MSB_after_LSB;
+      break;
+
+      default:
+        return 1;
   }
 
   timer_print_config(timer, field, data);
-  return 1;
+  return 0;
 }
