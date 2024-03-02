@@ -24,15 +24,15 @@ int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
   else if (timer == 2) selectedTimer = TIMER_2;               // no selectedTimer
   else return 1;
 
-  if (sys_outb(TIMER_CTRL, controlWord) != 0) return 1;       // Avisar que vamos fazer o que tá na controlWord ao controlador
-
-  uint8_t lsb;                                               // Como dissemos ao controlador que vamos fazer
-  uint8_t msb;                                               // com LSB followed by MSB, temos de separá-los
+  uint8_t lsb;                                                // Como dissemos ao controlador que vamos fazer
+  uint8_t msb;                                                // com LSB followed by MSB, temos de separá-los
   if (util_get_LSB(time, &lsb) != 0) return 1;                // para depois meter um de cada vez com sys_inb
   if (util_get_MSB(time, &msb) != 0) return 1;                               
 
-  if (sys_inb(timer, lsb) != 0) return 1;                     // Meter no timer os lsb do time
-  if (sys_inb(timer, msb) != 0) return 1;                     // Meter no timer os msb do time
+  if (sys_outb(TIMER_CTRL, controlWord) != 0) return 1;       // Avisar que vamos fazer o que tá na controlWord ao controlador
+
+  if (sys_outb(selectedTimer, lsb) != 0) return 1;                     // Meter no timer os lsb do time
+  if (sys_outb(selectedTimer, msb) != 0) return 1;                     // Meter no timer os msb do time
 
   return 0;
 }
@@ -57,7 +57,7 @@ void (timer_int_handler)() {
 }
 
 int (timer_get_conf)(uint8_t timer, uint8_t *st) {
-  if (st == NULL || timer >= 2 || timer == 0) return 1;       // Verificar se é inválido
+  if (st == NULL || timer > 2 || timer < 0) return 1;       // Verificar se é inválido
 
   uint8_t rb_cmd = BIT(7) | BIT(6) | BIT(5) | BIT(timer + 1); // BIT(7) e BIT(6) -> ativar o read back
                                                               // BIT(5) -> não queremos ler o counter

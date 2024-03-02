@@ -14,8 +14,10 @@ int(util_get_MSB)(uint16_t val, uint8_t *msb) {
   return 0;
 }
 
-int (util_sys_inb)(int port, uint8_t *value) {
-  if (value == NULL) return 1;
-  sys_inb(port, value);
+int (util_sys_inb)(int port, uint8_t *value) {  // Para prevenir erros
+  if (value == NULL) return 1;                  // Verifica se é válido
+  uint32_t val;                                 // sys_inb só aceita com 32 bits
+  sys_inb(port, &val);                          // meter em val o valor de port
+  *value = 0xFF & val;                          // fica apenas com os 8 primeiros bits de val
   return 0;
 }
