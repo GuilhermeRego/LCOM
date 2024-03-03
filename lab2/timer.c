@@ -10,7 +10,39 @@
 
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
   if (freq > TIMER_FREQ || freq < 19) return 1;
-  printf("%s is not yet implemented!\n", __func__);
+  
+
+  uint8_t ctrlw;
+  if(timer_get_conf(timer, &ctrlw) != 0) return 1;
+
+
+  ctrlw &= 0xCF;
+  ctrlw |= TIMER_LSB_MSB;                               
+
+  uint32_t init = TIMER_FREQ/freq;
+  uint8_t select;
+  if(timer == 0) {
+    ctrlw |= TIMER_SEL0;
+    select = TIMER_0;}
+
+  else if(timer == 1) {
+    ctrlw |= TIMER_SEL1;
+    select = TIMER_1;}
+  else if(timer == 2) {
+    ctrlw |= TIMER_SEL2;
+    select = TIMER_2;}
+  else return 1;
+
+  uint8_t lsb;
+  uint8_t msb;
+  if(util_get_LSB(init, &lsb) != 0) return 1;
+  if(util_get_MSB(init, &msb) != 0) return 1;
+
+
+  if(sys_outb(TIMER_CTRL, ctrlw) !=0 ) return 1;
+
+  if(sys_outb(select, lsb) != 0) return 1;
+  if(sys_outb(select, msb) != 0) return 1;
 
   return 0;
 }
@@ -42,7 +74,7 @@ int (timer_get_conf)(uint8_t timer, uint8_t *st) {
   if(timer > 2) {
     return 1;
   }
-  uint8_t rb_cmd = BIT(7)|BIT(6)|BIT(4)|BIT(timer + 1);
+  uint8_t rb_cmd = BIT(7)|BIT(6)|BIT(5)|BIT(timer + 1);
   int outf = sys_outb(0x43, rb_cmd);
   if(outf != 0) {
     return 1;
@@ -58,7 +90,7 @@ int (timer_display_conf)(uint8_t timer, uint8_t st,enum timer_status_field field
   /* To be implemented by the students */
   union timer_status_field_val confi;
   if(field == tsf_all){
-    data.byte = st;}
+    confi.byte = st;}
 
   if(field == tsf_initial){
     st = (st >> 4);
