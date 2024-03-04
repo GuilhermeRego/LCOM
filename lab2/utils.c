@@ -18,6 +18,6 @@ int (util_sys_inb)(int port, uint8_t *value) {
   if (value == NULL) return 1;
   uint32_t value_32;
   int v = sys_inb(port,&value_32);
-  *value = 0xFF & value32;
+  *value = 0xFF & value_32;
   return v;
 }
