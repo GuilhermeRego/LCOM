@@ -55,11 +55,10 @@ int(timer_test_int)(uint8_t time) {
       printf("driver_receive failed with: %d", r);
       continue;
     }
-
     if (is_ipc_notify(ipc_status)) { /* received notification */
       switch (_ENDPOINT_P(msg.m_source)) {
         case HARDWARE: /* hardware interrupt notification */                
-          if (msg.NOTIFY_ARG & irq_set) { /* subscribed interrupt */
+          if (msg.m_notify.interrupts & irq_set) { /* subscribed interrupt */
             timer_int_handler();
             if (counter%60 == 0) time--;
           }
