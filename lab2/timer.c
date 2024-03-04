@@ -7,6 +7,9 @@
 
 #define TIMER_FREQ 1193182
 
+#define TIMER_IRQ 0
+int timer_hook_id = 0;
+int counter;
 
 int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
   if (freq > TIMER_FREQ || freq < 19) return 1;               // Verificar se é inválido
@@ -31,33 +34,28 @@ int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
 
   if (sys_outb(TIMER_CTRL, controlWord) != 0) return 1;       // Avisar que vamos fazer o que tá na controlWord ao controlador
 
-  if (sys_outb(selectedTimer, lsb) != 0) return 1;                     // Meter no timer os lsb do time
-  if (sys_outb(selectedTimer, msb) != 0) return 1;                     // Meter no timer os msb do time
+  if (sys_outb(selectedTimer, lsb) != 0) return 1;            // Meter no timer os lsb do time
+  if (sys_outb(selectedTimer, msb) != 0) return 1;            // Meter no timer os msb do time
 
   return 0;
 }
 
 int (timer_subscribe_int)(uint8_t *bit_no) {
-    /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
-
-  return 1;
+  if (bit_no == NULL) return 1;                               // Verficar se input é válido
+  *bit_no = BIT(timer_hook_id);                               // Ativa o bit que indica que o timer gerou uma interrupção                                           // Meter no bit_no para informar quem gerou a interrupção
+  return sys_irqsetpolicy(TIMER0_IRQ, IRQ_REENABLE, &timer_hook_id); // Meter as notificações automáticas nas IRQ do timer
 }
 
 int (timer_unsubscribe_int)() {
-  /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
-
-  return 1;
+  return sys_irqrmpolicy(&timer_hook_id);                     // Unsubscribe a interrupção
 }
 
 void (timer_int_handler)() {
-  /* To be implemented by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  counter++;
 }
 
 int (timer_get_conf)(uint8_t timer, uint8_t *st) {
-  if (st == NULL || timer > 2 || timer < 0) return 1;       // Verificar se é inválido
+  if (st == NULL || timer > 2 || timer < 0) return 1;         // Verificar se é inválido
 
   uint8_t rb_cmd = BIT(7) | BIT(6) | BIT(5) | BIT(timer + 1); // BIT(7) e BIT(6) -> ativar o read back
                                                               // BIT(5) -> não queremos ler o counter
@@ -67,7 +65,6 @@ int (timer_get_conf)(uint8_t timer, uint8_t *st) {
   return 0;                                                   
 }
 
-/* Acabar esta função: perceber como se resolve vendo os slides do souto */
 int (timer_display_conf)(uint8_t timer, uint8_t st, enum timer_status_field field) {
   union timer_status_field_val data;                            // Estrutura de dado para guardarmos
 
