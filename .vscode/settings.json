@@ -4,6 +4,8 @@
         "stdint.h": "c",
         "random": "c",
         "__locale": "c",
-        "timer.h": "c"
+        "timer.h": "c",
+        "lab3.h": "c",
+        "i8254.h": "c"
     }
 }
