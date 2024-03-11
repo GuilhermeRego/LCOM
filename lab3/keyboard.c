@@ -12,12 +12,14 @@ int verify_errors(uint8_t value) {
 
 void (kbc_ih)() {
     uint8_t status;
-    if (util_sys_inb(STAT_REG, &status) != 0) return 1;                                         // Lê o estado do registo do KBC (0x64)
-    if (verify_errors((status & BIT(7) & BIT(6)) >> 6) != 0) return 1;                          // Verifica por erros
-    if ((status & BIT(0)) != 0) {                                                               // Vê se o OBF está cheio -> se tem algo para ler
-        if (util_sys_inb(BUF, &scancode) != 0) return 1;
+    if (util_sys_inb(STAT_REG, &status) != 0) return 1;                              // Lê o estado do registo do KBC (0x64)
+    if (verify_errors((status & PARITY_ERROR & TIMEOUT_ERROR) >> 6) != 0) return 1;  // Procura por erros
+
+    if ((status & OBF) != 0) {                                                       // Vê se o OBF está cheio -> se tem algo para ler
+        if (util_sys_inb(BUF, &scancode) != 0) return 1;                             // Mete no scancode o que está no BUF para ler
+        return 0;
     }
-    return 0;                                                       
+    return 1;                                                       
 }
 
 int keyboard_subscribe_int (uint8_t *bit_no) {

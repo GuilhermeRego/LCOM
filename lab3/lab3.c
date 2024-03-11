@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
 int(kbd_test_scan)() {
   uint8_t irq_set;
   if (keyboard_subscribe_interrupts(&irq_set) != 0) return 1;
-  
+  kbc_ih();
   if (sys_irqrmpolicy(keyboard_hook_id) != 0) return 1;
   return 1;
 }

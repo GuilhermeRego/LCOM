@@ -17,7 +17,8 @@ int (timer_set_frequency)(uint8_t timer, uint32_t freq) {
   uint8_t controlWord;                                        // Temos de consultar a configuração atual do timer
   if (timer_get_conf(timer, &controlWord) != 0) return 1;     // Extrair control word para controlWord
   
-  controlWord |= TIMER_LSB_MSB | (timer << 6);                // Ativar os bits LSB followed by MSB (padrão) e meter no bit 7 e 6 o timer
+  controlWord |= TIMER_LSB_MSB & 0xC0;                        // Ativar os bits LSB followed by MSB (padrão) e resetar o timer
+  controlWord |= (timer << 6);                                // Meter o timer
 
   uint32_t time = TIMER_FREQ / freq;                          // Calcular valor com a freq fornecida
   uint8_t selectedTimer;
@@ -97,6 +98,6 @@ int (timer_display_conf)(uint8_t timer, uint8_t st, enum timer_status_field fiel
         return 1;
   }
 
-  timer_print_config(timer, field, data);
+  if (timer_print_config(timer, field, data) != 0) return 1;
   return 0;
 }
