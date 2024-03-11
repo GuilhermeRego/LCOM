@@ -97,7 +97,8 @@ int (timer_display_conf)(uint8_t timer, uint8_t st,enum timer_status_field field
   /* To be implemented by the students */
   union timer_status_field_val confi;
   if(field == tsf_all){
-    confi.byte = st;}
+    confi.byte = st;
+    return 0;}
 
   if(field == tsf_initial){
     st = (st >> 4);
@@ -114,6 +115,7 @@ int (timer_display_conf)(uint8_t timer, uint8_t st,enum timer_status_field field
     else {
       confi.in_mode = INVAL_val;
     }
+    return 0;
   }
 
   else if(field == tsf_mode){
@@ -122,15 +124,15 @@ int (timer_display_conf)(uint8_t timer, uint8_t st,enum timer_status_field field
     if(st >= 0 && st<=5){
       confi.count_mode = st;
     }
+    return 0;
   }
 
   else if(field == tsf_base){
     confi.bcd = st & 0x01;
+    return 0;
   }
 
-  else{
-    return 1;
-  }
+
 
   int val = timer_print_config(timer,field,confi);
   if(val != 0) {
