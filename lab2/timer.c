@@ -47,10 +47,10 @@ int (timer_get_conf)(uint8_t timer, uint8_t *st) {
 
   uint8_t RB_CODE = BIT(7) | BIT(6) | BIT(5) | BIT(timer + 1);
 
-  if(sys_outb(0x43,RB_CODE) == 1) return 1;
-  int v = util_sys_inb(0x40 + timer,st);
+  if (sys_outb(0x43,RB_CODE)) return 1;
+  if (util_sys_inb(0x40 + timer,st)) return 1;
 
-  return v;
+  return 0;
 }
 
 int (timer_display_conf)(uint8_t timer, uint8_t st,
@@ -60,17 +60,22 @@ int (timer_display_conf)(uint8_t timer, uint8_t st,
   switch (field) {
     case tsf_all:
       data.byte = st;
+      break;
     case tsf_initial:
       st >>= 4;
       st &= (BIT(0) | BIT(1));
-      if (!st) data.in_mode = INVAL_val;
       if (st == 1) data.in_mode = LSB_only;
       if (st == 2) data.in_mode = MSB_only;
       if (st == 3) data.in_mode = MSB_after_LSB;
+      else data.in_mode = INVAL_val;
+      break;
     case tsf_mode:
       st >>= 1;
       st &= (BIT(0) | BIT(1) | BIT(2));
-      data.count_mode = st;
+      if (st == 6) data.count_mode = 2;
+      if (st == 7) data.count_mode = 3;
+      else data.count_mode = st;
+      break;
     case tsf_base:  
       st &= BIT(1);
       data.bcd = st;
