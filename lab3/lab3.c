@@ -81,8 +81,19 @@ int(kbd_test_scan)() {
 }
 
 int(kbd_test_poll)() {
-  /* To be completed by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  while(scanc != Esc_break){
+    if(read_out(out_cmd, &scanc)!= 0){
+      if(scanc == FB_TWOBYTES){
+        kbd_print_scancode(!(scanc & Mk_code), 2, &scanc);
+      }
+
+      else{
+        kbd_print_scancode(!(scanc & Mk_code), 1, &scanc);
+      }
+    }
+
+    return 0;
+  }
 
   return 1;
 }
