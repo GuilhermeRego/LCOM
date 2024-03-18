@@ -5,6 +5,11 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include "i8042.h"
+#include "keyboard.h"
+
+extern uint8_t scancode;
+extern uint32_t cnt;
+extern int* keyboard_hook_id;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -32,17 +37,27 @@ int main(int argc, char *argv[]) {
 
 int(kbd_test_scan)() {
   uint8_t irq_set;
-  if (keyboard_subscribe_interrupts(&irq_set) != 0) return 1;
-  kbc_ih();
+  if (keyboard_subscribe_int(&irq_set) != 0) return 1;
+  while (scancode != ESC_BREAKCODE) {
+    kbc_ih();
+    uint8_t two_bytes = 1;
+    if (scancode == TWO_BYTES) two_bytes = 2;
+    bool make_code = false;
+    if (scancode == MAKE_CODE) make_code = true;
+    if (kbd_print_scancode(make_code, two_bytes, &scancode) != 0) return 1;
+    if (kbd_print_no_sysinb(cnt) != 0) return 1;
+  }
   if (sys_irqrmpolicy(keyboard_hook_id) != 0) return 1;
-  return 1;
+  return 0;
 }
 
 int(kbd_test_poll)() {
-  /* To be completed by the students */
-  printf("%s is not yet implemented!\n", __func__);
-
-  return 1;
+  while (scancode != ESC_BREAKCODE) {
+    if (kbc_poll() != 0) return 1;  
+  }
+  if (sys_outb(STAT_REG, WRITE_COMMAND) != 0) return 1;
+  if (sys_outb(BUF, 0x01) != 0) return 1;
+  return 0;
 }
 
 int(kbd_test_timed_scan)(uint8_t n) {
