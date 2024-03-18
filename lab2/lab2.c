@@ -60,7 +60,10 @@ int(timer_test_int)(uint8_t time) {
         case HARDWARE: /* hardware interrupt notification */                
           if (msg.m_notify.interrupts & irq_set) { /* subscribed interrupt */
             timer_int_handler();
-            if (counter%60 == 0) time--;
+            if (counter%60 == 0) {
+              timer_print_elapsed_time();
+              time--;
+            }
           }
           break;
         default:

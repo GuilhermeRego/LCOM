@@ -9,6 +9,8 @@ int verify_errors(uint8_t value);
 
 void (kbc_ih)();
 
+int kbc_poll();
+
 int (keyboard_subscribe_int)(uint8_t *bit_no);
 
 int (keyboard_unsubscribe_int)();

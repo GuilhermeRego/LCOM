@@ -3,6 +3,11 @@
 #include "i8042.h"
 #include "keyboard.h"
 
+extern uint8_t scancode;
+extern uint32_t cnt;
+extern int keyboard_hook_id;
+
+
 int verify_errors(uint8_t value) {
     if (!value) return 0;                                                            // Bit 7 e 6 de erros está a 0 -> não há erros
     if (value >= 1) return 1;                                                        // Bit 7 ou 6 ou os dois está a 1 -> há erros

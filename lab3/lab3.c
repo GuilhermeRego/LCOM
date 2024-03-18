@@ -7,9 +7,10 @@
 #include "i8042.h"
 #include "keyboard.h"
 
-extern uint8_t scancode;
-extern uint32_t cnt;
-extern int* keyboard_hook_id;
+
+uint8_t scancode = 0;
+uint32_t cnt = 0;
+int keyboard_hook_id = 1;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -46,8 +47,9 @@ int(kbd_test_scan)() {
     if (scancode == MAKE_CODE) make_code = true;
     if (kbd_print_scancode(make_code, two_bytes, &scancode) != 0) return 1;
     if (kbd_print_no_sysinb(cnt) != 0) return 1;
+    cnt = 0;
   }
-  if (sys_irqrmpolicy(keyboard_hook_id) != 0) return 1;
+  if (sys_irqrmpolicy(&keyboard_hook_id) != 0) return 1;
   return 0;
 }
 
