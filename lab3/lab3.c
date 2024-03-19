@@ -65,6 +65,8 @@ int(kbd_test_scan)() {
 		}
 	}
 
+	if (kbd_print_scancode((scancode == TWO_BYTES) ? 2 : 1, (scancode == MAKE_CODE) ? true : false, &scancode) != 0) return 1;
+
 	if (kbd_print_no_sysinb(cnt) != 0) return 1;
 	if (keyboard_unsubscribe_int() != 0) return 1;
 
@@ -77,8 +79,8 @@ int(kbd_test_poll)() {
 		if (kbc_poll() != 0) return 1;  
 	}
 
-	if (write_kbc_command(WRITE_COMMAND) != 0) return 1;
 	if (kbd_print_no_sysinb(cnt) != 0) return 1;
+	if (write_kbc_command(WRITE_COMMAND) != 0) return 1;
 
 	return 0;
 }
