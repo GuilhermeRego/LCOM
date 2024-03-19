@@ -1,3 +1,5 @@
 *.o
 *.txt
 *.d
+.clang-format
+.gdbinit

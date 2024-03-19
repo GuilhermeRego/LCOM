@@ -1,6 +1,8 @@
 #ifndef _LCOM_KEYBOARD_H_
 #define _LCOM_KEYBOARD_H_
 
+#define KEYBOARD_IRQ
+
 #include <minix/sysutil.h>
 #include <lcom/lcf.h>
 #include "i8042.h"
