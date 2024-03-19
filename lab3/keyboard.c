@@ -9,7 +9,7 @@ extern uint32_t cnt;
 extern int keyboard_hook_id;
 
 void (kbc_ih)() {
-    if (read_kbc_output(&scancode) != 0) return 1;
+    read_kbc_output(&scancode);
     cnt++;
 }
 

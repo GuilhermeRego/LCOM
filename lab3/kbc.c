@@ -1,11 +1,12 @@
 #include "kbc.h"
+#include "i8042.h"
 
-int verify_errors(uint8_t value) {                                  // Função auxiliar que vê se valor tem
+int (verify_errors)(uint8_t value) {                                  // Função auxiliar que vê se valor tem
     return ((value >> 6) > 0);                                      // erros de paridade ou timout
 }
 
 int (read_kbc_status)(uint8_t* status) {                            // Lê o valor em STAT_REG para ver o estado
-    return util_sys_inb(STAT_REG, &status);                         // e mete em status
+    return util_sys_inb(STAT_REG, status);                         // e mete em status
 }
 
 int (read_kbc_output)(uint8_t *output) {
@@ -16,7 +17,7 @@ int (read_kbc_output)(uint8_t *output) {
         if (read_kbc_status(&status) != 0) return 1;                // Lê o valor de STAT_REG e mete em status
 
         if ((status & OBF) && (!verify_errors(status))) {           // Verifica se OBF está cheio + procura por erros
-            if (util_sys_inb(BUF, &output) != 0) return 1;          // Mete o conteúdo no OUT_BUF em output
+            if (util_sys_inb(BUF, output) != 0) return 1;          // Mete o conteúdo no OUT_BUF em output
             return 0;
         }
         tickdelay(micros_to_ticks(20000));

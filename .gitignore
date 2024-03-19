@@ -3,3 +3,5 @@
 *.d
 .clang-format
 .gdbinit
+.depend
+lab3/lab3
