@@ -5,14 +5,12 @@
 #include <lcom/lcf.h>
 #include "i8042.h"
 
-int verify_errors(uint8_t value);
+int (kbd_subscribe_int)(uint8_t *bit_no);
+
+int (kbd_unsubscribe_int)();
 
 void (kbc_ih)();
 
-int (kbc_poll)();
-
-int (keyboard_subscribe_int)(uint8_t *bit_no);
-
-int (keyboard_unsubscribe_int)();
+int (keyboard_restore)();
 
 #endif

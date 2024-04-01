@@ -6,6 +6,9 @@
         "__locale": "c",
         "timer.h": "c",
         "lab3.h": "c",
-        "i8254.h": "c"
+        "i8254.h": "c",
+        "locale": "c",
+        "kbc.h": "c",
+        "i8042.h": "c"
     }
 }
