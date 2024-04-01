@@ -25,6 +25,8 @@
 #define FB_TWOBYTES 0XE0
 #define WriteCB_Keyboard 0x60
 #define out_cmd 0x60
+#define in_cmd 0x64
 
+#define En_INT Bit(0)
 
 #endif

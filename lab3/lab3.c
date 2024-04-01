@@ -2,7 +2,9 @@
 
 #include <lcom/lab3.h>
 #include "i8042.h"
+#include "i8254.h"
 #include "keyboard.h"
+#include "timer.c"
 #include "KBC.c"
 #include <stdbool.h>
 #include <stdint.h>
@@ -10,6 +12,8 @@
 extern uint32_t kbccount;
 
 extern uint8_t scanc;
+
+extern int counter;
 
 int main(int argc, char *argv[]) {
   // sets the language of LCF messages (can be either EN-US or PT-PT)
@@ -99,8 +103,64 @@ int(kbd_test_poll)() {
 }
 
 int(kbd_test_timed_scan)(uint8_t n) {
-  /* To be completed by the students */
-  printf("%s is not yet implemented!\n", __func__);
+  
+ int ipc_status;
+ message msg;
+uint8_t irq_set_TIMER, irq_set_KBC;
 
+int sec = 0;
+
+if(timer_subscribe_int(&irq_set_TIMER) != 0){
   return 1;
+}
+
+ if(kb_subscribe_int(&irq_set_KBC) != 0){
+  return 1;
+ }
+
+ while( scanc != Esc_break ) { 
+    if ( (driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
+        printf("Driver_Receive: Error");
+        continue;
+    }
+
+    if (is_ipc_notify(ipc_status)) { 
+        switch (_ENDPOINT_P(msg.m_source)) {
+            case HARDWARE:			
+                if (msg.m_notify.interrupts & irq_set_KBC) { 
+                  kbc_ih();
+                  if(scanc == FB_TWOBYTES){
+                    kbd_print_scancode(!(scanc & Mk_code), 2, &scanc);
+                  }
+
+                  else{
+                    kbd_print_scancode(!(scanc & Mk_code), 1, &scanc);
+                  }
+                  sec = 0;
+                  counter = 0;
+                }
+                if (msg.m_notify.interrupts & irq_set_TIMER){
+                  timer_int_handler();
+                  if(counter%60 == 0) sec++;
+                }
+        }
+    } 
+ }
+
+
+ if(kb_unsubscribe_int() != 0){
+    return 1;
+  }
+
+
+  if(timer_unsubscribe_int() != 0){
+    return 1;
+  }
+
+
+  if(kbd_print_no_sysinb(kbccount) != 0){
+    return 1;
+  }
+
+  return 0;
 }
