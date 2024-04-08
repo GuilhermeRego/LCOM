@@ -95,11 +95,10 @@ int(kbd_test_poll)() {
         kbd_print_scancode(!(scanc & Mk_code), 1, &scanc);
       }
     }
-
-    return 0;
   }
 
-  return 1;
+  
+  return rst();
 }
 
 int(kbd_test_timed_scan)(uint8_t n) {

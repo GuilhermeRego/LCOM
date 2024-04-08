@@ -11,4 +11,6 @@ int (kb_unsubscribe_int)();
 
 void (kbc_ih)();
 
+int (rst)();
+
 #endif

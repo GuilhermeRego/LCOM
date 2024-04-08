@@ -27,6 +27,6 @@
 #define out_cmd 0x60
 #define in_cmd 0x64
 
-#define En_INT Bit(0)
+#define En_INT BIT(0)
 
 #endif

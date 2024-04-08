@@ -32,3 +32,24 @@ void (kbc_ih)(){
         printf("Unable to read scancode");
     }
 }
+
+int(rst)(){
+    uint8_t cmdB;
+
+    if(write_com(0x64, 0x20) != 0){
+        return 1;
+    }
+    if(read_out(0x60, &cmdB) != 0) {
+        return 1;
+    }
+    cmdB |= En_INT;
+
+    if(write_com(0x64, 0x60) != 0){
+        return 1;
+    }
+    if(write_com(0x60, cmdB) != 0){
+        return 1;
+    }
+
+    return 0;
+} 
