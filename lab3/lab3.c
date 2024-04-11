@@ -86,7 +86,7 @@ int(kbd_test_scan)() {
 
 int(kbd_test_poll)() {
   while(scanc != Esc_break){
-    if(read_out(out_cmd, &scanc)!= 0){
+    if(read_out(out_cmd, &scanc) == 0){
       if(scanc == FB_TWOBYTES){
         kbd_print_scancode(!(scanc & Mk_code), 2, &scanc);
       }
@@ -117,7 +117,7 @@ if(timer_subscribe_int(&irq_set_TIMER) != 0){
   return 1;
  }
 
- while( scanc != Esc_break ) { 
+ while( sec < n && scanc != Esc_break) { 
     if ( (driver_receive(ANY, &msg, &ipc_status)) != 0 ) { 
         printf("Driver_Receive: Error");
         continue;

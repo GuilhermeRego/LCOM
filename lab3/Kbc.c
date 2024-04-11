@@ -48,7 +48,7 @@ int read_out(uint8_t reg, uint8_t* out){
 
 int write_com(uint8_t port, uint8_t cmdB){
     uint8_t stat;
-    uint8_t att = 15;
+    uint8_t att = 12;
 
     while(att){
         if(read_kbc_stat(&stat) != 0){
