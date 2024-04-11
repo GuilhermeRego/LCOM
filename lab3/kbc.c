@@ -1,44 +1,43 @@
 #include "kbc.h"
 #include "i8042.h"
 
-int (verify_errors)(uint8_t value) {                                  // Função auxiliar que vê se valor tem
-    return ((value >> 6) > 0);                                      // erros de paridade ou timout
+extern int attempts;
+
+int (read_kbc_status)(uint8_t *status) {
+    return util_sys_inb(KBC_OUT_BUF, status);
 }
 
-int (read_kbc_status)(uint8_t* status) {                            // Lê o valor em STAT_REG para ver o estado
-    return util_sys_inb(STAT_REG, status);                         // e mete em status
+int (verify_errors)(uint8_t value) {
+    return ((value >> 6) > 0);
 }
 
-int (read_kbc_output)(uint8_t *output) {
-    uint8_t status;
-    uint8_t attempts = 10;
-
-    while (attempts) {
-        if (read_kbc_status(&status) != 0) return 1;                // Lê o valor de STAT_REG e mete em status
-
-        if ((status & OBF) && (!verify_errors(status))) {           // Verifica se OBF está cheio + procura por erros
-            if (util_sys_inb(BUF, output) != 0) return 1;          // Mete o conteúdo no OUT_BUF em output
+int (write_kbc_command)(uint8_t port, uint8_t cmd) {
+    uint8_t stat;
+    while(!attempts) {
+        if (util_sys_inb(KBC_ST_REG, &stat) != 0) return 1; /* assuming it returns OK */
+        /* loop while 8042 input buffer is not empty */
+        if( (stat & KBC_IBF) == 0 ) {
+            if (sys_outb(port, cmd) != 0) return 1; /* no args command */
             return 0;
         }
-        tickdelay(micros_to_ticks(20000));
         attempts--;
+        tickdelay(micros_to_ticks(DELAY_US)); // e.g. tickdelay()
     }
-    return 1;                                                       // Ultrapassou attempts
+    return 0;
 }
 
-int (write_kbc_command)(uint8_t command_byte) {
-    uint8_t status;
-    uint8_t attempts = 10;
-    
-    while (attempts) {
-        if (read_kbc_status(&status) != 0) return 1;                // Lê o valor de STAT_REG e mete em status
-        // Queremos ver se IN_BUF está vazio para sabermos se podemos escrever nele ou não um comando
-        if (!(status & IBF) && (!verify_errors(status))) {          // Procura por erros e vê se IN_BUF está cheio
-            if (sys_outb(STAT_REG, WRITE_COMMAND) != 0) return 1;   // Escreve o comando de escrita no STAT_REG
-            if (sys_outb(BUF, command_byte) != 0) return 1;         // Escreve o command byte em IN_BUF para pôr o comando
+int (read_kbc_output)(uint8_t port, uint8_t *data) {
+    uint8_t stat;
+    while(attempts) {
+        if (read_kbc_status(&stat) != 0) return 1; /* assuming it returns OK */
+        /* loop while 8042 output buffer is empty */
+        if(stat & KBC_OBF) {
+            if (util_sys_inb(port, data) != 0) return 1; /* ass. it returns OK */
+            if (stat & (KBC_PAR_ERR | KBC_TO_ERR)) return 1;
+            return 0;
         }
-        tickdelay(micros_to_ticks(20000));
         attempts--;
+        tickdelay(micros_to_ticks(DELAY_US)); // e.g. tickdelay()
     }
-    return 1;                                                       // Ultrapassou attempts
+    return 1;
 }

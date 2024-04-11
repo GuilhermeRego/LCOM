@@ -4,21 +4,9 @@
 #include "keyboard.h"
 #include "kbc.h"
 
-extern uint8_t scancode;
-extern uint32_t cnt;
 extern int keyboard_hook_id;
-
-void (kbc_ih)() {
-    read_kbc_output(&scancode);
-    cnt++;
-}
-
-int kbc_poll() {
-    if (read_kbc_output(&scancode) != 0) return 1;
-    if (write_kbc_command(WRITE_COMMAND) != 0) return 1;
-    cnt++;
-    return 0;
-}
+extern int cnt;
+extern uint8_t scancode;
 
 int (keyboard_subscribe_int)(uint8_t *bit_no) {
     if (bit_no == NULL) return 1;
@@ -28,4 +16,9 @@ int (keyboard_subscribe_int)(uint8_t *bit_no) {
 
 int (keyboard_unsubscribe_int)() {
     return sys_irqrmpolicy(&keyboard_hook_id);
+}
+
+void (kbc_ih)() {
+    read_kbc_status(&scancode);
+    cnt++;
 }
