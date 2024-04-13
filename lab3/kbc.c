@@ -7,10 +7,6 @@ int (read_kbc_status)(uint8_t *status) {
     return util_sys_inb(KBC_OUT_BUF, status);
 }
 
-int (verify_errors)(uint8_t value) {
-    return ((value >> 6) > 0);
-}
-
 int (write_kbc_command)(uint8_t port, uint8_t cmd) {
     uint8_t stat;
     while(!attempts) {

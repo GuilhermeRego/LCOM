@@ -1,0 +1,52 @@
+#ifndef _LCOM_I8042_H_
+#define _LCOM_I8042_H_
+
+#include <lcom/lcf.h>
+
+// IRQ LINES
+#define KEYBOARD_IRQ 1
+#define MOUSE_IRQ 12
+
+// KBC REGISTERS
+#define KBC_ST_REG 0x64
+#define KBC_CMD_REG 0x64
+#define KBC_IN_BUF 0x60
+#define KBC_OUT_BUF 0x60
+
+// KBC COMMANDS
+#define KBC_READ_CMD 0x20
+#define KBC_WRITE_CMD 0x60
+
+// STATUS BYTE
+#define KBC_IBF BIT(1)
+#define KBC_OBF BIT(0)
+#define KBC_PAR_TIMEOUT BIT(7) | BIT(6)
+#define KBC_AUX BIT(5)
+
+// MOUSE COMMANDS
+// DEVEM SER PASSADOS VIA ARGUMENTO DO COMANDO 0xD4
+// (ESCRITOS NO IN_BUF 0X60) OU LIDOS (OUT_BUF 0x60)
+#define ENABLE_DATA_REPORT 0xF4
+#define DISABLE_DATA_REPORT 0xF5
+#define ACK 0xFA
+#define NACK 0XFE
+#define ERROR 0xFC
+#define MOUSE_WRITE_BYTE 0xD4
+
+// MOUSE PACKET BYTE 1 BITS
+#define MOUSE_LB BIT(0)
+#define MOUSE_RB BIT(1)
+#define MOUSE_MB BIT(2)
+#define MSB_X_DELTA BIT(4)
+#define MSB_Y_DELTA BIT(5)
+#define MOUSE_X_OVFL BIT(6)
+#define MOUSE_Y_OVFL BIT(7)
+
+// DELAY
+#define DELAY_US 20000
+
+// LAB3
+#define TWO_BYTES 0xE0
+#define ESC_BREAKCODE 0x81
+
+#endif
