@@ -6,13 +6,14 @@
 #include "i8042.h"
 #include "mouse.h"
 #include "kbc.h"
+#include "timer.h"
 
 int mouse_hook_id = 3;
 uint8_t mouse_packet[3];
 uint8_t scancode;
 int byte_index = 0;
 struct packet pp;
-extern int counter;
+int counter = 0;
 
 // Any header files included below this line should have been created by you
 
@@ -78,15 +79,17 @@ int (mouse_test_packet)(uint32_t cnt) {
 
 int (mouse_test_async)(uint8_t idle_time) {
   int ipc_status;
-  uint8_t timer_irq_set, mouse_irq_set;
+  uint8_t timer_irq_set = 0, mouse_irq_set = 0;
   message msg;
   int seconds = 0;
+  uint16_t freq = sys_hz();
 
   if (timer_subscribe_int(&timer_irq_set) != 0) return 1;
 	if (mouse_subscribe_int(&mouse_irq_set) != 0) {printf("Error subscribe_int\n");return 1;}
-	if (mouse_write(ENABLE_DATA_REPORT) != 0) {printf("Error enable_data_report\n");return 1;}
+	
+  if (mouse_write(ENABLE_DATA_REPORT) != 0) {printf("Error enable_data_report\n");return 1;}
 
-  while (1) {
+  while (seconds != idle_time) {
 
 		if (driver_receive(ANY, &msg, &ipc_status) != 0) {printf("Error driver\n");return 1;}
 
@@ -94,11 +97,18 @@ int (mouse_test_async)(uint8_t idle_time) {
 			switch(_ENDPOINT_P(msg.m_source)) {
 				case HARDWARE:
           if (msg.m_notify.interrupts & mouse_irq_set) {
-            //TODO
+            mouse_ih();
+            if (byte_index == 3) {
+              byte_index = 0;
+              mouse_print_packet(&pp);
+            }
+            seconds = 0;
+            counter = 0;
           }
-          if (msg.m_notify.interrupt & timer_irq_set) {
+          
+          if (msg.m_notify.interrupts & timer_irq_set) {
             timer_int_handler();
-						if (counter%60 == 0) {
+						if (counter%freq == 0) {
 							timer_print_elapsed_time();
 							seconds++;;
 						}

@@ -20,7 +20,8 @@
 // STATUS BYTE
 #define KBC_IBF BIT(1)
 #define KBC_OBF BIT(0)
-#define KBC_PAR_TIMEOUT BIT(7) | BIT(6)
+#define KBC_PARITY BIT(7)
+#define KBC_TIMEOUT BIT(6)
 #define KBC_AUX BIT(5)
 
 // MOUSE COMMANDS

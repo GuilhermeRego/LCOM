@@ -21,31 +21,35 @@ int (mouse_unsubscribe_int)() {
 }
 
 void (mouse_ih)() {
+    uint8_t stat;
     int attempts = 10;
 
     while (attempts){
-        if (read_kbc_output(KBC_OUT_BUF, &scancode, 1) != 0) return;
-        if (byte_index == 0 && (scancode & FIRST_BYTE)) {
+        if (util_sys_inb(KBC_ST_REG, &stat) != 0) return;
+        if (stat & KBC_OBF) {
+            if (util_sys_inb(KBC_OUT_BUF, &scancode) != 0) return;
+            if (byte_index == 0 && (scancode & FIRST_BYTE)) {
                 pp.bytes[byte_index] = scancode;
                 pp.rb = scancode & MOUSE_RB;
                 pp.mb = scancode & MOUSE_MB;
                 pp.lb = scancode & MOUSE_LB;
-                pp.delta_x = (scancode & MSB_X_DELTA) ? (0xFF00 | scancode) : scancode;
-                pp.delta_y = (scancode & MSB_Y_DELTA) ? (0xFF00 | scancode) : scancode;
+                pp.delta_x = (scancode & MSB_X_DELTA) ? 0xFF00 : 0x0000;
+                pp.delta_y = (scancode & MSB_Y_DELTA) ? 0xFF00 : 0x0000;
                 pp.x_ov = scancode & MOUSE_X_OVFL;
                 pp.y_ov = scancode & MOUSE_Y_OVFL;
                 byte_index++;
                 return;
-            } else if (byte_index != 0) {
-                pp.bytes[byte_index] = scancode;
-                if (byte_index == 1) {
-                    pp.delta_x |= scancode;
-                } else {
-                    pp.delta_y |= scancode;
-                }
-                byte_index++;
-                return;
             }
+            pp.bytes[byte_index] = scancode;
+            if (byte_index == 1) {
+                pp.delta_x = (pp.bytes[0] & MSB_X_DELTA) ? (0xFF00 | scancode) : (0x0000 | scancode);
+            }
+            else if (byte_index == 2) {
+                pp.delta_y = (pp.bytes[0] & MSB_Y_DELTA) ? (0xFF00 | scancode) : (0x0000 | scancode);
+            }
+            byte_index++;
+            return;
+        }
         attempts--;
         tickdelay(micros_to_ticks(DELAY_US));
     }
