@@ -7,8 +7,8 @@
 extern int mouse_hook_id;
 extern uint8_t scancode;
 extern int byte_index;
-extern uint8_t mouse_packet[3];
 extern struct packet pp;
+bool activated_buttons[3];
 
 int (mouse_subscribe_int)(uint8_t *bit_no) {
     if (bit_no == NULL) return 1;
