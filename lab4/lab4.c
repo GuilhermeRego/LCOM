@@ -6,7 +6,7 @@
 #include "i8042.h"
 #include "mouse.h"
 #include "kbc.h"
-#include "timer.h"
+#include "timer.c"
 
 int mouse_hook_id = 3;
 uint8_t mouse_packet[3];
@@ -79,7 +79,7 @@ int (mouse_test_packet)(uint32_t cnt) {
 
 int (mouse_test_async)(uint8_t idle_time) {
   int ipc_status;
-  uint8_t timer_irq_set = 0, mouse_irq_set = 0;
+  uint8_t timer_irq_set = 0, mouse_irq_set;
   message msg;
   int seconds = 0;
   uint16_t freq = sys_hz();
@@ -105,11 +105,10 @@ int (mouse_test_async)(uint8_t idle_time) {
             seconds = 0;
             counter = 0;
           }
-          
+
           if (msg.m_notify.interrupts & timer_irq_set) {
             timer_int_handler();
 						if (counter%freq == 0) {
-							timer_print_elapsed_time();
 							seconds++;;
 						}
           }
