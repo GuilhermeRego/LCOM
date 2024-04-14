@@ -5,8 +5,10 @@
 #include "utils.c"
 
 extern int mouse_hook_id;
-int attempts = 10;
 extern uint8_t scancode;
+extern int byte_index;
+extern uint8_t mouse_packet[3];
+extern struct packet pp;
 
 int (mouse_subscribe_int)(uint8_t *bit_no) {
     if (bit_no == NULL) return 1;
@@ -19,10 +21,38 @@ int (mouse_unsubscribe_int)() {
 }
 
 void (mouse_ih)() {
-    if (read_kbc_output(KBC_OUT_BUF, &scancode, 1) != 0) printf("Error mouse_ih");  
+    int attempts = 10;
+
+    while (attempts){
+        if (read_kbc_output(KBC_OUT_BUF, &scancode, 1) != 0) return;
+        if (byte_index == 0 && (scancode & FIRST_BYTE)) {
+                pp.bytes[byte_index] = scancode;
+                pp.rb = scancode & MOUSE_RB;
+                pp.mb = scancode & MOUSE_MB;
+                pp.lb = scancode & MOUSE_LB;
+                pp.delta_x = (scancode & MSB_X_DELTA) ? (0xFF00 | scancode) : scancode;
+                pp.delta_y = (scancode & MSB_Y_DELTA) ? (0xFF00 | scancode) : scancode;
+                pp.x_ov = scancode & MOUSE_X_OVFL;
+                pp.y_ov = scancode & MOUSE_Y_OVFL;
+                byte_index++;
+                return;
+            } else if (byte_index != 0) {
+                pp.bytes[byte_index] = scancode;
+                if (byte_index == 1) {
+                    pp.delta_x |= scancode;
+                } else {
+                    pp.delta_y |= scancode;
+                }
+                byte_index++;
+                return;
+            }
+        attempts--;
+        tickdelay(micros_to_ticks(DELAY_US));
+    }
 }
 
 int (mouse_write)(uint8_t command) {
+    int attempts = 10;
     uint8_t ack_byte;
     while (attempts) {
         if (write_kbc_command(KBC_CMD_REG, MOUSE_WRITE_BYTE) != 0) return 1;
