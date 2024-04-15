@@ -5,7 +5,7 @@
 #include <lcom/lcf.h>
 #include "i8042.h"
 
-int verify_errors(uint8_t value);
+int (keyboard_restore)();
 
 void (kbc_ih)();
 

@@ -49,9 +49,8 @@ int (mouse_test_packet)(uint32_t cnt) {
   uint8_t irq_set;
   message msg;
 
-  //if (mouse_write(SET_STREAM_MODE) != 0) {printf("Error set stream mode\n");return 1;}
+  if (mouse_write(ENABLE_DATA_REPORT) != 0) {printf("Error enable_data_report\n");return 1;}
 	if (mouse_subscribe_int(&irq_set) != 0) {printf("Error subscribe_int\n");return 1;}
-	if (mouse_write(ENABLE_DATA_REPORT) != 0) {printf("Error enable_data_report\n");return 1;}
   
   while (cnt) {
 
@@ -86,10 +85,10 @@ int (mouse_test_async)(uint8_t idle_time) {
   int seconds = 0;
   uint16_t freq = sys_hz();
 
+  if (mouse_write(ENABLE_DATA_REPORT) != 0) {printf("Error enable_data_report\n");return 1;}
+  
   if (timer_subscribe_int(&timer_irq_set) != 0) return 1;
 	if (mouse_subscribe_int(&mouse_irq_set) != 0) {printf("Error subscribe_int\n");return 1;}
-	
-  if (mouse_write(ENABLE_DATA_REPORT) != 0) {printf("Error enable_data_report\n");return 1;}
 
   while (seconds != idle_time) {
 

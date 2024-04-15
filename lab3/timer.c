@@ -50,7 +50,7 @@ int (timer_unsubscribe_int)() {
   return sys_irqrmpolicy(&timer_hook_id);                     // Unsubscribe a interrupção
 }
 
-void (timer_int_handler)() {
+void (timer_ih)() {
   counter++;
 }
 

@@ -8,6 +8,15 @@ extern int keyboard_hook_id;
 extern int cnt;
 extern uint8_t scancode;
 
+int (keyboard_restore)() {
+    uint8_t command;
+    if (write_kbc_command(KBC_IN_BUF, KBC_READ_CMD) != 0) return 1; // Avisar que vamos ler 
+    if (read_kbc_output(KBC_OUT_BUF, &command) != 0) return 1;
+    command |= ENABLE_INT;
+    if (write_kbc_command(KBC_IN_BUF, KBC_WRITE_CMD) != 0) return 1;
+	return write_kbc_command(KBC_WRITE_CMD, command);
+}
+
 int (keyboard_subscribe_int)(uint8_t *bit_no) {
     if (bit_no == NULL) return 1;
     *bit_no = BIT(keyboard_hook_id);
@@ -19,6 +28,5 @@ int (keyboard_unsubscribe_int)() {
 }
 
 void (kbc_ih)() {
-    read_kbc_status(&scancode);
-    cnt++;
+    read_kbc_output(KBC_OUT_BUF, &scancode);
 }

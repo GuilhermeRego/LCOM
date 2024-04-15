@@ -9,7 +9,7 @@ int (timer_subscribe_int)(uint8_t *bit_no);
 
 int (timer_unsubscribe_int)();
 
-void (timer_int_handler)();
+void (timer_ih)();
 
 int (timer_get_conf)(uint8_t timer, uint8_t *st);
 
