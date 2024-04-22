@@ -48,6 +48,6 @@
 #define mouse_xdelta BIT(4)
 #define mouse_ydelta BIT(5)
 #define mouse_xovfl BIT(6)
-#define mouse_yovfl     BIT(7)
+#define mouse_yovfl BIT(7)
 
 #endif

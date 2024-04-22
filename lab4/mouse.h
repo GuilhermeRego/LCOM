@@ -12,4 +12,10 @@ int (ms_unsubscribe_int)();
 
 void (ms_ih)();
 
+void (ms_sync_bytes)();
+
+void (ms_bytes_to_pck)();
+
+int (mouse_write)(uint8_t command);
+
 #endif

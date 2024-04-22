@@ -35,10 +35,10 @@ int read_out(uint8_t reg, uint8_t* out, uint8_t ms){
                 return 1;
             }
             
-            if (mouse && !(status & AUX_Keyboard)) {          
+            if (ms && !(stat & AUX_Keyboard)) {          
                 return 1;
             } 
-            if (!mouse && (status & AUX_Keyboard)) {                
+            if (!ms && (stat & AUX_Keyboard)) {                
                 return 1;
             } 
 
