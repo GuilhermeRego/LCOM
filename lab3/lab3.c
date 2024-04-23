@@ -82,8 +82,6 @@ int (kbd_test_poll)() {
 	return keyboard_restore();
 }
 
-// Não passa em 0, 3, 4 e 5
-
 int (kbd_test_timed_scan)(uint8_t idle) {
 	int ipc_status;
     uint8_t keyboard_irq_set, timer_irq_set;

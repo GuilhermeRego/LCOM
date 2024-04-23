@@ -6,6 +6,7 @@
         "__locale": "c",
         "timer.h": "c",
         "lab3.h": "c",
-        "i8254.h": "c"
+        "i8254.h": "c",
+        "LAB5.C": "cpp"
     }
 }
