@@ -10,11 +10,7 @@ int (ms_subscribe_int)(uint8_t *bit_no);
 
 int (ms_unsubscribe_int)();
 
-void (ms_ih)();
-
-void (ms_sync_bytes)();
-
-void (ms_bytes_to_pck)();
+void (mouse_ih)();
 
 int (mouse_write)(uint8_t command);
 

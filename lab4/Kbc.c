@@ -12,7 +12,7 @@ int read_kbc_stat(uint8_t* stat){
 
 
 
-int read_out(uint8_t reg, uint8_t* out, uint8_t ms){
+int read_out(uint8_t reg, uint8_t* out){
 
     uint8_t stat;
     uint8_t att = 5;
@@ -35,13 +35,6 @@ int read_out(uint8_t reg, uint8_t* out, uint8_t ms){
                 return 1;
             }
             
-            if (ms && !(stat & AUX_Keyboard)) {          
-                return 1;
-            } 
-            if (!ms && (stat & AUX_Keyboard)) {                
-                return 1;
-            } 
-
             return 0;
         }
 

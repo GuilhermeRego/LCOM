@@ -5,8 +5,9 @@
 uint8_t mspck;
 int mouse_hookid = 3;
 uint8_t byteind = 0; 
-struct packet mouse_packet;
+struct packet pp;
 uint8_t msbyte[3];
+uint8_t scancode;
 
 
 
@@ -29,46 +30,39 @@ int(ms_unsubscribe_int)(){
     return 0;
 }
 
-void(ms_ih)(){
-    if(read_out(out_cmd,&mspck,1) != 0){
-        printf("Unable to read");
-    }
-}
+void(mouse_ih)(){
+   uint8_t stat;
+    int attempts = 10;
 
-void(ms_sync_bytes)(){
-    if (byteind == 0 && (mspck & FByte)) { 
-    msbyte[byteind]= mspck;
-    byteind++;
-  }
-  else if (byteind > 0) {                           
-    msbyte[byteind] = mspck;
-    byteind++;
-  }
-}
-
-void(ms_bytes_to_pck)(){
-    int d = 0;
-    while(d<3){
-        mouse_packet.bytes[d] = msbyte[d];
-        d++;
+    while (attempts){
+        if (util_sys_inb(Register_stat, &stat) != 0) return;
+        if (stat & OBF_Keyboard) {
+            if (util_sys_inb(out_buf, &scancode) != 0) return;
+            if (byteind == 0 && (scancode & FByte)) {
+                pp.bytes[byteind] = scancode;
+                pp.rb = scancode & mouseRB;
+                pp.mb = scancode & mouseMB;
+                pp.lb = scancode & mouseLB;
+                pp.delta_x = (scancode & mouse_xdelta) ? 0xFF00 : 0x0000;
+                pp.delta_y = (scancode & mouse_ydelta) ? 0xFF00 : 0x0000;
+                pp.x_ov = scancode & mouse_xovfl;
+                pp.y_ov = scancode & mouse_yovfl;
+                byteind++;
+                return;
+            }
+            pp.bytes[byteind] = scancode;
+            if (byteind == 1) {
+                pp.delta_x = (pp.bytes[0] & mouse_xdelta) ? (0xFF00 | scancode) : (0x0000 | scancode);
+            }
+            else if (byteind == 2) {
+                pp.delta_y = (pp.bytes[0] & mouse_ydelta) ? (0xFF00 | scancode) : (0x0000 | scancode);
+            }
+            byteind++;
+            return;
+        }
+        attempts--;
+        tickdelay(micros_to_ticks(DELAY_US));
     }
-
-    if (msbyte[0] & mouse_xdelta) {
-        mouse_packet.delta_x = 0xFF00 | msbyte[1];
-    } else {
-        mouse_packet.delta_x = msbyte[1];
-    }
-
-    if (msbyte[0] & mouse_ydelta) {
-        mouse_packet.delta_y = 0xFF00 | msbyte[2];
-    } else {
-        mouse_packet.delta_y = msbyte[2];
-    }
-    mouse_packet.mb = msbyte[0] & mouseLB;
-    mouse_packet.lb = msbyte[0] & mouseLB;
-    mouse_packet.rb = msbyte[0] & mouseLB;
-    mouse_packet.y_ov = msbyte[0] & mouse_yovfl;
-    mouse_packet.x_ov = msbyte[0] & mouse_xovfl;
 
 }
 
