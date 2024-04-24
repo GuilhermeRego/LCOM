@@ -7,6 +7,7 @@
         "timer.h": "c",
         "lab3.h": "c",
         "i8254.h": "c",
-        "LAB5.C": "cpp"
+        "LAB5.C": "cpp",
+        "compare": "c"
     }
 }
