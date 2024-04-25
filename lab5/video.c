@@ -166,7 +166,7 @@ int (vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step) {
                     color = direct_mode(red, green, blue);
                     break;
                 }
-                case 8: {
+                case 8: {   // Indexed mode
                     color = index_mode(j, i, step, first, no_rectangles);
                     break;
                 }
@@ -177,5 +177,32 @@ int (vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step) {
         }
     }
     
+    return 0;
+}
+
+int (draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
+    // We need to fill the xpm_load function with its parameters: xpm_map_t map, enum xpm_image_type type, xpm_image_t *img
+    xpm_image_t img;
+    uint8_t *colors = xpm_load(xpm, XPM_INDEXED, &img);
+    int index = 0;
+    if (colors == NULL) return 1;
+    for (int j = 0; j < img.height; j++) {
+        for (int i = 0; i < img.width; i++) {
+            if (vg_draw_pixel(i + x, j + y, colors[index]) != 0) return 1;
+            index++;
+        }
+    }
+
+    return 0;
+}
+
+int (move_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate) {
+    for (int i = xi; i != xf; i += speed) {
+        for (int j = yi; j != yf; j += speed) {
+            if (draw_xpm(xpm, i, j) != 0) return 1;
+            if (vg_draw_rectangle(i, j, 0, 0, 0) != 0) return 1;
+            tickdelay(micros_to_ticks(1000000 / fr_rate));
+        }
+    }
     return 0;
 }
