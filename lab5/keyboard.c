@@ -4,7 +4,7 @@
 #include "keyboard.h"
 #include "kbc.h"
 
-extern int keyboard_hook_id;
+int keyboard_hook_id = 1;
 extern int cnt;
 extern uint8_t scancode;
 

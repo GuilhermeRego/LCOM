@@ -5,13 +5,13 @@
 #include "video.h"
 #include "keyboard.h"
 #include "kbc.h"
+#include <lcom/pixmap.h>
 
 #include <stdint.h>
 #include <stdio.h>
 
 uint8_t scancode;
 int cnt = 0;
-int keyboard_hook_id = 1;
 
 // Any header files included below this line should have been created by you
 
@@ -75,8 +75,7 @@ int(video_test_init)(uint16_t mode, uint8_t delay) {
   return 0;
 }
 
-int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y,
-                          uint16_t width, uint16_t height, uint32_t color) {
+int(video_test_rectangle)(uint16_t mode, uint16_t x, uint16_t y, uint16_t width, uint16_t height, uint32_t color) {
   // Map the video memory to the process' adress space
   if (config_frame_buffer(mode) != 0) return 1;
 
@@ -115,20 +114,13 @@ int(video_test_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
   return 0;
 }
 
-int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf,
-                     int16_t speed, uint8_t fr_rate) {
-  if (config_frame_buffer(0x105) != 0) return 1;
-  if (vg_set_mode(0x105) != 0) return 1;
+int(video_test_move)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate) {
+  if(config_frame_buffer(0x105)) return 1;
+  if(vg_set_mode(0x105)) return 1;
 
-  if (move_xpm(xpm, xi, yi, xf, yf, speed, fr_rate) != 0) return 1;
+  if(move_xpm(xpm, xi, yi, xf, yf, speed, fr_rate) != 0) return 1;
 
-  if (wait_esc_exit() != 0) return 1;
+  if (vg_exit() != 0) return 1;
+
   return 0;
-}
-
-int(video_test_controller)() {
-  /* To be completed */
-  printf("%s(): under construction\n", __func__);
-
-  return 1;
 }

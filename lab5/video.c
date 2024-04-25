@@ -2,6 +2,11 @@
 
 #include "VBE.h"
 #include "video.h"
+#include "timer.h"
+#include "keyboard.h"
+#include "i8254.h"  
+
+extern uint8_t scancode;
 
 vbe_mode_info_t mode_info;
 uint8_t *video_mem;
@@ -197,12 +202,45 @@ int (draw_xpm)(xpm_map_t xpm, uint16_t x, uint16_t y) {
 }
 
 int (move_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate) {
-    for (int i = xi; i != xf; i += speed) {
-        for (int j = yi; j != yf; j += speed) {
-            if (draw_xpm(xpm, i, j) != 0) return 1;
-            if (vg_draw_rectangle(i, j, 0, 0, 0) != 0) return 1;
-            tickdelay(micros_to_ticks(1000000 / fr_rate));
+    int ipc_status;
+    message msg;
+    uint8_t timer_irq_set, keyboard_irq_set;
+
+    if (keyboard_subscribe_int(&timer_irq_set)) return 1;
+    if (timer_subscribe_int(&keyboard_irq_set)) return 1;
+    if (timer_set_frequency(0, fr_rate)) return 1;   
+
+    bool isHorizontal = xi < xf;
+    if (isHorizontal && yi != yf) return 1;
+    else return 1;
+
+    while (scancode != ESC_BREAKCODE && (xi < xf || yi < yf)) {
+
+        if(driver_receive(ANY, &msg, &ipc_status) != 0) return 1;
+
+        if(is_ipc_notify(ipc_status)) {
+            switch(_ENDPOINT_P(msg.m_source)){
+                case HARDWARE:
+                if (msg.m_notify.interrupts & keyboard_irq_set) {
+                    kbc_ih();
+                }
+                if (msg.m_notify.interrupts & timer_irq_set) {
+                    if (draw_xpm(xpm, xi, yi) != 0) return 1;
+                    if (isHorizontal) {
+                        xi += speed;
+                        if (xi > xf) xi = xf;
+                    }
+                    else {
+                        yi += speed;
+                        if (yi > yf) yi = yf;
+                    }
+                }
+            }
         }
     }
+
+    if (timer_unsubscribe_int() != 0) return 1;
+    if (keyboard_unsubscribe_int() != 0) return 1;
+    
     return 0;
 }
