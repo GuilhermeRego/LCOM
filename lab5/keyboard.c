@@ -30,3 +30,4 @@ int (keyboard_unsubscribe_int)() {
 void (kbc_ih)() {
     read_kbc_output(KBC_OUT_BUF, &scancode);
 }
+

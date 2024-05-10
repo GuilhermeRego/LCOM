@@ -3,55 +3,43 @@
 
 #include <lcom/lcf.h>
 
-/** @defgroup i8254 i8254
- * @{
- *
- * Constants for programming the i8254 Timer. Needs to be completed.
- */
+// BIOS calls
+#define BIOS_VIDEO 0x10   // This instruction takes as an argument an 8-bit value that specifies the interrupt number
 
-#define TIMER_FREQ 1193182 /**< @brief clock frequency for timer in PC and AT */
-#define TIMER0_IRQ 0 /**< @brief Timer 0 IRQ line */
+// Interrupt vector -> set intno
+#define VIDEO_CARD 0x10
+#define PC_CONFIG 0x11
+#define MEM_CONFIG 0X12
+#define KBD_CONFIG 0x16
 
-/* I/O port addresses */
+// Invoking the VBE Functions
+#define VBE_AH 0x4F             // VBE call, AH register
+#define AH_FAILED 0x01          // Function call failed
+#define AH_NOT_SUPPORTED 0x02   // Function is not supported in current HW configuration
+#define AH_INVALID 0x03         // Function call invalid in current video mode
 
-#define TIMER_0    0x40 /**< @brief Timer 0 count register */
-#define TIMER_1    0x41 /**< @brief Timer 1 count register */
-#define TIMER_2    0x42 /**< @brief Timer 2 count register */
-#define TIMER_CTRL 0x43 /**< @brief Control register */
+// VBE modes
+#define TEXT_MODE 0x03
+#define GRAPHICS_MODE 0x02
 
-#define SPEAKER_CTRL 0x61 /**< @brief Register for speaker control  */
+// VBE submodes
+#define VBE_1024X768_MODE 0x105      // Model: indexed, Bits per pixel (RGB): 8
+#define VBE_640x480_MODE 0x110       // Model: direct, Bits per pixel (RGB): 15 ((1:)5:5:5)
+#define VBE_800x600_MODE 0x115       // Model: direct, Bits per pixel (RGB): 24 (8:8:8)
+#define VBE_1280x1024_MODE 0x11A     // Model: direct, Bits per pixel (RGB): 16 (5:6:5)
+#define VBE_1152x864_MODE 0x14C      // Model: direct, Bits per pixel (RGB): 32 ((8:)8:8:8)
 
-/* Timer control */
+// VBE functions -> set AL register, AX = VBE_AH | FUNCTION (0x00 or 0x01 or 0x02)
+#define VBE_CTRL_INFO 0x00          // Need to pass as argument the address of the vbe_controller_info_t struct
+#define VBE_GET_MODE_INFO 0x01      // Need to pass as arguments the mode passed on register CX and the address of the vbe_mode_info_t struct
+#define VBE_SET_MODE 0x02           // Mode should be passed in register BX, which should have bit 14 set
 
-/* Timer selection: bits 7 and 6 */
+// The mode must be passed in the BX register
 
-#define TIMER_SEL0   0x00              /**< @brief Control Word for Timer 0 */
-#define TIMER_SEL1   BIT(6)            /**< @brief Control Word for Timer 1 */
-#define TIMER_SEL2   BIT(7)            /**< @brief Control Word for Timer 2 */
-#define TIMER_RB_CMD (BIT(7) | BIT(6)) /**< @brief Read Back Command */
+// Activate linear frame buffer -> Bit 14 of the BX register hould be set
+#define LINEAR_MODE BIT(14)
 
-/* Register selection: bits 5 and 4 */
+// Reset VBE mode -> Set the mode to 0x03
+#define VBE_RESET_MODE 0x03     // Use BIOS call 0x10 and function 0x00
 
-#define TIMER_LSB     BIT(4)                  /**< @brief Initialize Counter LSB only */
-#define TIMER_MSB     BIT(5)                  /**< @brief Initialize Counter MSB only */
-#define TIMER_LSB_MSB (TIMER_LSB | TIMER_MSB) /**< @brief Initialize LSB first and MSB afterwards */
-
-/* Operating mode: bits 3, 2 and 1 */
-
-#define TIMER_SQR_WAVE (BIT(2) | BIT(1)) /**< @brief Mode 3: square wave generator */
-#define TIMER_RATE_GEN BIT(2)            /**< @brief Mode 2: rate generator */
-
-/* Counting mode: bit 0 */
-
-#define TIMER_BCD 0x01 /**< @brief Count in BCD */
-#define TIMER_BIN 0x00 /**< @brief Count in binary */
-
-/* READ-BACK COMMAND FORMAT */
-
-#define TIMER_RB_COUNT_  BIT(5)
-#define TIMER_RB_STATUS_ BIT(4)
-#define TIMER_RB_SEL(n)  BIT((n) + 1)
-
-/**@}*/
-
-#endif /* _LCOM_I8254_H */
+#endif

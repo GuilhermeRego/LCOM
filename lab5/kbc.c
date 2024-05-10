@@ -1,5 +1,6 @@
 #include "kbc.h"
 #include "i8042.h"
+#include "utils.c"
 
 extern int cnt;
 

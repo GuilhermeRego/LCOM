@@ -8,6 +8,7 @@
         "lab3.h": "c",
         "i8254.h": "c",
         "LAB5.C": "cpp",
-        "compare": "c"
+        "compare": "c",
+        "system_error": "c"
     }
 }

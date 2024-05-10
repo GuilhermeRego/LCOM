@@ -43,3 +43,4 @@
 #define VBE_RESET_MODE 0x03     // Use BIOS call 0x10 and function 0x00
 
 #endif
+

@@ -88,11 +88,14 @@ int (kbd_test_timed_scan)(uint8_t idle) {
     message msg;
 	int seconds = 0;
 
-	if (keyboard_subscribe_int(&keyboard_irq_set) != 0) return 1;
 	if (timer_subscribe_int(&timer_irq_set) != 0) return 1;
+	if (keyboard_subscribe_int(&keyboard_irq_set) != 0) return 1;
 
 	while (scancode != ESC_BREAKCODE && seconds < idle) {
-		if(driver_receive(ANY, &msg, &ipc_status) != 0) return 1;
+		if(driver_receive(ANY, &msg, &ipc_status) != 0) {
+			printf("driver_receive error");
+			continue;
+		}
 
 		if (is_ipc_notify(ipc_status)) {
 			switch (_ENDPOINT_P(msg.m_source)) {
@@ -119,7 +122,7 @@ int (kbd_test_timed_scan)(uint8_t idle) {
 		}
 	}
 
-	if (keyboard_unsubscribe_int() != 0) return 1;
 	if (timer_unsubscribe_int() != 0) return 1;
+	if (keyboard_unsubscribe_int() != 0) return 1;
 	return kbd_print_no_sysinb(cnt);
 }

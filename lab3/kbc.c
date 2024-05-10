@@ -37,8 +37,8 @@ int (read_kbc_output)(uint8_t port, uint8_t *output) {
             if (stat & (KBC_PAR_ERR | KBC_TO_ERR)) return 1;
             return 0;
         }
-        tickdelay(micros_to_ticks(DELAY_US)); // e.g. tickdelay()
         attempts--;
+        tickdelay(micros_to_ticks(DELAY_US)); // e.g. tickdelay()
     }
     return 1;
 }
