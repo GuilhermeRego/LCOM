@@ -4,4 +4,5 @@
 .clang-format
 .gdbinit
 .depend
+.exe
 lab3/lab3
