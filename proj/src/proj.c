@@ -1,5 +1,16 @@
 #include <lcom/lcf.h>
 
+typedef enum {
+    MAIN_MENU,
+    GAME,
+    GAME_OVER,
+    HIGHSCORES,
+    SETTINGS,
+    EXIT
+} State;
+
+State state = MAIN_MENU;
+
 int (main)(int argc, char *argv[]) {
     lcf_set_language("EN-US");
     lcf_trace_calls("/home/lcom/labs/proj/trace.txt");
