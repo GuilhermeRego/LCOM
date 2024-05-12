@@ -9,6 +9,9 @@
         "i8254.h": "c",
         "LAB5.C": "cpp",
         "compare": "c",
-        "system_error": "c"
+        "system_error": "c",
+        "i8042.h": "c",
+        "kbc.h": "c",
+        "game.h": "c"
     }
 }
