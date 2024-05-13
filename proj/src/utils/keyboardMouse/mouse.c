@@ -4,10 +4,10 @@
 #include "mouse.h"
 #include "../utils.c"
 
-extern int mouse_hook_id;
-extern uint8_t scancode;
-extern int byte_index;
-extern struct packet pp;
+int mouse_hook_id = 3;
+uint8_t scancode;
+int byte_index = 0;
+struct packet pp;
 bool activated_buttons[3];
 
 int (mouse_subscribe_int)(uint8_t *bit_no) {

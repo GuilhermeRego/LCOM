@@ -1,7 +1,8 @@
-#include <lcom/lcf.h>
+/*#include <lcom/lcf.h>
 
 #include <stdarg.h> // va_* macros are defined here
 #include "sprite.h"
+
 typedef struct {
     Sprite *sp; // standard sprite
     int aspeed; // no. frames per pixmap
@@ -11,8 +12,8 @@ typedef struct {
     char **map; // array of pointers to pixmaps
 } AnimSprite;
 
-AnimSprite create_animSprite(uint8_t no_pic, char *pic1[], ...); // TODO: add va_list to receive multiple arguments
+AnimSprite *create_animSprite(uint8_t no_pic, char *pic1[], ...); // TODO: add va_list to receive multiple arguments
 
-int animate_animSprite(AnimSprite *sp,);
+int animate_animSprite(AnimSprite *sp);
 
-void destroy_animSprite(AnimSprite *sp);
+void destroy_animSprite(AnimSprite *sp);*/

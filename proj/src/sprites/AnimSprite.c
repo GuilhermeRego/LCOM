@@ -1,10 +1,9 @@
 #include <lcom/lcf.h>
 
 #include <stdarg.h> // va_* macros are defined here
-#include "sprite.h"
 #include "AnimSprite.h"
 
-AnimSprite *create_animSprite(uint8_t no_pic, char *pic1[], ...) {
+/*AnimSprite *create_animSprite(uint8_t no_pic, char *pic1[], ...) {
     AnimSprite *asp = malloc(sizeof(AnimSprite));
     // create a standard sprite with first pixmap
     asp->sp = create_sprite(pic1,0,0,0,0);
@@ -17,13 +16,13 @@ AnimSprite *create_animSprite(uint8_t no_pic, char *pic1[], ...) {
     // iterate over the list of arguments
     va_list ap;
     va_start(ap, pic1);
-    for( i = 1; i <no_pic; i++ ) {
+    for(int i = 1; i <no_pic; i++ ) {
         char **tmp = va_arg(ap, char **);
         xpm_image_t img;
         asp->map[i] = xpm_load(tmp, XPM_INDEXED, &img);
         if ( asp->map[i] == NULL || img.width != asp->sp->width || img.height != asp->sp->height) { // error loading pixmap
             // free memory allocated so far
-            for(j = 1; j<i;j ++)
+            for(int j = 1; j<i;j ++)
                 free(asp->map[i]);
             free(asp->map);
             destroy_sprite(asp->sp);
@@ -49,4 +48,4 @@ int animate_animSprite(AnimSprite *sp) {
 void destroy_animSprite(AnimSprite *sp) {
     destroy_sprite(sp->sp);
     free(sp->map);
-}
+}*/

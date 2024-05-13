@@ -12,6 +12,10 @@
         "system_error": "c",
         "i8042.h": "c",
         "kbc.h": "c",
-        "game.h": "c"
+        "game.h": "c",
+        "sprite.h": "c",
+        "video.h": "c",
+        "vbe.h": "c",
+        "*.tcc": "c"
     }
 }

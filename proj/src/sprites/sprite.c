@@ -8,7 +8,7 @@
 * Returns NULL on invalid pixmap.
 */
 
-Sprite *create_sprite(const char *pic[], int x, int y, int xspeed, int yspeed) {
+/*Sprite *create_sprite(char* pic[], int x, int y, int xspeed, int yspeed) {
     //allocate space for the "object"
     Sprite *sp = (Sprite *) malloc ( sizeof(Sprite));
     xpm_image_t img;
@@ -37,7 +37,6 @@ int move_sprite(Sprite *sp) {
     // TODO
 }
 
-/* Some useful non-visible functions */
 static int draw_sprite(Sprite *sp, char *base) {
     // TODO
 }
@@ -45,3 +44,4 @@ static int draw_sprite(Sprite *sp, char *base) {
 static int check_collision(Sprite *sp, char *base) {
     // TODO
 }
+*/

@@ -2,16 +2,6 @@
 
 #include "game/game.h"
 
-#include "utils/keyboardMouse/i8042.h"
-#include "utils/keyboardMouse/keyboard.h"
-#include "utils/keyboardMouse/kbc.h"
-#include "utils/keyboardMouse/mouse.h"
-
-#include "utils/timer/i8254.h"
-#include "utils/timer/timer.h"
-
-#include "utils/video/VBE.h"
-#include "utils/video/video.h"
 
 extern GameState gameState;
 
@@ -43,7 +33,10 @@ int run_game() {
                         switch (gameState) {
                             // Create for each state a function that draws the state
                             case MAIN_MENU:
-                                // TODO
+                                vg_draw_rectangle(0, 0, 300, 300, 0xffffff);
+                                vg_draw_rectangle(0, 0, 100, 100, 0xffa150);
+                                sleep(10);
+                                gameState = EXIT;
                                 break;
                             case GAME:
                                 // TODO
