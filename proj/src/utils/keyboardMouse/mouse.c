@@ -13,11 +13,13 @@ bool activated_buttons[3];
 int (mouse_subscribe_int)(uint8_t *bit_no) {
     if (bit_no == NULL) return 1;
     *bit_no = BIT(mouse_hook_id);
-    return sys_irqsetpolicy(MOUSE_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &mouse_hook_id);
+    if (sys_irqsetpolicy(MOUSE_IRQ, IRQ_REENABLE | IRQ_EXCLUSIVE, &mouse_hook_id) != 0) return 1;
+    return 0;
 }
 
 int (mouse_unsubscribe_int)() {
-    return sys_irqrmpolicy(&mouse_hook_id);
+    if (sys_irqrmpolicy(&mouse_hook_id) != 0) return 1;
+    return 0;
 }
 
 void (mouse_ih)() {
@@ -59,8 +61,8 @@ int (mouse_write)(uint8_t command) {
     int attempts = 10;
     uint8_t ack_byte;
     while (attempts) {
-        if (write_kbc_command(KBC_CMD_REG, MOUSE_WRITE_BYTE) != 0) return 1;
-        if (write_kbc_command(KBC_IN_BUF, command) != 0) return 1;
+        if (write_command(KBC_CMD_REG, MOUSE_WRITE_BYTE) != 0) return 1;
+        if (write_command(KBC_IN_BUF, command) != 0) return 1;
         if (util_sys_inb(KBC_OUT_BUF, &ack_byte) != 0) return 1;
         if (ack_byte == ACK) return 0;
         attempts--;

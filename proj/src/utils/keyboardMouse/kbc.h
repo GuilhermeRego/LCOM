@@ -3,10 +3,10 @@
 
 #include <lcom/lcf.h>
 
-int (read_kbc_status)(uint8_t *status);
+int (read_status)(uint8_t *status);
 
-int (write_kbc_command)(uint8_t port, uint8_t cmd);
+int (write_command)(uint8_t port, uint8_t cmd);
 
-int (read_kbc_output)(uint8_t port, uint8_t *data);
+int (read_output)(uint8_t port, uint8_t *data);
 
 #endif

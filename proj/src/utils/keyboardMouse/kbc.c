@@ -5,42 +5,40 @@
 
 int cnt = 0;
 
-int (read_kbc_status)(uint8_t *status) {
-    if (util_sys_inb(KBC_ST_REG, status) != 0) return 1;
+int (read_status)(uint8_t *st) {
+    if (util_sys_inb(KBC_ST_REG, st) != 0) return 1;
     cnt++;
     return 0;
 }
 
-int (write_kbc_command)(uint8_t port, uint8_t cmd) {
-    uint8_t stat;
+int (write_command)(uint8_t port, uint8_t cmd) {
+    uint8_t st;
     int attempts = 10;
-    while(attempts) {
-        if (read_kbc_status(&stat) != 0) return 1; /* assuming it returns OK */
-        /* loop while 8042 input buffer is not empty */
-        if(!(stat & KBC_IBF)) {
-            if (sys_outb(port, cmd) != 0) return 1; /* no args command */
+    while(attempts > 0) {
+        if (read_status(&st) != 0) return 1; 
+        if(!(st & KBC_IBF)) {
+            if (sys_outb(port, cmd) != 0) return 1;
             return 0;
         }
         attempts--;
-        tickdelay(micros_to_ticks(DELAY_US)); // e.g. tickdelay()
+        tickdelay(micros_to_ticks(DELAY_US));
     }
     return 0;
 }
 
-int (read_kbc_output)(uint8_t port, uint8_t *output) {
+int (read_output)(uint8_t port, uint8_t *content) {
     uint8_t stat;
     int attempts = 10;
     while(attempts) {
-        if (read_kbc_status(&stat) != 0) return 1; /* assuming it returns OK */
-        /* loop while 8042 output buffer is empty */
+        if (read_status(&stat) != 0) return 1; 
         if((stat & KBC_OBF) != 0) {
-            if (util_sys_inb(port, output) != 0) return 1; /* ass. it returns OK */
+            if (util_sys_inb(port, content) != 0) return 1; 
             cnt++;
             if (stat & (KBC_PARITY | KBC_TIMEOUT)) return 1;
             return 0;
         }
         attempts--;
-        tickdelay(micros_to_ticks(DELAY_US)); // e.g. tickdelay()
+        tickdelay(micros_to_ticks(DELAY_US)); 
     }
     return 1;
 }

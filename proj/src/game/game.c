@@ -34,8 +34,7 @@ int run_game() {
                             // Create for each state a function that draws the state
                             case MAIN_MENU:
                                 vg_draw_rectangle(0, 0, 300, 300, 0xffffff);
-                                vg_draw_rectangle(0, 0, 100, 100, 0xffa150);
-                                sleep(10);
+                                sleep(1);
                                 gameState = EXIT;
                                 break;
                             case GAME:

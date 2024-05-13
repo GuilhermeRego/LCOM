@@ -5,11 +5,9 @@
 #include <lcom/lcf.h>
 #include "i8042.h"
 
-int (keyboard_restore)();
+int (keyboard_rstr)();
 
 void (kbc_ih)();
-
-int (kbc_poll)();
 
 int (keyboard_subscribe_int)(uint8_t *bit_no);
 

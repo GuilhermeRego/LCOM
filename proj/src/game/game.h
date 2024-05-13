@@ -1,5 +1,5 @@
 #include <lcom/lcf.h>
-#include "utils/video/VBE.h"
+#include "utils/video/VBE_macros.h"
 #include "utils/video/video.c"
 #include "utils/keyboardMouse/i8042.h"
 #include "utils/keyboardMouse/keyboard.c"
