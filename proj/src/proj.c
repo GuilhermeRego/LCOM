@@ -24,7 +24,7 @@ int (proj_main_loop)(int argc, char **argv) {
     if (run_game() != 0) return 1;
 
     destroy_xpms();
-    
+
     if (vg_exit() != 0) return 1;
     return 0;
 }

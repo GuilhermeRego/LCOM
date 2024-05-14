@@ -12,6 +12,8 @@
 
 #include "sprites/sprite.c"
 
+#include "gameStates/menu.c"
+
 typedef enum {
     MAIN_MENU,
     GAME,

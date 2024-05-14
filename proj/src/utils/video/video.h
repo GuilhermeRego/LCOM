@@ -35,3 +35,11 @@ int (draw_xpm)(uint16_t x, uint16_t y, xpm_map_t xpm);
 int (move_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate);
 
 uint8_t *get_video_mem();
+
+void allocate_image_to_video();
+
+void allocate_video_to_dbuffer();
+
+void clear_double_buffer();
+
+void free_double_buffer();

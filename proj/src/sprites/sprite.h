@@ -1,6 +1,6 @@
 #include <lcom/lcf.h>
 
-#include "../imgs/main_menu.xpm"
+#include "../imgs/menu_title.xpm"
 
 typedef struct {
     int x, y; // current position
@@ -18,3 +18,5 @@ void load_xpms();
 void destroy_xpms();
 
 int draw_sprite(Sprite *sp, int x, int y);
+
+void destroy_menu_sprites();

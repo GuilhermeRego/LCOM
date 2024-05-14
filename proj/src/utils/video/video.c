@@ -10,6 +10,7 @@ extern uint8_t scancode;
 
 vbe_mode_info_t mode_info;
 uint8_t *video_mem;
+uint8_t *double_buffer;
 
 int (vg_set_mode)(uint16_t mode) {
     reg86_t r86;

@@ -3,7 +3,6 @@
 #include "game/game.h"
 
 extern GameState gameState;
-extern Sprite *main_menu;
 
 int run_game() {
     if (mouse_write(SET_STREAM_MODE) != 0) return 1;
@@ -33,7 +32,7 @@ int run_game() {
                         switch (gameState) {
                             // Create for each state a function that draws the state
                             case MAIN_MENU:
-                                draw_sprite(main_menu, 0, 0);
+                                draw_menu();
                                 sleep(5);
                                 gameState = EXIT;
                                 break;

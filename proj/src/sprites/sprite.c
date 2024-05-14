@@ -2,7 +2,7 @@
 
 #include "sprite.h"
 
-Sprite *main_menu;
+Sprite *menu_title;
 
 Sprite *create_sprite(xpm_map_t pic) {
     //allocate space for the "object"
@@ -13,7 +13,7 @@ Sprite *create_sprite(xpm_map_t pic) {
         return NULL;
     // read the sprite pixmap
     sp->map = xpm_load(pic, XPM_8_8_8_8, &img);
-    if( sp->map == NULL ) {
+    if(sp->map == NULL) {
         free(sp);
         return NULL;
     }
@@ -42,9 +42,13 @@ int draw_sprite(Sprite *sp, int x, int y) {
 }
 
 void load_xpms() {
-    main_menu = create_sprite((xpm_map_t) main_menu_xpm);
+    menu_title = create_sprite((xpm_map_t) menu_title_xpm);
 }
 
 void destroy_xpms() {
-    destroy_sprite(main_menu);
+    destroy_menu_sprites();
+}
+
+void destroy_menu_sprites() {
+    destroy_sprite(menu_title);
 }
