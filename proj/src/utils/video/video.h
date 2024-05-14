@@ -33,3 +33,5 @@ int (vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step);
 int (draw_xpm)(uint16_t x, uint16_t y, xpm_map_t xpm);
 
 int (move_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf, int16_t speed, uint8_t fr_rate);
+
+uint8_t *get_video_mem();

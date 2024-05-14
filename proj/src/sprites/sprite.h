@@ -1,18 +1,20 @@
-/*#include <lcom/lcf.h>
+#include <lcom/lcf.h>
+
+#include "../imgs/main_menu.xpm"
 
 typedef struct {
-int x, y; // current position
-int width, height; // dimensions
-int xspeed, yspeed; // current speed
-char *map; // the pixmap
+    int x, y; // current position
+    int width, height; // dimensions
+    int xspeed, yspeed; // current speed
+    unsigned char *map; // the pixmap
 } Sprite;
 
-Sprite *create_sprite(char *pic[], int x, int y, int xspeed, int yspeed);
+Sprite *create_sprite(xpm_map_t pic);
 
 void destroy_sprite(Sprite *sp);
 
-int move_sprite(Sprite *sp);
+void load_xpms();
 
-static int draw_sprite(Sprite *sp, char *base);
+void destroy_xpms();
 
-static int check_collision(Sprite *sp, char *base);*/
+int draw_sprite(Sprite *sp, int x, int y);

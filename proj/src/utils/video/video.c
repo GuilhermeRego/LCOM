@@ -245,3 +245,7 @@ int (move_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf
     
     return 0;
 }
+
+uint8_t *get_video_mem() {
+    return video_mem;
+}

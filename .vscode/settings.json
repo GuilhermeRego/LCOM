@@ -16,6 +16,9 @@
         "sprite.h": "c",
         "video.h": "c",
         "vbe.h": "c",
-        "*.tcc": "c"
+        "*.tcc": "c",
+        "__tree": "c",
+        "map": "c",
+        "*.xpm": "c"
     }
 }
