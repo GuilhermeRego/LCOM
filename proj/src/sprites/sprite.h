@@ -1,12 +1,13 @@
 #include <lcom/lcf.h>
 
 #include "../imgs/menu_title.xpm"
+#include "../imgs/test.xpm"
 
 typedef struct {
     int x, y; // current position
     int width, height; // dimensions
     int xspeed, yspeed; // current speed
-    unsigned char *map; // the pixmap
+    uint32_t *map; // the pixmap
 } Sprite;
 
 Sprite *create_sprite(xpm_map_t pic);
