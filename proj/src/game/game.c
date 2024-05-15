@@ -4,6 +4,7 @@
 
 extern GameState gameState;
 extern int timer_cnt;
+extern uint8_t scancode;
 
 int run_game() {
     if (mouse_write(SET_STREAM_MODE) != 0) return 1;
@@ -45,16 +46,14 @@ int run_game() {
                                 break;
                         }
                         swap_buffers();
-                        if (timer_cnt == 101) {
-                            gameState = EXIT;
-                        }
-                        else printf("timer_cnt: %d\n", timer_cnt);
                     }
-                    if (msg.m_notify.interrupts & irq_mouse) {
-                        // TODO
-                        continue;
-                    }
+
                     if (msg.m_notify.interrupts & irq_keyboard) {
+                        kbc_ih();
+                        interpret_scancode();
+                    }
+
+                    if (msg.m_notify.interrupts & irq_mouse) {
                         // TODO
                         continue;
                     }
@@ -72,4 +71,27 @@ int run_game() {
     if (mouse_write(DISABLE_DATA_REPORT) != 0) return 1;
 
     return 0;
+}
+
+void interpret_scancode() {
+    switch (gameState) {
+        case MAIN_MENU: {
+            switch (scancode) {
+                case ESC_BREAK:
+                    gameState = EXIT;
+                    break;
+                case ARROW_UP_BREAK:
+                    printf("UP\n");
+                    break;
+                case ARROW_DOWN_BREAK:
+                    printf("DOWN\n");
+                    break;
+                default:
+                    break;
+            }
+            break;
+        }
+        default:
+            break;
+    }
 }

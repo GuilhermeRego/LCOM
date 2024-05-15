@@ -235,7 +235,7 @@ int (move_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf
     if (isHorizontal && yi != yf) return 1;
     else return 1;
 
-    while ((xi < xf || yi < yf) && scancode != ESC_BREAKCODE) {
+    while ((xi < xf || yi < yf) && scancode != ESC_BREAK) {
 
         if(driver_receive(ANY, &msg, &ipc_status) != 0) return 1;
 
