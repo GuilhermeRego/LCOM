@@ -12,6 +12,8 @@ int (vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height,
 
 int (transform_color)(uint32_t color, uint32_t *new_color);
 
+int transform_color_little_endian(uint32_t color, uint32_t *new_color);
+
 uint32_t (directed_mode) (uint32_t red, uint32_t green, uint32_t blue);
 
 uint32_t (indexed_mode)(uint16_t col, uint16_t row, uint8_t step, uint32_t first, uint8_t no_rectangles);

@@ -63,11 +63,12 @@ int (vg_draw_pixel)(uint16_t x, uint16_t y, uint32_t color) {
     int bytesPerPixel = (mode_info.BitsPerPixel + 7) / 8;
     int index =  bytesPerPixel * (y * mode_info.XResolution + x);
 
+    // Transform color to the correct format
     uint32_t new_color;
-    if (transform_color(color, &new_color) != 0) return 1;
+    if (transform_color_little_endian(color, &new_color) != 0) return 1;
 
     // Copy to memory
-    if (memcpy(&first_buffer[index], &new_color, bytesPerPixel) == NULL) return 1;
+    memcpy(&first_buffer[index], &color, bytesPerPixel);
     return 0;
 }
 
@@ -88,6 +89,7 @@ int (vg_draw_rectangle)(uint16_t x, uint16_t y, uint16_t width, uint16_t height,
 }
 
 int (transform_color)(uint32_t color, uint32_t *new_color) {
+    if (new_color == NULL) return 1;
     uint8_t red, green, blue;
     switch (mode_info.BitsPerPixel) {
         // 1024x768
@@ -131,6 +133,16 @@ int (transform_color)(uint32_t color, uint32_t *new_color) {
             return 1;
     }
     return 1;
+}
+
+int transform_color_little_endian(uint32_t color, uint32_t* new_color) {
+    if (new_color == NULL) return 1;
+    uint8_t red, green, blue;
+    red = color & 0x000000FF;
+    green = (color & 0x0000FF00) >> 8;
+    blue = (color & 0x00FF0000) >> 16;
+    *new_color = red | green | blue;
+    return 0;
 }
 
 uint32_t (index_mode)(uint16_t col, uint16_t row, uint8_t step, uint32_t first, uint8_t no_rectangles) {

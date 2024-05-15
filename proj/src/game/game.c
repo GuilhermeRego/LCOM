@@ -45,7 +45,7 @@ int run_game() {
                                 break;
                         }
                         swap_buffers();
-                        if (timer_cnt == 100) {
+                        if (timer_cnt == 101) {
                             gameState = EXIT;
                         }
                         else printf("timer_cnt: %d\n", timer_cnt);
