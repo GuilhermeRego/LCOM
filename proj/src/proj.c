@@ -2,7 +2,7 @@
 
 #include "game/game.c"
 
-GameState gameState = MAIN_MENU;
+GameState gameState = MENU;
 
 int (main)(int argc, char *argv[]) {
     lcf_set_language("EN-US");
@@ -31,5 +31,6 @@ int (proj_main_loop)(int argc, char **argv) {
 
     if (vg_exit() != 0) return 1;
 
+    printf("Exiting\n");
     return 0;
 }

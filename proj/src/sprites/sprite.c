@@ -2,8 +2,8 @@
 
 #include "sprite.h"
 
-Sprite *menu_title;
-Sprite *test;
+Sprite *menu;
+Sprite *player;
 
 Sprite *create_sprite(xpm_map_t pic) {
     //allocate space for the "object"
@@ -20,6 +20,8 @@ Sprite *create_sprite(xpm_map_t pic) {
     }
     sp->width = img.width;
     sp->height = img.height;
+    sp->x = 0;
+    sp->y = 0;
 
     return sp;
 }
@@ -42,8 +44,8 @@ int draw_sprite(Sprite *sp, int x, int y) {
 }
 
 void load_xpms() {
-    menu_title = create_sprite((xpm_map_t) menu_title_xpm);
-    test = create_sprite((xpm_map_t) test_xpm);
+    menu = create_sprite((xpm_map_t) menu_xpm);
+    player = create_sprite((xpm_map_t) player_xpm);
 }
 
 void destroy_xpms() {
@@ -51,5 +53,5 @@ void destroy_xpms() {
 }
 
 void destroy_menu_sprites() {
-    destroy_sprite(menu_title);
+    destroy_sprite(menu);
 }

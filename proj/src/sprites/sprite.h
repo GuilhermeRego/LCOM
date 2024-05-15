@@ -1,7 +1,7 @@
 #include <lcom/lcf.h>
 
-#include "../imgs/menu_title.xpm"
-#include "../imgs/test.xpm"
+#include "../imgs/menu.xpm"
+#include "../imgs/player.xpm"
 
 typedef struct {
     int x, y; // current position

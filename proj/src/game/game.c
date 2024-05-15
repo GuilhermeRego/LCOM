@@ -5,6 +5,8 @@
 extern GameState gameState;
 extern int timer_cnt;
 extern uint8_t scancode;
+extern int option;
+extern Sprite* player;
 
 int run_game() {
     if (mouse_write(SET_STREAM_MODE) != 0) return 1;
@@ -33,16 +35,22 @@ int run_game() {
                         timer_int_handler();
                         switch (gameState) {
                             // Create for each state a function that draws the state
-                            case MAIN_MENU:
+                            case MENU:
                                 draw_menu();
                                 break;
                             case GAME:
-                                // TODO
+                                draw_game();
                                 break;
-                            case GAME_OVER:
-                                // TODO
+                            case SETTINGS:
+                                printf("Settings running\n");
+                                break;
+                            case INSTRUCTIONS:
+                                printf("Instructions running\n");
                                 break;
                             case EXIT:
+                                return 0;
+                            case GAME_OVER:
+                                gameState = MENU;
                                 break;
                         }
                         swap_buffers();
@@ -75,22 +83,57 @@ int run_game() {
 
 void interpret_scancode() {
     switch (gameState) {
-        case MAIN_MENU: {
+        case MENU: {
             switch (scancode) {
                 case ESC_BREAK:
                     gameState = EXIT;
                     break;
                 case ARROW_UP_BREAK:
-                    printf("UP\n");
+                    if (option > 0) option--;
+                    else option = 3;
                     break;
                 case ARROW_DOWN_BREAK:
-                    printf("DOWN\n");
+                    if (option < 3) option++;
+                    else option = 0;
                     break;
                 default:
                     break;
             }
+            if (scancode == ENTER_BREAK) {
+                switch (option) {
+                    case 0:
+                        gameState = GAME;
+                        break;
+                    case 1:
+                        gameState = SETTINGS;
+                        break;
+                    case 2:
+                        gameState = INSTRUCTIONS;
+                        break;
+                    case 3:
+                        gameState = EXIT;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            printf("Option: %d\n", option);
             break;
         }
+        case GAME: {
+            if (scancode == ESC_BREAK) gameState = MENU;
+            if (scancode == ARROW_UP_BREAK) player->y += 10;
+            if (scancode == ARROW_DOWN_BREAK) player->y -= 10;
+            if (scancode == ARROW_LEFT_BREAK) player->x += 10;
+            if (scancode == ARROW_RIGHT_BREAK) player->x -= 10;
+            break;
+        }
+        case SETTINGS:
+            if (scancode == ESC_BREAK) gameState = MENU;
+            break;
+        case INSTRUCTIONS:
+            if (scancode == ESC_BREAK) gameState = MENU;
+            break;
         default:
             break;
     }

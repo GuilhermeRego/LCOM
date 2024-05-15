@@ -14,11 +14,17 @@
 
 #include "gameStates/menu.c"
 
+#include "gameStates/game_controller.c"
+
 typedef enum {
-    MAIN_MENU,
+    MENU,
     GAME,
-    GAME_OVER,
-    EXIT
+    SETTINGS,
+    INSTRUCTIONS,
+    EXIT,
+    GAME_OVER
 } GameState;
 
 int run_game();
+
+void interpret_scancode();
