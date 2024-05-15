@@ -275,10 +275,12 @@ uint8_t *get_video_mem() {
 
 void allocate_buffers() {
     double_buffer = (uint8_t *) malloc(mode_info.XResolution * mode_info.YResolution * (mode_info.BitsPerPixel / 8));
-    memset(double_buffer, 0xFFFFFF, mode_info.XResolution * mode_info.YResolution * (mode_info.BitsPerPixel / 8));
+    memset(double_buffer, 0, mode_info.XResolution * mode_info.YResolution * (mode_info.BitsPerPixel / 8));
 }
 
 void deallocate_buffers() {
+    memset(first_buffer, 0, mode_info.YResolution * mode_info.XResolution *(( mode_info.BitsPerPixel+7) / 8));
+    memset(double_buffer, 0, mode_info.YResolution * mode_info.XResolution *(( mode_info.BitsPerPixel+7) / 8));
     free(first_buffer);
     free(double_buffer);
 }
@@ -286,12 +288,10 @@ void deallocate_buffers() {
 void swap_buffers() {
     if (isDoubleBuffer) {
         memcpy(first_buffer, double_buffer, mode_info.XResolution * mode_info.YResolution * (mode_info.BitsPerPixel / 8));
-        memset(first_buffer, 0, mode_info.XResolution * mode_info.YResolution * (mode_info.BitsPerPixel / 8));
         isDoubleBuffer = false;
     }
     else {
         memcpy(double_buffer, first_buffer, mode_info.XResolution * mode_info.YResolution * (mode_info.BitsPerPixel / 8));
-        memset(double_buffer, 0, mode_info.XResolution * mode_info.YResolution * (mode_info.BitsPerPixel / 8));
         isDoubleBuffer = true;
     }
 }

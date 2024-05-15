@@ -10,5 +10,5 @@ extern uint8_t *first_buffer;
 
 void draw_menu() {
     memset(first_buffer, 0, mode_info.YResolution * mode_info.XResolution *(( mode_info.BitsPerPixel+7) / 8)); // clear screen
-    draw_sprite(menu_title, 400, 300);
+    draw_sprite(test, 0, 0);
 }
