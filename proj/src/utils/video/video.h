@@ -36,10 +36,8 @@ int (move_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf
 
 uint8_t *get_video_mem();
 
-void allocate_image_to_video();
+void allocate_buffers();
 
-void allocate_video_to_dbuffer();
+void deallocate_buffers();
 
-void clear_double_buffer();
-
-void free_double_buffer();
+void swap_buffers();

@@ -19,12 +19,17 @@ int (proj_main_loop)(int argc, char **argv) {
     if (config_frame_buffer(VBE_800x600_MODE) != 0) return 1;
     if (vg_set_mode(VBE_800x600_MODE) != 0) return 1;
 
+    allocate_buffers();
+
     load_xpms();
 
     if (run_game() != 0) return 1;
 
     destroy_xpms();
 
+    deallocate_buffers();
+
     if (vg_exit() != 0) return 1;
+
     return 0;
 }

@@ -9,8 +9,11 @@
 extern uint8_t scancode;
 
 vbe_mode_info_t mode_info;
-uint8_t *video_mem;
+
+uint8_t *first_buffer;
 uint8_t *double_buffer;
+
+bool isDoubleBuffer = true;
 
 int (vg_set_mode)(uint16_t mode) {
     reg86_t r86;
@@ -42,11 +45,13 @@ int (config_frame_buffer)(uint16_t mode) {
         return 1;
     }
 
+    uint8_t *video_mem;
     video_mem = vm_map_phys(SELF, (void *)mr.mr_base, vram_size);
     if(video_mem == MAP_FAILED) {
         panic("couldn’t map video memory");
         return 1;
     }
+    first_buffer = video_mem;
 
     return 0;
 }
@@ -58,8 +63,11 @@ int (vg_draw_pixel)(uint16_t x, uint16_t y, uint32_t color) {
     int bytesPerPixel = (mode_info.BitsPerPixel + 7) / 8;
     int index =  bytesPerPixel * (y * mode_info.XResolution + x);
 
+    uint32_t new_color;
+    if (transform_color(color, &new_color) != 0) return 1;
+
     // Copy to memory
-    if (memcpy(&video_mem[index], &color, bytesPerPixel) == NULL) return 1;
+    if (memcpy(&first_buffer[index], &new_color, bytesPerPixel) == NULL) return 1;
     return 0;
 }
 
@@ -189,7 +197,7 @@ int (vg_draw_pattern)(uint8_t no_rectangles, uint32_t first, uint8_t step) {
 int (draw_xpm)(uint16_t x, uint16_t y, xpm_map_t xpm) {
     // We need to fill the xpm_load function with its parameters: xpm_map_t map, enum xpm_image_type type, xpm_image_t *img
     xpm_image_t image;
-    uint8_t *color_map = xpm_load(xpm, XPM_INDEXED, &image);
+    uint32_t *color_map = (uint32_t*) xpm_load(xpm, XPM_8_8_8_8, &image);
     int index = 0;
     if (color_map == NULL) return 1;
     for (int j = 0; j < image.height; j++) {
@@ -248,5 +256,30 @@ int (move_xpm)(xpm_map_t xpm, uint16_t xi, uint16_t yi, uint16_t xf, uint16_t yf
 }
 
 uint8_t *get_video_mem() {
-    return video_mem;
+    return first_buffer;
+}
+
+// Buffer matters
+
+void allocate_buffers() {
+    double_buffer = (uint8_t *) malloc(mode_info.XResolution * mode_info.YResolution * (mode_info.BitsPerPixel / 8));
+    memset(double_buffer, 0xFFFFFF, mode_info.XResolution * mode_info.YResolution * (mode_info.BitsPerPixel / 8));
+}
+
+void deallocate_buffers() {
+    free(first_buffer);
+    free(double_buffer);
+}
+
+void swap_buffers() {
+    if (isDoubleBuffer) {
+        memcpy(first_buffer, double_buffer, mode_info.XResolution * mode_info.YResolution * (mode_info.BitsPerPixel / 8));
+        memset(first_buffer, 0, mode_info.XResolution * mode_info.YResolution * (mode_info.BitsPerPixel / 8));
+        isDoubleBuffer = false;
+    }
+    else {
+        memcpy(double_buffer, first_buffer, mode_info.XResolution * mode_info.YResolution * (mode_info.BitsPerPixel / 8));
+        memset(double_buffer, 0, mode_info.XResolution * mode_info.YResolution * (mode_info.BitsPerPixel / 8));
+        isDoubleBuffer = true;
+    }
 }

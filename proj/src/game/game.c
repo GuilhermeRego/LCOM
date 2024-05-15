@@ -3,12 +3,13 @@
 #include "game/game.h"
 
 extern GameState gameState;
+extern int timer_cnt;
 
 int run_game() {
     if (mouse_write(SET_STREAM_MODE) != 0) return 1;
     if (mouse_write(ENABLE_DATA_REPORT) != 0) return 1;
     
-    if (timer_set_frequency(0, 30) != 0) return 1;
+    if (timer_set_frequency(0, 19) != 0) return 1;
 
     int ipc_status;
     message msg;
@@ -33,8 +34,6 @@ int run_game() {
                             // Create for each state a function that draws the state
                             case MAIN_MENU:
                                 draw_menu();
-                                sleep(5);
-                                gameState = EXIT;
                                 break;
                             case GAME:
                                 // TODO
@@ -44,9 +43,12 @@ int run_game() {
                                 break;
                             case EXIT:
                                 break;
-                            default:
-                                return 1;
                         }
+                        swap_buffers();
+                        if (timer_cnt == 100) {
+                            gameState = EXIT;
+                        }
+                        else printf("timer_cnt: %d\n", timer_cnt);
                     }
                     if (msg.m_notify.interrupts & irq_mouse) {
                         // TODO
