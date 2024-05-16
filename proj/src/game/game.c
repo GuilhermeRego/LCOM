@@ -6,7 +6,8 @@ extern GameState gameState;
 extern int timer_cnt;
 extern uint8_t scancode;
 extern int option;
-extern Sprite* player;
+extern laser_t lasers[100];
+extern int laser_index;
 
 int run_game() {
     if (mouse_write(SET_STREAM_MODE) != 0) return 1;
@@ -40,6 +41,8 @@ int run_game() {
                                 break;
                             case GAME:
                                 draw_game();
+                                update_lasers();
+                                draw_lasers();
                                 break;
                             case SETTINGS:
                                 printf("Settings running\n");
@@ -96,44 +99,68 @@ void interpret_scancode() {
                     if (option < 3) option++;
                     else option = 0;
                     break;
+                case ENTER_BREAK:
+                    switch (option) {
+                        case 0:
+                            gameState = GAME;
+                            break;
+                        case 1:
+                            gameState = SETTINGS;
+                            break;
+                        case 2:
+                            gameState = INSTRUCTIONS;
+                            break;
+                        case 3:
+                            gameState = EXIT;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
                 default:
                     break;
-            }
-            if (scancode == ENTER_BREAK) {
-                switch (option) {
-                    case 0:
-                        gameState = GAME;
-                        break;
-                    case 1:
-                        gameState = SETTINGS;
-                        break;
-                    case 2:
-                        gameState = INSTRUCTIONS;
-                        break;
-                    case 3:
-                        gameState = EXIT;
-                        break;
-                    default:
-                        break;
-                }
             }
             printf("Option: %d\n", option);
             break;
         }
+
         case GAME: {
-            if (scancode == ESC_BREAK) gameState = MENU;
-            if (scancode == ARROW_UP_BREAK) player->y += 10;
-            if (scancode == ARROW_DOWN_BREAK) player->y -= 10;
-            if (scancode == ARROW_LEFT_BREAK) player->x += 10;
-            if (scancode == ARROW_RIGHT_BREAK) player->x -= 10;
+            switch (scancode) {
+                case ESC_BREAK:
+                    gameState = MENU;
+                    break;
+                case ARROW_UP_BREAK:
+                    printf("Arrow up\n");
+                    create_laser(ARROW_UP_BREAK);
+                    break;
+                case ARROW_DOWN_BREAK:
+                    printf("Arrow down\n");
+                    create_laser(ARROW_DOWN_BREAK);
+                    break;
+                case ARROW_LEFT_BREAK: 
+                    printf("Arrow left\n");
+                    create_laser(ARROW_LEFT_BREAK);
+                    break;
+                case ARROW_RIGHT_BREAK:
+                    printf("Arrow right\n");
+                    create_laser(ARROW_RIGHT_BREAK);
+                    break;
+                default:
+                    break;
+            }
             break;
         }
-        case SETTINGS:
+
+        case SETTINGS: {
             if (scancode == ESC_BREAK) gameState = MENU;
             break;
-        case INSTRUCTIONS:
+        }
+
+        case INSTRUCTIONS: {
             if (scancode == ESC_BREAK) gameState = MENU;
             break;
+        }
+
         default:
             break;
     }

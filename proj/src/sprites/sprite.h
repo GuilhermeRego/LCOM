@@ -2,6 +2,8 @@
 
 #include "../imgs/menu.xpm"
 #include "../imgs/player.xpm"
+#include "../imgs/background.xpm"
+#include "../imgs/laser.xpm"
 
 typedef struct {
     int x, y; // current position
@@ -19,5 +21,3 @@ void load_xpms();
 void destroy_xpms();
 
 int draw_sprite(Sprite *sp, int x, int y);
-
-void destroy_menu_sprites();

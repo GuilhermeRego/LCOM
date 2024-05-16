@@ -4,6 +4,8 @@
 
 Sprite *menu;
 Sprite *player;
+Sprite *background;
+Sprite *laser;
 
 Sprite *create_sprite(xpm_map_t pic) {
     //allocate space for the "object"
@@ -20,8 +22,12 @@ Sprite *create_sprite(xpm_map_t pic) {
     }
     sp->width = img.width;
     sp->height = img.height;
+
     sp->x = 0;
     sp->y = 0;
+
+    sp->xspeed = 0;
+    sp->yspeed = 0;
 
     return sp;
 }
@@ -46,12 +52,13 @@ int draw_sprite(Sprite *sp, int x, int y) {
 void load_xpms() {
     menu = create_sprite((xpm_map_t) menu_xpm);
     player = create_sprite((xpm_map_t) player_xpm);
+    background = create_sprite((xpm_map_t) background_xpm);
+    laser = create_sprite((xpm_map_t) laser_xpm);
 }
 
 void destroy_xpms() {
-    destroy_menu_sprites();
-}
-
-void destroy_menu_sprites() {
     destroy_sprite(menu);
+    destroy_sprite(player);
+    destroy_sprite(background);
+    destroy_sprite(laser);
 }

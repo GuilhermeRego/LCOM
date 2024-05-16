@@ -57,6 +57,7 @@ int (config_frame_buffer)(uint16_t mode) {
 }
 
 int (vg_draw_pixel)(uint16_t x, uint16_t y, uint32_t color) {
+    if (color == 0) return 0;
     if (x > mode_info.XResolution || y > mode_info.YResolution) return 1;
 
     // Calculate bytes per pixel (divide by 8) and the index in bytes
