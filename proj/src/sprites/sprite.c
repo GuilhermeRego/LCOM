@@ -53,9 +53,15 @@ int draw_sprite(Sprite *sp, int x, int y) {
 
 void load_xpms() {
     menu = create_sprite((xpm_map_t) menu_xpm);
+    if (menu == NULL) printf("menu is NULL\n");
     player = create_sprite((xpm_map_t) player_xpm);
+    player->x = (mode_info.XResolution / 2) - (player->width / 2);
+    player->y = (mode_info.YResolution / 2) - (player->height / 2);
+    if (player == NULL) printf("player is NULL\n");
     background = create_sprite((xpm_map_t) background_xpm);
+    if (background == NULL) printf("background is NULL\n");
     laser = create_sprite((xpm_map_t) laser_xpm);
+    if (laser == NULL) printf("laser is NULL\n");
 }
 
 void destroy_xpms() {
