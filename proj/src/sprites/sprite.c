@@ -12,11 +12,10 @@ Sprite *create_sprite(xpm_map_t pic) {
     Sprite *sp = (Sprite *) malloc ( sizeof(Sprite));
     xpm_image_t img;
 
-    if( sp == NULL )
-        return NULL;
     // read the sprite pixmap
     sp->map = (uint32_t *) xpm_load(pic, XPM_8_8_8_8, &img);
     if(sp->map == NULL) {
+        printf("create_sprite: xpm_load failed\n");
         free(sp);
         return NULL;
     }
@@ -40,7 +39,10 @@ void destroy_sprite(Sprite *sp) {
 }
 
 int draw_sprite(Sprite *sp, int x, int y) {
-    if (sp == NULL) return 1;
+    if (sp == NULL) {
+        printf("draw_sprite: sp is NULL\n");
+        return 1;
+    }
     for (int i = 0; i < sp->height; i++) {
         for (int j = 0; j < sp->width; j++) {
             if (vg_draw_pixel(x + j, y + i, sp->map[i * sp->width + j]) != 0) return 1;

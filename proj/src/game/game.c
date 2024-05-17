@@ -13,7 +13,7 @@ int run_game() {
     if (mouse_write(SET_STREAM_MODE) != 0) return 1;
     if (mouse_write(ENABLE_DATA_REPORT) != 0) return 1;
     
-    if (timer_set_frequency(0, 19) != 0) return 1;
+    if (timer_set_frequency(0, 120) != 0) return 1;
 
     int ipc_status;
     message msg;
@@ -129,22 +129,8 @@ void interpret_scancode() {
                 case ESC_BREAK:
                     gameState = MENU;
                     break;
-                case ARROW_UP_BREAK:
-                    printf("Arrow up\n");
-                    create_laser(ARROW_UP_BREAK);
-                    break;
-                case ARROW_DOWN_BREAK:
-                    printf("Arrow down\n");
-                    create_laser(ARROW_DOWN_BREAK);
-                    break;
-                case ARROW_LEFT_BREAK: 
-                    printf("Arrow left\n");
-                    create_laser(ARROW_LEFT_BREAK);
-                    break;
-                case ARROW_RIGHT_BREAK:
-                    printf("Arrow right\n");
-                    create_laser(ARROW_RIGHT_BREAK);
-                    break;
+                case ARROW_UP_BREAK: case ARROW_DOWN_BREAK: case ARROW_LEFT_BREAK: case ARROW_RIGHT_BREAK:
+                    create_laser(scancode);
                 default:
                     break;
             }

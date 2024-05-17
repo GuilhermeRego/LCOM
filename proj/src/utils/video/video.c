@@ -13,8 +13,6 @@ vbe_mode_info_t mode_info;
 uint8_t *first_buffer;
 uint8_t *double_buffer;
 
-bool isDoubleBuffer = true;
-
 int (vg_set_mode)(uint16_t mode) {
     reg86_t r86;
         
@@ -69,7 +67,7 @@ int (vg_draw_pixel)(uint16_t x, uint16_t y, uint32_t color) {
     if (transform_color_little_endian(color, &new_color) != 0) return 1;
 
     // Copy to memory
-    memcpy(&first_buffer[index], &color, bytesPerPixel);
+    memcpy(&double_buffer[index], &color, bytesPerPixel);
     return 0;
 }
 
@@ -287,12 +285,5 @@ void deallocate_buffers() {
 }
 
 void swap_buffers() {
-    if (isDoubleBuffer) {
-        memcpy(first_buffer, double_buffer, mode_info.XResolution * mode_info.YResolution * (mode_info.BitsPerPixel / 8));
-        isDoubleBuffer = false;
-    }
-    else {
-        memcpy(double_buffer, first_buffer, mode_info.XResolution * mode_info.YResolution * (mode_info.BitsPerPixel / 8));
-        isDoubleBuffer = true;
-    }
+    memcpy(first_buffer, double_buffer, mode_info.XResolution * mode_info.YResolution * (mode_info.BitsPerPixel / 8));
 }
