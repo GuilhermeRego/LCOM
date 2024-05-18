@@ -25,31 +25,53 @@ void draw_game() {
 void create_laser() {
     switch (selected_cannon) {
         case 0:
-            lasers[laser_index].x = mode_info.XResolution / 2 - 7;
-            lasers[laser_index].y = (mode_info.YResolution / 2) - (player->height / 2) - 5;
+            lasers[laser_index].x = 393;
+            lasers[laser_index].y = 220;
             lasers[laser_index].xspeed = 0;
             lasers[laser_index].yspeed = -10;
             break;
-        /*case ARROW_DOWN_BREAK:
-            lasers[laser_index].x = mode_info.XResolution / 2;
-            lasers[laser_index].y = (mode_info.YResolution / 2) + (player->height / 2);
+        case 1:
+            lasers[laser_index].x = 442;
+            lasers[laser_index].y = 238;
+            lasers[laser_index].xspeed = 7;
+            lasers[laser_index].yspeed = -7;
+            break;
+        case 2:
+            lasers[laser_index].x = 466;
+            lasers[laser_index].y = 290;
+            lasers[laser_index].xspeed = 10;
+            lasers[laser_index].yspeed = 0;
+            break;
+        case 3:
+            lasers[laser_index].x = 447;
+            lasers[laser_index].y = 347;
+            lasers[laser_index].xspeed = 7;
+            lasers[laser_index].yspeed = 7;
+            break;
+        case 4:
+            lasers[laser_index].x = 393;
+            lasers[laser_index].y = 365;
             lasers[laser_index].xspeed = 0;
             lasers[laser_index].yspeed = 10;
             break;
-
-        case ARROW_LEFT_BREAK:
-            lasers[laser_index].x = (mode_info.XResolution / 2) - (player->width / 2);
-            lasers[laser_index].y = mode_info.YResolution / 2;
+        case 5:
+            lasers[laser_index].x = 340;
+            lasers[laser_index].y = 343;
+            lasers[laser_index].xspeed = -7;
+            lasers[laser_index].yspeed = 7;
+            break;
+        case 6:
+            lasers[laser_index].x = 318;
+            lasers[laser_index].y = 290;
             lasers[laser_index].xspeed = -10;
             lasers[laser_index].yspeed = 0;
             break;
-
-        case ARROW_RIGHT_BREAK:
-            lasers[laser_index].x = (mode_info.XResolution / 2) + (player->width / 2);
-            lasers[laser_index].y = mode_info.YResolution / 2;
-            lasers[laser_index].xspeed = 10;
-            lasers[laser_index].yspeed = 0;
-            break;*/
+        case 7:
+            lasers[laser_index].x = 342;
+            lasers[laser_index].y = 240;
+            lasers[laser_index].xspeed = -5;
+            lasers[laser_index].yspeed = -5;
+            break;
         default:
             break;
     }
