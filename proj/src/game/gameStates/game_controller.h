@@ -2,8 +2,10 @@
 
 void draw_lasers();
 
+void draw_cannon();
+
 void draw_game();
 
-void create_laser(uint8_t key);
+void create_laser();
 
 void update_lasers();

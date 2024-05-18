@@ -8,6 +8,7 @@ extern uint8_t scancode;
 extern int option;
 extern laser_t lasers[100];
 extern int laser_index;
+extern int selected_cannon;
 
 int run_game() {
     if (mouse_write(SET_STREAM_MODE) != 0) return 1;
@@ -42,7 +43,6 @@ int run_game() {
                             case GAME:
                                 draw_game();
                                 update_lasers();
-                                draw_lasers();
                                 break;
                             case SETTINGS:
                                 printf("Settings running\n");
@@ -120,7 +120,6 @@ void interpret_scancode() {
                 default:
                     break;
             }
-            printf("Option: %d\n", option);
             break;
         }
 
@@ -129,8 +128,17 @@ void interpret_scancode() {
                 case ESC_BREAK:
                     gameState = MENU;
                     break;
-                case ARROW_UP_BREAK: case ARROW_DOWN_BREAK: case ARROW_LEFT_BREAK: case ARROW_RIGHT_BREAK:
-                    create_laser(scancode);
+                case ARROW_LEFT_BREAK:
+                    selected_cannon--;
+                    if (selected_cannon < 0) selected_cannon = 7;
+                    break;
+                case ARROW_RIGHT_BREAK:
+                    selected_cannon++;
+                    if (selected_cannon > 7) selected_cannon = 0;
+                    break;
+                case SPACE_BREAK:
+                    create_laser();
+                    break;
                 default:
                     break;
             }

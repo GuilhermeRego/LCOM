@@ -6,6 +6,14 @@ Sprite *menu;
 Sprite *player;
 Sprite *background;
 Sprite *laser;
+Sprite *cannon_up;
+Sprite *cannon_right;
+Sprite *cannon_down;
+Sprite *cannon_left;
+Sprite *cannon_diag1;
+Sprite *cannon_diag2;
+Sprite *cannon_diag3;
+Sprite *cannon_diag4;
 
 Sprite *create_sprite(xpm_map_t pic) {
     //allocate space for the "object"
@@ -54,14 +62,41 @@ int draw_sprite(Sprite *sp, int x, int y) {
 void load_xpms() {
     menu = create_sprite((xpm_map_t) menu_xpm);
     if (menu == NULL) printf("menu is NULL\n");
+
     player = create_sprite((xpm_map_t) player_xpm);
+    if (player == NULL) printf("player is NULL\n");
     player->x = (mode_info.XResolution / 2) - (player->width / 2);
     player->y = (mode_info.YResolution / 2) - (player->height / 2);
-    if (player == NULL) printf("player is NULL\n");
+    
     background = create_sprite((xpm_map_t) background_xpm);
     if (background == NULL) printf("background is NULL\n");
+
     laser = create_sprite((xpm_map_t) laser_xpm);
     if (laser == NULL) printf("laser is NULL\n");
+
+    cannon_up = create_sprite((xpm_map_t) cannon_up_xpm);
+    if (cannon_up == NULL) printf("cannon_up is NULL\n");
+
+    cannon_right = create_sprite((xpm_map_t) cannon_right_xpm);
+    if (cannon_right == NULL) printf("cannon_right is NULL\n");
+
+    cannon_down = create_sprite((xpm_map_t) cannon_down_xpm);
+    if (cannon_down == NULL) printf("cannon_down is NULL\n");
+
+    cannon_left = create_sprite((xpm_map_t) cannon_left_xpm);
+    if (cannon_left == NULL) printf("cannon_left is NULL\n");
+
+    cannon_diag1 = create_sprite((xpm_map_t) cannon_diag1_xpm);
+    if (cannon_diag1 == NULL) printf("cannon_diag1 is NULL\n");
+
+    cannon_diag2 = create_sprite((xpm_map_t) cannon_diag2_xpm);
+    if (cannon_diag2 == NULL) printf("cannon_diag2 is NULL\n");
+
+    cannon_diag3 = create_sprite((xpm_map_t) cannon_diag3_xpm);
+    if (cannon_diag3 == NULL) printf("cannon_diag3 is NULL\n");
+
+    cannon_diag4 = create_sprite((xpm_map_t) cannon_diag4_xpm);
+    if (cannon_diag4 == NULL) printf("cannon_diag4 is NULL\n");
 }
 
 void destroy_xpms() {

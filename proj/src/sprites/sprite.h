@@ -4,6 +4,14 @@
 #include "../imgs/player.xpm"
 #include "../imgs/background.xpm"
 #include "../imgs/laser.xpm"
+#include "../imgs/cannon/cannon_up.xpm"
+#include "../imgs/cannon/cannon_right.xpm"
+#include "../imgs/cannon/cannon_down.xpm"
+#include "../imgs/cannon/cannon_left.xpm"
+#include "../imgs/cannon/cannon_diag1.xpm"
+#include "../imgs/cannon/cannon_diag2.xpm"
+#include "../imgs/cannon/cannon_diag3.xpm"
+#include "../imgs/cannon/cannon_diag4.xpm"
 
 typedef struct {
     int x, y; // current position
