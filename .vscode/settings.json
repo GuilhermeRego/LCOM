@@ -20,6 +20,7 @@
         "__tree": "c",
         "map": "c",
         "*.xpm": "c",
-        "menu.h": "c"
+        "menu.h": "c",
+        "game_controller.h": "c"
     }
 }

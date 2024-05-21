@@ -55,6 +55,7 @@ int run_game() {
                             case EXIT:
                                 return 0;
                             case GAME_OVER:
+                                reset_game();
                                 gameState = MENU;
                                 break;
                         }

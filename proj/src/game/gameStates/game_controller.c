@@ -2,15 +2,19 @@
 
 #include "game_controller.h"
 
+extern GameState gameState;
+
 typedef struct {
     int x, y;
     int xspeed, yspeed;
+    Sprite *sprite;
 } laser_t;
 
 typedef struct {
     int x, y;
     int xspeed, yspeed;
     int direction;
+    Sprite * sprite;
 } asteroid_t;
 
 laser_t lasers[100];
@@ -32,6 +36,7 @@ void draw_game() {
     draw_cannon();
     draw_lasers();
     draw_asteroids();
+    check_collisions();
 }
 
 void create_laser() {
@@ -87,6 +92,7 @@ void create_laser() {
         default:
             break;
     }
+    lasers[laser_index].sprite = laser;
     laser_index++;
 }
 
@@ -147,61 +153,62 @@ void draw_cannon() {
 }
 
 void create_asteroid() {
-    asteroid_t asteroid;
-    asteroid.direction = rand() % 8;
-    switch (asteroid.direction) {
+    asteroid_t asteroid_;
+    asteroid_.direction = rand() % 8;
+    switch (asteroid_.direction) {
         case 0:
-            asteroid.x = 385;
-            asteroid.y = 0;
-            asteroid.xspeed = 0;
-            asteroid.yspeed = 5;
+            asteroid_.x = 385;
+            asteroid_.y = 0;
+            asteroid_.xspeed = 0;
+            asteroid_.yspeed = 5;
             break;
         case 1:
-            asteroid.x = 662;
-            asteroid.y = 0;
-            asteroid.xspeed = -3;
-            asteroid.yspeed = 3;
+            asteroid_.x = 662;
+            asteroid_.y = 0;
+            asteroid_.xspeed = -3;
+            asteroid_.yspeed = 3;
             break;
         case 2:
-            asteroid.x = mode_info.XResolution;
-            asteroid.y = 280;
-            asteroid.xspeed = -5;
-            asteroid.yspeed = 0;
+            asteroid_.x = mode_info.XResolution;
+            asteroid_.y = 280;
+            asteroid_.xspeed = -5;
+            asteroid_.yspeed = 0;
             break;
         case 3:
-            asteroid.x = mode_info.XResolution - 100;
-            asteroid.y = mode_info.YResolution;
-            asteroid.xspeed = -3;
-            asteroid.yspeed = -3;
+            asteroid_.x = mode_info.XResolution - 100;
+            asteroid_.y = mode_info.YResolution;
+            asteroid_.xspeed = -3;
+            asteroid_.yspeed = -3;
             break;
         case 4:
-            asteroid.x = 385;
-            asteroid.y = mode_info.YResolution;
-            asteroid.xspeed = 0;
-            asteroid.yspeed = -5;
+            asteroid_.x = 385;
+            asteroid_.y = mode_info.YResolution;
+            asteroid_.xspeed = 0;
+            asteroid_.yspeed = -5;
             break;
         case 5:
-            asteroid.x = 65;
-            asteroid.y = mode_info.YResolution;
-            asteroid.xspeed = 3;
-            asteroid.yspeed = -3;
+            asteroid_.x = 65;
+            asteroid_.y = mode_info.YResolution;
+            asteroid_.xspeed = 3;
+            asteroid_.yspeed = -3;
             break;
         case 6:
-            asteroid.x = 0;
-            asteroid.y = 280;
-            asteroid.xspeed = 5;
-            asteroid.yspeed = 0;
+            asteroid_.x = 0;
+            asteroid_.y = 280;
+            asteroid_.xspeed = 5;
+            asteroid_.yspeed = 0;
             break;
         case 7:
-            asteroid.x = 100;
-            asteroid.y = 0;
-            asteroid.xspeed = 3;
-            asteroid.yspeed = 3;
+            asteroid_.x = 100;
+            asteroid_.y = 0;
+            asteroid_.xspeed = 3;
+            asteroid_.yspeed = 3;
             break;
         default:
             break;
     }
-    asteroids[asteroid_index] = asteroid;
+    asteroids[asteroid_index] = asteroid_;
+    asteroids[asteroid_index].sprite = asteroid;
     asteroid_index++;
 }
 
@@ -228,4 +235,141 @@ void draw_asteroids() {
     for (int i = 0; i < asteroid_index; i++) {
         draw_sprite(asteroid, asteroids[i].x, asteroids[i].y);
     }
+}
+
+void check_collisions() {
+    if (gameState == GAME) {
+        // check if laser hits asteroid
+        for (int i = 0; i < laser_index; i++) {
+            for (int j = 0; j < asteroid_index; j++) {
+                if (lasers[i].x > asteroids[j].x && lasers[i].x < asteroids[j].x + asteroid->width && lasers[i].y > asteroids[j].y && lasers[i].y < asteroids[j].y + asteroid->height) {
+                    for (int k = j; k < asteroid_index - 1; k++) {
+                        asteroids[k] = asteroids[k + 1];
+                    }
+                    asteroid_index--;
+                    for (int k = i; k < laser_index - 1; k++) {
+                        lasers[k] = lasers[k + 1];
+                    }
+                    laser_index--;
+                }
+            }
+        }
+
+        // check if asteroid hits player
+        for (int i = 0; i < asteroid_index; i++) {
+            switch (asteroids[i].direction) {
+                case 0:
+                    if (selected_cannon == 0) {
+                        if (asteroids[i].y > 198) {
+                            gameState = GAME_OVER;
+                            return;
+                        }
+                    }
+                    else {
+                        if (asteroids[i].y > 227) {
+                            gameState = GAME_OVER;
+                            return;
+                        }
+                    }
+                    break;
+                case 1:
+                    if (selected_cannon == 1) {
+                        if (asteroids[i].x < 453 && asteroids[i].y > 225) {
+                            gameState = GAME_OVER;
+                            return;
+                        }
+                    }
+                    else {
+                        if (asteroids[i].x < 442 && asteroids[i].y > 238) {
+                            gameState = GAME_OVER;
+                            return;
+                        }
+                    }
+                    break;
+                case 2:
+                    if (selected_cannon == 2) {
+                        if (asteroids[i].x < 463) {
+                            gameState = GAME_OVER;
+                            return;
+                        }
+                    }
+                    else if (asteroids[i].x < 448) {
+                        gameState = GAME_OVER;
+                        return;
+                    }
+                    break;
+                case 3:
+                    if (selected_cannon == 3) {
+                        if (asteroids[i].x < 445 && asteroids[i].y < 345) {
+                            gameState = GAME_OVER;
+                            return;
+                        }
+                    }
+                    else if (asteroids[i].x < 425 && asteroids[i].y < 325) {
+                        gameState = GAME_OVER;
+                        return;
+                    }
+                    break;
+                case 4:
+                    if (selected_cannon == 4) {
+                        if (asteroids[i].y < 365) {
+                            gameState = GAME_OVER;
+                            return;
+                        }
+                    }
+                    else if (asteroids[i].y < 342) {
+                        gameState = GAME_OVER;
+                        return;
+                    }
+                    break;
+                case 5:
+                    if (selected_cannon == 5) {
+                        if (asteroids[i].x > 323 && asteroids[i].y < 340) {
+                            gameState = GAME_OVER;
+                            return;
+                        }
+                    }
+                    else if (asteroids[i].x > 342 && asteroids[i].y < 367) {
+                        gameState = GAME_OVER;
+                        return;
+                    }
+                    break;
+                case 6:
+                    if (selected_cannon == 6) {
+                        if (asteroids[i].x > 300) {
+                            gameState = GAME_OVER;
+                            return;
+                        }
+                    }
+                    else if (asteroids[i].x > 324) {
+                        gameState = GAME_OVER;
+                        return;
+                    }
+                    break;
+                case 7:
+                    if (selected_cannon == 7) {
+                        if (asteroids[i].x > 320 && asteroids[i].y > 210) {
+                            gameState = GAME_OVER;
+                            return;
+                        }
+                    }
+                    else if (asteroids[i].x > 335 && asteroids[i].y > 230) {
+                        gameState = GAME_OVER;
+                        return;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+    else if (gameState == MENU) {
+        // TODO: check if mouse is over button
+    }
+}
+
+void reset_game() {
+    laser_index = 0;
+    asteroid_index = 0;
+    selected_cannon = 0;
 }

@@ -13,17 +13,7 @@
 #include "sprites/sprite.c"
 
 #include "gameStates/menu.c"
-
 #include "gameStates/game_controller.c"
-
-typedef enum {
-    MENU,
-    GAME,
-    SETTINGS,
-    INSTRUCTIONS,
-    EXIT,
-    GAME_OVER
-} GameState;
 
 int run_game();
 

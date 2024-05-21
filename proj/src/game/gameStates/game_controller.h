@@ -1,5 +1,14 @@
 #include <lcom/lcf.h>
 
+typedef enum {
+    MENU,
+    GAME,
+    SETTINGS,
+    INSTRUCTIONS,
+    EXIT,
+    GAME_OVER
+} GameState;
+
 void draw_lasers();
 
 void draw_cannon();
@@ -15,3 +24,7 @@ void create_asteroid();
 void update_lasers();
 
 void update_asteroids();
+
+void check_collisions();
+
+void reset_game();
