@@ -12,6 +12,7 @@
 #include "../imgs/cannon/cannon_diag2.xpm"
 #include "../imgs/cannon/cannon_diag3.xpm"
 #include "../imgs/cannon/cannon_diag4.xpm"
+#include "../imgs/asteroid.xpm"
 
 typedef struct {
     int x, y; // current position

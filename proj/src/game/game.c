@@ -14,7 +14,7 @@ int run_game() {
     if (mouse_write(SET_STREAM_MODE) != 0) return 1;
     if (mouse_write(ENABLE_DATA_REPORT) != 0) return 1;
     
-    if (timer_set_frequency(0, 120) != 0) return 1;
+    if (timer_set_frequency(0, 60) != 0) return 1;
 
     int ipc_status;
     message msg;
@@ -43,6 +43,8 @@ int run_game() {
                             case GAME:
                                 draw_game();
                                 update_lasers();
+                                update_asteroids();
+                                if (timer_cnt % 60 == 0) create_asteroid();
                                 break;
                             case SETTINGS:
                                 printf("Settings running\n");

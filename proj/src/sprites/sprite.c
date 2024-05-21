@@ -14,6 +14,7 @@ Sprite *cannon_diag1;
 Sprite *cannon_diag2;
 Sprite *cannon_diag3;
 Sprite *cannon_diag4;
+Sprite *asteroid;
 
 Sprite *create_sprite(xpm_map_t pic) {
     //allocate space for the "object"
@@ -97,6 +98,9 @@ void load_xpms() {
 
     cannon_diag4 = create_sprite((xpm_map_t) cannon_diag4_xpm);
     if (cannon_diag4 == NULL) printf("cannon_diag4 is NULL\n");
+
+    asteroid = create_sprite((xpm_map_t) asteroid_xpm);
+    if (asteroid == NULL) printf("asteroid is NULL\n");
 }
 
 void destroy_xpms() {

@@ -7,19 +7,31 @@ typedef struct {
     int xspeed, yspeed;
 } laser_t;
 
+typedef struct {
+    int x, y;
+    int xspeed, yspeed;
+    int direction;
+} asteroid_t;
+
 laser_t lasers[100];
 int laser_index = 0;
 int selected_cannon = 0;
 
+asteroid_t asteroids[10];
+int asteroid_index = 0;
+
 void draw_lasers();
 
 void draw_cannon();
+
+void draw_asteroids();
 
 void draw_game() {
     draw_sprite(background, 0, 0);
     draw_sprite(player, player->x, player->y);
     draw_cannon();
     draw_lasers();
+    draw_asteroids();
 }
 
 void create_laser() {
@@ -131,5 +143,89 @@ void draw_cannon() {
             break;
         default:
             break;
+    }
+}
+
+void create_asteroid() {
+    asteroid_t asteroid;
+    asteroid.direction = rand() % 8;
+    switch (asteroid.direction) {
+        case 0:
+            asteroid.x = 385;
+            asteroid.y = 0;
+            asteroid.xspeed = 0;
+            asteroid.yspeed = 5;
+            break;
+        case 1:
+            asteroid.x = 662;
+            asteroid.y = 0;
+            asteroid.xspeed = -3;
+            asteroid.yspeed = 3;
+            break;
+        case 2:
+            asteroid.x = mode_info.XResolution;
+            asteroid.y = 280;
+            asteroid.xspeed = -5;
+            asteroid.yspeed = 0;
+            break;
+        case 3:
+            asteroid.x = mode_info.XResolution - 100;
+            asteroid.y = mode_info.YResolution;
+            asteroid.xspeed = -3;
+            asteroid.yspeed = -3;
+            break;
+        case 4:
+            asteroid.x = 385;
+            asteroid.y = mode_info.YResolution;
+            asteroid.xspeed = 0;
+            asteroid.yspeed = -5;
+            break;
+        case 5:
+            asteroid.x = 65;
+            asteroid.y = mode_info.YResolution;
+            asteroid.xspeed = 3;
+            asteroid.yspeed = -3;
+            break;
+        case 6:
+            asteroid.x = 0;
+            asteroid.y = 280;
+            asteroid.xspeed = 5;
+            asteroid.yspeed = 0;
+            break;
+        case 7:
+            asteroid.x = 100;
+            asteroid.y = 0;
+            asteroid.xspeed = 3;
+            asteroid.yspeed = 3;
+            break;
+        default:
+            break;
+    }
+    asteroids[asteroid_index] = asteroid;
+    asteroid_index++;
+}
+
+void update_asteroids() {
+    // move asteroids
+    for (int i = 0; i < asteroid_index; i++) {
+        asteroids[i].x += asteroids[i].xspeed;
+        asteroids[i].y += asteroids[i].yspeed;
+    }
+
+    // check if asteroid is out of bounds
+    for (int i = 0; i < asteroid_index; i++) {
+        if (asteroids[i].y < 0 || asteroids[i].y > mode_info.YResolution || asteroids[i].x < 0 || asteroids[i].x > mode_info.XResolution) {
+            for (int j = i; j < asteroid_index - 1; j++) {
+                asteroids[j] = asteroids[j + 1];
+            }
+            asteroid_index--;
+        }
+    }
+}
+
+void draw_asteroids() {
+    // draw asteroids
+    for (int i = 0; i < asteroid_index; i++) {
+        draw_sprite(asteroid, asteroids[i].x, asteroids[i].y);
     }
 }
