@@ -21,6 +21,8 @@
         "map": "c",
         "*.xpm": "c",
         "menu.h": "c",
-        "game_controller.h": "c"
+        "game_controller.h": "c",
+        "algorithm": "c",
+        "cstdlib": "c"
     }
 }

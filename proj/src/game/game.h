@@ -15,6 +15,8 @@
 #include "gameStates/menu.c"
 #include "gameStates/game_controller.c"
 
+#include "difficulty_controller.c"
+
 int run_game();
 
 void interpret_scancode();

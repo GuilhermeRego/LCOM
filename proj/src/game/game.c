@@ -9,6 +9,7 @@ extern int option;
 extern laser_t lasers[100];
 extern int laser_index;
 extern int selected_cannon;
+int freq = 40;
 
 int run_game() {
     if (mouse_write(SET_STREAM_MODE) != 0) return 1;
@@ -41,10 +42,11 @@ int run_game() {
                                 draw_menu();
                                 break;
                             case GAME:
-                                draw_game();
                                 update_lasers();
                                 update_asteroids();
-                                if (timer_cnt % 60 == 0) create_asteroid();
+                                update_difficulty();
+                                if (timer_cnt % freq == 0) create_asteroid();
+                                draw_game();
                                 break;
                             case SETTINGS:
                                 printf("Settings running\n");
@@ -130,6 +132,7 @@ void interpret_scancode() {
             switch (scancode) {
                 case ESC_BREAK:
                     gameState = MENU;
+                    reset_game();
                     break;
                 case ARROW_LEFT_BREAK:
                     selected_cannon--;
