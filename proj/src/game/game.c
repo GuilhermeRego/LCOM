@@ -9,6 +9,8 @@ extern int option;
 extern laser_t lasers[100];
 extern int laser_index;
 extern int selected_cannon;
+extern int ammo;
+extern bool out_of_ammo;
 int freq = 40;
 
 int run_game() {
@@ -143,7 +145,12 @@ void interpret_scancode() {
                     if (selected_cannon > 7) selected_cannon = 0;
                     break;
                 case SPACE_BREAK:
-                    create_laser();
+                    if (!out_of_ammo)
+                        create_laser();
+                    break;
+                case ARROW_DOWN_BREAK:
+                    out_of_ammo = false;
+                    ammo = 5;
                     break;
                 default:
                     break;

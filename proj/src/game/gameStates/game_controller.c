@@ -24,7 +24,7 @@ laser_t lasers[100];
 int laser_index = 0;
 int selected_cannon = 0;
 
-asteroid_t asteroids[10];
+asteroid_t asteroids[100];
 int asteroid_index = 0;
 
 int score = 0;
@@ -34,6 +34,9 @@ int a_diagspeed = 3;
 
 int l_speed = 10;
 int l_diagspeed = 7;
+
+int ammo = 5;
+bool out_of_ammo = false;
 
 void draw_lasers();
 
@@ -106,6 +109,10 @@ void create_laser() {
     lasers[laser_index].sprite = laser;
     lasers[laser_index].is_destroyed = false;
     laser_index++;
+    ammo--;
+    if (ammo == 0) {
+        out_of_ammo = true;
+    }
 }
 
 void update_lasers() {
@@ -405,4 +412,10 @@ void reset_game() {
     selected_cannon = 0;
     score = 0;
     freq = 40;
+    a_speed = 5;
+    a_diagspeed = 3;
+    l_speed = 10;
+    l_diagspeed = 7;
+    ammo = 5;
+    out_of_ammo = false;
 }
