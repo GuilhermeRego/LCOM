@@ -2,7 +2,11 @@
 
 #include "sprite.h"
 
-Sprite *menu;
+Sprite *menu_start_selected;
+Sprite *menu_settings_selected;
+Sprite *menu_instructions_selected;
+Sprite *menu_exit_selected;
+
 Sprite *player;
 Sprite *background;
 Sprite *laser;
@@ -65,8 +69,18 @@ int draw_sprite(Sprite *sp, int x, int y) {
 }
 
 void load_xpms() {
-    menu = create_sprite((xpm_map_t) menu_xpm);
-    if (menu == NULL) printf("menu is NULL\n");
+    // Menu
+    menu_start_selected = create_sprite((xpm_map_t) menu_start_selected_xpm);
+    if (menu_start_selected == NULL) printf("menu_start_selected is NULL\n");
+
+    menu_settings_selected = create_sprite((xpm_map_t) menu_settings_selected_xpm);
+    if (menu_settings_selected == NULL) printf("menu_settings_selected is NULL\n");
+
+    menu_instructions_selected = create_sprite((xpm_map_t) menu_instructions_selected_xpm);
+    if (menu_instructions_selected == NULL) printf("menu_instructions_selected is NULL\n");
+
+    menu_exit_selected = create_sprite((xpm_map_t) menu_exit_selected_xpm);
+    if (menu_exit_selected == NULL) printf("menu_exit_selected is NULL\n");
 
     player = create_sprite((xpm_map_t) player_xpm);
     if (player == NULL) printf("player is NULL\n");
@@ -113,8 +127,8 @@ void load_xpms() {
     if (numbers[1] == NULL) printf("numbers[1] is NULL\n");
     numbers[2] = create_sprite((xpm_map_t) char_2_xpm);
     if (numbers[2] == NULL) printf("numbers[2] is NULL\n");
-    //numbers[3] = create_sprite((xpm_map_t) char_3_xpm);
-    //if (numbers[3] == NULL) printf("numbers[3] is NULL\n");
+    numbers[3] = create_sprite((xpm_map_t) char_3_xpm);
+    if (numbers[3] == NULL) printf("numbers[3] is NULL\n");
     numbers[4] = create_sprite((xpm_map_t) char_4_xpm);
     if (numbers[4] == NULL) printf("numbers[4] is NULL\n");
     //numbers[5] = create_sprite((xpm_map_t) char_5_xpm);
@@ -151,25 +165,24 @@ void load_xpms() {
     if (letters[9] == NULL) printf("letters[9] is NULL\n");
     letters[10] = create_sprite((xpm_map_t) char_k_xpm);
     if (letters[10] == NULL) printf("letters[10] is NULL\n");
-
-    //letters[11] = create_sprite((xpm_map_t) char_l_xpm);
-    //if (letters[11] == NULL) printf("letters[11] is NULL\n");
-    //letters[12] = create_sprite((xpm_map_t) char_m_xpm);
-    //if (letters[12] == NULL) printf("letters[12] is NULL\n");
+    letters[11] = create_sprite((xpm_map_t) char_l_xpm);
+    if (letters[11] == NULL) printf("letters[11] is NULL\n");
+    letters[12] = create_sprite((xpm_map_t) char_m_xpm);
+    if (letters[12] == NULL) printf("letters[12] is NULL\n");
     //letters[13] = create_sprite((xpm_map_t) char_n_xpm);
     //if (letters[13] == NULL) printf("letters[13] is NULL\n");
-    //letters[14] = create_sprite((xpm_map_t) char_o_xpm);
-    //if (letters[14] == NULL) printf("letters[14] is NULL\n");
-    //letters[15] = create_sprite((xpm_map_t) char_p_xpm);
-    //if (letters[15] == NULL) printf("letters[15] is NULL\n");
+    letters[14] = create_sprite((xpm_map_t) char_o_xpm);
+    if (letters[14] == NULL) printf("letters[14] is NULL\n");
+    letters[15] = create_sprite((xpm_map_t) char_p_xpm);
+    if (letters[15] == NULL) printf("letters[15] is NULL\n");
     letters[16] = create_sprite((xpm_map_t) char_q_xpm);
     if (letters[16] == NULL) printf("letters[16] is NULL\n");
     letters[17] = create_sprite((xpm_map_t) char_r_xpm);
     if (letters[17] == NULL) printf("letters[17] is NULL\n");
     letters[18] = create_sprite((xpm_map_t) char_s_xpm);
     if (letters[18] == NULL) printf("letters[18] is NULL\n");
-    //letters[19] = create_sprite((xpm_map_t) char_t_xpm);
-    //if (letters[19] == NULL) printf("letters[19] is NULL\n");
+    letters[19] = create_sprite((xpm_map_t) char_t_xpm);
+    if (letters[19] == NULL) printf("letters[19] is NULL\n");
     letters[20] = create_sprite((xpm_map_t) char_u_xpm);
     if (letters[20] == NULL) printf("letters[20] is NULL\n");
     letters[21] = create_sprite((xpm_map_t) char_v_xpm);
@@ -185,8 +198,29 @@ void load_xpms() {
 }
 
 void destroy_xpms() {
-    destroy_sprite(menu);
+    destroy_sprite(menu_start_selected);
+    destroy_sprite(menu_settings_selected);
+    destroy_sprite(menu_instructions_selected);
+    destroy_sprite(menu_exit_selected);
     destroy_sprite(player);
     destroy_sprite(background);
     destroy_sprite(laser);
+    destroy_sprite(cannon_up);
+    destroy_sprite(cannon_right);
+    destroy_sprite(cannon_down);
+    destroy_sprite(cannon_left);
+    destroy_sprite(cannon_diag1);
+    destroy_sprite(cannon_diag2);
+    destroy_sprite(cannon_diag3);
+    destroy_sprite(cannon_diag4);
+    destroy_sprite(asteroid);
+    for (int i = 0; i < 10; i++) {
+        destroy_sprite(numbers[i]);
+    }
+    for (int i = 0; i < 26; i++) {
+        destroy_sprite(letters[i]);
+    }
+    for (int i = 0; i < 3; i++) {
+        destroy_sprite(special_chars[i]);
+    }
 }

@@ -32,3 +32,5 @@ void reset_game();
 void draw_text(char text[], int x, int y);
 
 void draw_score();
+
+void draw_ammo();
