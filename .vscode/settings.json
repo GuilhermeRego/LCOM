@@ -24,6 +24,8 @@
         "game_controller.h": "c",
         "algorithm": "c",
         "cstdlib": "c",
-        "queue": "c"
+        "queue": "c",
+        "cctype": "c",
+        "locale": "c"
     }
 }

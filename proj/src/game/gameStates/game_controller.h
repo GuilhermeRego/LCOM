@@ -29,6 +29,6 @@ void check_collisions();
 
 void reset_game();
 
-void draw_text(char text[10], int x, int y);
+void draw_text(char text[], int x, int y);
 
 void draw_score();

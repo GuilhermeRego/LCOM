@@ -421,32 +421,70 @@ void reset_game() {
     out_of_ammo = false;
 }
 
+bool is_number = false;
+bool is_alpha = false;
+bool is_special = false;
+
 int char_to_index(char c) {
-    switch (c) {
-        case 'A':
-            return 0;
-        case 'B':
-            return 1;
-        default:
-            return -1;
+    if (c >= 'A' && c <= 'Z') {
+        is_alpha = true;
+        return c - 'A';
+    }
+    else if (c >= 'a' && c <= 'z') {
+        is_alpha = true;
+        return c - 'a';
+    }
+    else if (c >= '0' && c <= '9') {
+        is_number = true;
+        return c - '0';
+    }
+    else if (c == ':') {
+        is_special = true;
+        return 37;
+    }
+    else if (c == '/') {
+        is_special = true;
+        return 38;
     }
     return -1;
 }
 
-void draw_text(char text[10], int x, int y) {
+void draw_text(char text[], int x, int y) {
     int x_offset = 0;
     for (int i = 0; text[i] != '\0'; i++) {
-        draw_sprite(letters[char_to_index(text[i])], x + x_offset, y);
-        x_offset += letters[char_to_index(text[i])]->width;
+        if (text[i] == ' ') {
+            x_offset += 18;
+            continue;
+        }
+        char c = text[i];
+        if (char_to_index(c) == -1) {
+            printf("Invalid character in text: %c\n", c);
+            continue;
+        }
+        if (is_alpha) {
+            draw_sprite(letters[char_to_index(c)], x + x_offset, y);
+            x_offset += letters[char_to_index(c)]->width;
+            is_alpha = false;
+        }
+        else if (is_number) {
+            draw_sprite(numbers[char_to_index(c)], x + x_offset, y);
+            x_offset += numbers[char_to_index(c)]->width;
+            is_number = false;
+        }
+        else if (is_special) {
+            draw_sprite(special_chars[char_to_index(c)], x + x_offset, y);
+            x_offset += special_chars[char_to_index(c)]->width;
+            is_special = false;
+        }
+        else if (!is_alpha && !is_number && !is_special) {
+            printf("Invalid character in text: %c\n", c);
+        }
+        
     }
 }
 
 void draw_score() {
     char score_str[10];
-    score_str[0] = 'A';
-    score_str[1] = 'B';
-    score_str[2] = '\0';
-    for (int i = 0; score_str[i] != '\0'; i++) {
-        draw_text(score_str, 100, 100);
-    }
+    strcpy(score_str, "01246789");
+    draw_text(score_str, 10, 10);
 }

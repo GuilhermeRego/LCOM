@@ -16,7 +16,9 @@ Sprite *cannon_diag3;
 Sprite *cannon_diag4;
 Sprite *asteroid;
 
-Sprite *letters[37];
+Sprite *letters[26];
+Sprite *numbers[10];
+Sprite *special_chars[3];
 
 Sprite *create_sprite(xpm_map_t pic) {
     //allocate space for the "object"
@@ -104,11 +106,82 @@ void load_xpms() {
     asteroid = create_sprite((xpm_map_t) asteroid_xpm);
     if (asteroid == NULL) printf("asteroid is NULL\n");
 
+    // Numbers
+    numbers[0] = create_sprite((xpm_map_t) char_0_xpm);
+    if (numbers[0] == NULL) printf("numbers[0] is NULL\n");
+    numbers[1] = create_sprite((xpm_map_t) char_1_xpm);
+    if (numbers[1] == NULL) printf("numbers[1] is NULL\n");
+    numbers[2] = create_sprite((xpm_map_t) char_2_xpm);
+    if (numbers[2] == NULL) printf("numbers[2] is NULL\n");
+    //numbers[3] = create_sprite((xpm_map_t) char_3_xpm);
+    //if (numbers[3] == NULL) printf("numbers[3] is NULL\n");
+    numbers[4] = create_sprite((xpm_map_t) char_4_xpm);
+    if (numbers[4] == NULL) printf("numbers[4] is NULL\n");
+    //numbers[5] = create_sprite((xpm_map_t) char_5_xpm);
+    //if (numbers[5] == NULL) printf("numbers[5] is NULL\n");
+    numbers[6] = create_sprite((xpm_map_t) char_6_xpm);
+    if (numbers[6] == NULL) printf("numbers[6] is NULL\n");
+    numbers[7] = create_sprite((xpm_map_t) char_7_xpm);
+    if (numbers[7] == NULL) printf("numbers[7] is NULL\n");
+    numbers[8] = create_sprite((xpm_map_t) char_8_xpm);
+    if (numbers[8] == NULL) printf("numbers[8] is NULL\n");
+    numbers[9] = create_sprite((xpm_map_t) char_9_xpm);
+    if (numbers[9] == NULL) printf("numbers[9] is NULL\n");
+
+    // Letters
     letters[0] = create_sprite((xpm_map_t) char_a_xpm);
     if (letters[0] == NULL) printf("letters[0] is NULL\n");
-
     letters[1] = create_sprite((xpm_map_t) char_b_xpm);
     if (letters[1] == NULL) printf("letters[1] is NULL\n");
+    letters[2] = create_sprite((xpm_map_t) char_c_xpm);
+    if (letters[2] == NULL) printf("letters[2] is NULL\n");
+    letters[3] = create_sprite((xpm_map_t) char_d_xpm);
+    if (letters[3] == NULL) printf("letters[3] is NULL\n");
+    letters[4] = create_sprite((xpm_map_t) char_e_xpm);
+    if (letters[4] == NULL) printf("letters[4] is NULL\n");
+    letters[5] = create_sprite((xpm_map_t) char_f_xpm);
+    if (letters[5] == NULL) printf("letters[5] is NULL\n");
+    letters[6] = create_sprite((xpm_map_t) char_g_xpm);
+    if (letters[6] == NULL) printf("letters[6] is NULL\n");
+    letters[7] = create_sprite((xpm_map_t) char_h_xpm);
+    if (letters[7] == NULL) printf("letters[7] is NULL\n");
+    letters[8] = create_sprite((xpm_map_t) char_i_xpm);
+    if (letters[8] == NULL) printf("letters[8] is NULL\n");
+    letters[9] = create_sprite((xpm_map_t) char_j_xpm);
+    if (letters[9] == NULL) printf("letters[9] is NULL\n");
+    letters[10] = create_sprite((xpm_map_t) char_k_xpm);
+    if (letters[10] == NULL) printf("letters[10] is NULL\n");
+
+    //letters[11] = create_sprite((xpm_map_t) char_l_xpm);
+    //if (letters[11] == NULL) printf("letters[11] is NULL\n");
+    //letters[12] = create_sprite((xpm_map_t) char_m_xpm);
+    //if (letters[12] == NULL) printf("letters[12] is NULL\n");
+    //letters[13] = create_sprite((xpm_map_t) char_n_xpm);
+    //if (letters[13] == NULL) printf("letters[13] is NULL\n");
+    //letters[14] = create_sprite((xpm_map_t) char_o_xpm);
+    //if (letters[14] == NULL) printf("letters[14] is NULL\n");
+    //letters[15] = create_sprite((xpm_map_t) char_p_xpm);
+    //if (letters[15] == NULL) printf("letters[15] is NULL\n");
+    letters[16] = create_sprite((xpm_map_t) char_q_xpm);
+    if (letters[16] == NULL) printf("letters[16] is NULL\n");
+    letters[17] = create_sprite((xpm_map_t) char_r_xpm);
+    if (letters[17] == NULL) printf("letters[17] is NULL\n");
+    letters[18] = create_sprite((xpm_map_t) char_s_xpm);
+    if (letters[18] == NULL) printf("letters[18] is NULL\n");
+    //letters[19] = create_sprite((xpm_map_t) char_t_xpm);
+    //if (letters[19] == NULL) printf("letters[19] is NULL\n");
+    letters[20] = create_sprite((xpm_map_t) char_u_xpm);
+    if (letters[20] == NULL) printf("letters[20] is NULL\n");
+    letters[21] = create_sprite((xpm_map_t) char_v_xpm);
+    if (letters[21] == NULL) printf("letters[21] is NULL\n");
+    letters[22] = create_sprite((xpm_map_t) char_w_xpm);
+    if (letters[22] == NULL) printf("letters[22] is NULL\n");
+    letters[23] = create_sprite((xpm_map_t) char_x_xpm);
+    if (letters[23] == NULL) printf("letters[23] is NULL\n");
+    letters[24] = create_sprite((xpm_map_t) char_y_xpm);
+    if (letters[24] == NULL) printf("letters[24] is NULL\n");
+    letters[25] = create_sprite((xpm_map_t) char_z_xpm);
+    if (letters[25] == NULL) printf("letters[25] is NULL\n");
 }
 
 void destroy_xpms() {
