@@ -51,6 +51,7 @@ void draw_game() {
     draw_cannon();
     draw_lasers();
     draw_asteroids();
+    draw_score();
 }
 
 void create_laser() {
@@ -418,4 +419,34 @@ void reset_game() {
     l_diagspeed = 7;
     ammo = 5;
     out_of_ammo = false;
+}
+
+int char_to_index(char c) {
+    switch (c) {
+        case 'A':
+            return 0;
+        case 'B':
+            return 1;
+        default:
+            return -1;
+    }
+    return -1;
+}
+
+void draw_text(char text[10], int x, int y) {
+    int x_offset = 0;
+    for (int i = 0; text[i] != '\0'; i++) {
+        draw_sprite(letters[char_to_index(text[i])], x + x_offset, y);
+        x_offset += letters[char_to_index(text[i])]->width;
+    }
+}
+
+void draw_score() {
+    char score_str[10];
+    score_str[0] = 'A';
+    score_str[1] = 'B';
+    score_str[2] = '\0';
+    for (int i = 0; score_str[i] != '\0'; i++) {
+        draw_text(score_str, 100, 100);
+    }
 }

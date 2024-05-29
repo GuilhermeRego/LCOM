@@ -14,6 +14,9 @@
 #include "../imgs/cannon/cannon_diag4.xpm"
 #include "../imgs/asteroid.xpm"
 
+#include "../imgs/letters/char_a.xpm"
+#include "../imgs/letters/char_b.xpm"
+
 typedef struct {
     int x, y; // current position
     int width, height; // dimensions

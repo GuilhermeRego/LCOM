@@ -16,6 +16,8 @@ Sprite *cannon_diag3;
 Sprite *cannon_diag4;
 Sprite *asteroid;
 
+Sprite *letters[37];
+
 Sprite *create_sprite(xpm_map_t pic) {
     //allocate space for the "object"
     Sprite *sp = (Sprite *) malloc ( sizeof(Sprite));
@@ -101,6 +103,12 @@ void load_xpms() {
 
     asteroid = create_sprite((xpm_map_t) asteroid_xpm);
     if (asteroid == NULL) printf("asteroid is NULL\n");
+
+    letters[0] = create_sprite((xpm_map_t) char_a_xpm);
+    if (letters[0] == NULL) printf("letters[0] is NULL\n");
+
+    letters[1] = create_sprite((xpm_map_t) char_b_xpm);
+    if (letters[1] == NULL) printf("letters[1] is NULL\n");
 }
 
 void destroy_xpms() {
