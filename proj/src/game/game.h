@@ -25,6 +25,10 @@
 
 #include "gameStates/pause.c"
 
+#include "gameStates/mouse_controller.h"
+
 int run_game();
 
 void interpret_scancode();
+
+void interpret_mouse();

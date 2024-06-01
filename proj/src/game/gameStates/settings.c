@@ -4,6 +4,24 @@ int settings_option = 0;
 int resolution_option = 0;
 
 void draw_settings() {
+    if ((cursor->x > 265 && cursor->x < 515) && (cursor->y > 215 && cursor->y < 273)) {
+        settings_option = 0;
+        is_mouse_over = true;
+    }
+    
+    else if ((cursor->x > 265 && cursor->x < 515) && (cursor->y > 273 && cursor->y < 327)) {
+        settings_option = 1;
+        is_mouse_over = true;
+    }
+    
+    else if ((cursor->x > 265 && cursor->x < 515) && (cursor->y > 327 && cursor->y < 385)) {
+        settings_option = 2;
+        is_mouse_over = true;
+    }
+    else {
+        is_mouse_over = false;
+    }
+
     switch (settings_option) {
         case 0:
             switch (resolution_option) {

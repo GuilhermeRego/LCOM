@@ -31,6 +31,5 @@ int (proj_main_loop)(int argc, char **argv) {
 
     if (vg_exit() != 0) return 1;
 
-    printf("Exiting\n");
     return 0;
 }

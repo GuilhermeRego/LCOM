@@ -17,6 +17,8 @@ extern int game_over_option;
 extern int pause_option;
 
 extern int byte_index;
+extern struct packet pp;
+extern bool is_mouse_over;
 
 int freq = 40;
 
@@ -46,7 +48,8 @@ int run_game() {
                     if (msg.m_notify.interrupts & irq_mouse) {
                         mouse_ih();
                         handle_mouse();
-                        update_mouse(); 
+                        update_mouse();
+                        interpret_mouse(); 
                         draw_mouse();                      
                     }
 
@@ -70,10 +73,12 @@ int run_game() {
                                 printf("Instructions running\n");
                                 break;
                             case GAME_OVER:
+                                draw_game();
                                 draw_game_over();
                                 reset_game();
                                 break;
                             case PAUSE:
+                                draw_game();
                                 draw_pause();
                                 break;
                             case EXIT:
@@ -291,5 +296,96 @@ void interpret_scancode() {
             break;
         default:
             break;
+    }
+}
+
+void interpret_mouse() {
+    printf("Is mouse over: %d\n", is_mouse_over);
+    printf("Pause option: %d\n\n", pause_option);
+    if (is_mouse_over && pp.lb) {
+        switch (gameState) {
+            case MENU:
+                switch (option) {
+                    case 0:
+                        gameState = GAME;
+                        break;
+                    case 1:
+                        gameState = SETTINGS;
+                        break;
+                    case 2:
+                        gameState = INSTRUCTIONS;
+                        break;
+                    case 3:
+                        gameState = EXIT;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case SETTINGS:
+                switch (settings_option) {
+                    case 0:
+                        switch (resolution_option) {
+                            case 0:
+                                printf("640x480\n");
+                                break;
+                            case 1:
+                                printf("800x600\n");
+                                break;
+                            case 2:
+                                printf("1024x768\n");
+                                break;
+                            case 3:
+                                printf("1152x864\n");
+                                break;
+                            case 4:
+                                printf("1280x1024\n");
+                                break;
+                        }
+                        break;
+                    case 1:
+                        printf("Leaderboard cleared");
+                        break;
+                    case 2:
+                        gameState = MENU;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+
+            case GAME_OVER:
+                switch (game_over_option) {
+                    case 0:
+                        gameState = GAME;
+                        break;
+                    case 1:
+                        gameState = MENU;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+
+            case PAUSE:
+                switch (pause_option) {
+                    case 0:
+                        gameState = GAME;
+                        break;
+                    case 1:
+                        gameState = MENU;
+                        break;
+                    default:
+                        break;
+                }
+                break;
+
+            case GAME:
+                if (!out_of_ammo)
+                    create_laser();
+                break;
+            default:
+                break;
+        }
     }
 }
