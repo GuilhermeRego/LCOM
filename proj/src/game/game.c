@@ -16,6 +16,8 @@ extern int resolution_option;
 extern int game_over_option;
 extern int pause_option;
 
+extern int byte_index;
+
 int freq = 40;
 
 int run_game() {
@@ -41,10 +43,16 @@ int run_game() {
         if (is_ipc_notify(ipc_status)) {
             switch (_ENDPOINT_P(msg.m_source)) {
                 case HARDWARE:
+                    if (msg.m_notify.interrupts & irq_mouse) {
+                        mouse_ih();
+                        handle_mouse();
+                        update_mouse(); 
+                        draw_mouse();                      
+                    }
+
                     if (msg.m_notify.interrupts & irq_timer) {
                         timer_int_handler();
                         switch (gameState) {
-                            // Create for each state a function that draws the state
                             case MENU:
                                 draw_menu();
                                 break;
@@ -71,7 +79,7 @@ int run_game() {
                             case EXIT:
                                 break;
                         }
-                        //draw_mouse();
+                        draw_mouse();
                         swap_buffers();
                     }
 
@@ -80,9 +88,6 @@ int run_game() {
                         interpret_scancode();
                     }
 
-                    if (msg.m_notify.interrupts & irq_mouse) {
-                        // mouse_ih();
-                    }
                     break;
                 default:
                     break;
