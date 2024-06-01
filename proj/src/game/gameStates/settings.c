@@ -30,5 +30,7 @@ void draw_settings() {
         case 2:
             draw_sprite(settings_back_selected, 0, 0);
             break;
+        default:
+            break;
     }
 }

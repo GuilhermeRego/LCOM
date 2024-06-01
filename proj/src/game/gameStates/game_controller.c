@@ -268,7 +268,6 @@ void check_collisions() {
                     score++;
                     lasers[i].is_destroyed = true;
                     asteroids[j].is_destroyed = true;
-                    printf("Score: %d\n", score);
                 }
             }
         }

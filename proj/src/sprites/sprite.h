@@ -14,6 +14,12 @@
 #include "../imgs/menu/settings/options_clear_selected.xpm"
 #include "../imgs/menu/settings/options_exit_selected.xpm"
 
+#include "../imgs/game_over/gameover_tryagain_selected.xpm"
+#include "../imgs/game_over/gameover_exit_selected.xpm"
+
+#include "../imgs/pause/pause_resume_selected.xpm"
+#include "../imgs/pause/pause_exit_selected.xpm"
+
 #include "../imgs/player.xpm"
 #include "../imgs/background.xpm"
 #include "../imgs/laser.xpm"

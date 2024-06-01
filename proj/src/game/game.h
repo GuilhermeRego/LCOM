@@ -21,6 +21,10 @@
 
 #include "gameStates/settings.c"
 
+#include "gameStates/game_over.c"
+
+#include "gameStates/pause.c"
+
 int run_game();
 
 void interpret_scancode();

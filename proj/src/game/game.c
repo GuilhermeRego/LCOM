@@ -13,6 +13,8 @@ extern bool out_of_ammo;
 
 extern int settings_option;
 extern int resolution_option;
+extern int game_over_option;
+extern int pause_option;
 
 int freq = 40;
 
@@ -59,11 +61,14 @@ int run_game() {
                             case INSTRUCTIONS:
                                 printf("Instructions running\n");
                                 break;
-                            case EXIT:
-                                return 0;
                             case GAME_OVER:
+                                draw_game_over();
                                 reset_game();
-                                gameState = MENU;
+                                break;
+                            case PAUSE:
+                                draw_pause();
+                                break;
+                            case EXIT:
                                 break;
                         }
                         //draw_mouse();
@@ -136,8 +141,7 @@ void interpret_scancode() {
         case GAME: {
             switch (scancode) {
                 case ESC_BREAK:
-                    gameState = MENU;
-                    reset_game();
+                    gameState = PAUSE;
                     break;
                 case ARROW_LEFT_BREAK:
                     selected_cannon--;
@@ -162,24 +166,23 @@ void interpret_scancode() {
         }
 
         case SETTINGS: {
-            if (scancode == ESC_BREAK) gameState = MENU;
             switch (scancode) {
                 case ARROW_UP_BREAK:
-                    if (option > 0) settings_option--;
-                    else option = 2;
+                    if (settings_option > 0) settings_option--;
+                    else settings_option = 2;
                     break;
                 case ARROW_DOWN_BREAK:
-                    if (option < 2) settings_option++;
-                    else option = 0;
+                    if (settings_option < 2) settings_option++;
+                    else settings_option = 0;
                     break;
                 case ARROW_LEFT_BREAK:
-                    if (option == 0) {
+                    if (settings_option == 0) {
                         if (resolution_option > 0) resolution_option--;
                         else resolution_option = 4;
                     }
                     break;
                 case ARROW_RIGHT_BREAK:
-                    if (option == 0) {
+                    if (settings_option == 0) {
                         if (resolution_option < 4) resolution_option++;
                         else resolution_option = 0;
                     }
@@ -206,6 +209,7 @@ void interpret_scancode() {
                             }
                             break;
                         case 1:
+                            printf("Leaderboard cleared");
                             break;
                         case 2:
                             gameState = MENU;
@@ -213,6 +217,9 @@ void interpret_scancode() {
                         default:
                             break;
                     }
+                    break;
+                case ESC_BREAK:
+                    gameState = MENU;
                     break;
                 default:
                     break;
@@ -225,6 +232,58 @@ void interpret_scancode() {
             break;
         }
 
+        case GAME_OVER:
+            switch (scancode) {
+                case ARROW_UP_BREAK:
+                    if (game_over_option > 0) game_over_option--;
+                    else game_over_option = 1;
+                    break;
+                case ARROW_DOWN_BREAK:
+                    if (game_over_option < 1) game_over_option++;
+                    else game_over_option = 0;
+                    break;
+                case ENTER_BREAK:
+                    switch (game_over_option) {
+                        case 0:
+                            gameState = GAME;
+                            break;
+                        case 1:
+                            gameState = MENU;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            break;
+
+        case PAUSE:
+            switch (scancode) {
+                case ARROW_UP_BREAK:
+                    if (pause_option > 0) pause_option--;
+                    else pause_option = 1;
+                    break;
+                case ARROW_DOWN_BREAK:
+                    if (pause_option < 1) pause_option++;
+                    else pause_option = 0;
+                    break;
+                case ENTER_BREAK:
+                    switch (pause_option) {
+                        case 0:
+                            gameState = GAME;
+                            break;
+                        case 1:
+                            gameState = MENU;
+                            reset_game();
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+            }
+            break;
         default:
             break;
     }

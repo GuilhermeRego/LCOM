@@ -6,7 +6,8 @@ typedef enum {
     SETTINGS,
     INSTRUCTIONS,
     EXIT,
-    GAME_OVER
+    GAME_OVER,
+    PAUSE
 } GameState;
 
 void draw_lasers();

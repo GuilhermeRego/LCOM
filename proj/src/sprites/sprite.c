@@ -15,6 +15,12 @@ Sprite *settings_resolution_1024_selected;
 Sprite *settings_clear_selected;
 Sprite *settings_back_selected;
 
+Sprite *gameover_exit_selected;
+Sprite *gameover_tryagain_selected;
+
+Sprite *pause_resume_selected;
+Sprite *pause_exit_selected;
+
 Sprite *player;
 Sprite *background;
 Sprite *laser;
@@ -114,8 +120,21 @@ void load_xpms() {
     settings_back_selected = create_sprite((xpm_map_t) settings_back_selected_xpm);
     if (settings_back_selected == NULL) printf("settings_back_selected is NULL\n");
 
-    // Game
+    // Game Over
+    gameover_tryagain_selected = create_sprite((xpm_map_t) gameover_tryagain_selected_xpm);
+    if (gameover_tryagain_selected == NULL) printf("gameover_tryagain_selected is NULL\n");
 
+    gameover_exit_selected = create_sprite((xpm_map_t) gameover_exit_selected_xpm);
+    if (gameover_exit_selected == NULL) printf("gameover_exit_selected is NULL\n");
+
+    // Pause
+    pause_resume_selected = create_sprite((xpm_map_t) pause_resume_selected_xpm);
+    if (pause_resume_selected == NULL) printf("pause_resume_selected is NULL\n");
+
+    pause_exit_selected = create_sprite((xpm_map_t) pause_exit_selected_xpm);
+    if (pause_exit_selected == NULL) printf("pause_exit_selected is NULL\n");
+
+    // Game
     player = create_sprite((xpm_map_t) player_xpm);
     if (player == NULL) printf("player is NULL\n");
     player->x = (mode_info.XResolution / 2) - (player->width / 2);
@@ -248,6 +267,8 @@ void destroy_xpms() {
     destroy_sprite(settings_resolution_1024_selected);
     destroy_sprite(settings_clear_selected);
     destroy_sprite(settings_back_selected);
+    destroy_sprite(gameover_exit_selected);
+    destroy_sprite(gameover_tryagain_selected);
     destroy_sprite(player);
     destroy_sprite(background);
     destroy_sprite(laser);
