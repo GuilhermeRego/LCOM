@@ -18,6 +18,7 @@
 #include "../imgs/cannon/cannon_diag3.xpm"
 #include "../imgs/cannon/cannon_diag4.xpm"
 #include "../imgs/asteroid.xpm"
+#include "../imgs/cursor.xpm"
 
 #include "../imgs/numbers/char_0.xpm"
 #include "../imgs/numbers/char_1.xpm"

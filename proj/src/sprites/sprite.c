@@ -19,6 +19,7 @@ Sprite *cannon_diag2;
 Sprite *cannon_diag3;
 Sprite *cannon_diag4;
 Sprite *asteroid;
+Sprite *cursor;
 
 Sprite *letters[26];
 Sprite *numbers[10];
@@ -120,6 +121,11 @@ void load_xpms() {
     asteroid = create_sprite((xpm_map_t) asteroid_xpm);
     if (asteroid == NULL) printf("asteroid is NULL\n");
 
+    cursor = create_sprite((xpm_map_t) cursor_xpm);
+    if (cursor == NULL) printf("cursor is NULL\n");
+    cursor->x = 10;
+    cursor->y = 10;
+
     // Numbers
     numbers[0] = create_sprite((xpm_map_t) char_0_xpm);
     if (numbers[0] == NULL) printf("numbers[0] is NULL\n");
@@ -131,8 +137,8 @@ void load_xpms() {
     if (numbers[3] == NULL) printf("numbers[3] is NULL\n");
     numbers[4] = create_sprite((xpm_map_t) char_4_xpm);
     if (numbers[4] == NULL) printf("numbers[4] is NULL\n");
-    //numbers[5] = create_sprite((xpm_map_t) char_5_xpm);
-    //if (numbers[5] == NULL) printf("numbers[5] is NULL\n");
+    numbers[5] = create_sprite((xpm_map_t) char_5_xpm);
+    if (numbers[5] == NULL) printf("numbers[5] is NULL\n");
     numbers[6] = create_sprite((xpm_map_t) char_6_xpm);
     if (numbers[6] == NULL) printf("numbers[6] is NULL\n");
     numbers[7] = create_sprite((xpm_map_t) char_7_xpm);
@@ -169,8 +175,8 @@ void load_xpms() {
     if (letters[11] == NULL) printf("letters[11] is NULL\n");
     letters[12] = create_sprite((xpm_map_t) char_m_xpm);
     if (letters[12] == NULL) printf("letters[12] is NULL\n");
-    //letters[13] = create_sprite((xpm_map_t) char_n_xpm);
-    //if (letters[13] == NULL) printf("letters[13] is NULL\n");
+    letters[13] = create_sprite((xpm_map_t) char_n_xpm);
+    if (letters[13] == NULL) printf("letters[13] is NULL\n");
     letters[14] = create_sprite((xpm_map_t) char_o_xpm);
     if (letters[14] == NULL) printf("letters[14] is NULL\n");
     letters[15] = create_sprite((xpm_map_t) char_p_xpm);
@@ -214,6 +220,8 @@ void destroy_xpms() {
     destroy_sprite(cannon_diag3);
     destroy_sprite(cannon_diag4);
     destroy_sprite(asteroid);
+    destroy_sprite(cursor);
+
     for (int i = 0; i < 10; i++) {
         destroy_sprite(numbers[i]);
     }

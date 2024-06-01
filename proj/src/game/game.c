@@ -6,11 +6,11 @@ extern GameState gameState;
 extern int timer_cnt;
 extern uint8_t scancode;
 extern int option;
-extern laser_t lasers[100];
 extern int laser_index;
 extern int selected_cannon;
 extern int ammo;
 extern bool out_of_ammo;
+
 int freq = 40;
 
 int run_game() {
@@ -63,6 +63,7 @@ int run_game() {
                                 gameState = MENU;
                                 break;
                         }
+                        draw_mouse();
                         swap_buffers();
                     }
 
@@ -72,8 +73,7 @@ int run_game() {
                     }
 
                     if (msg.m_notify.interrupts & irq_mouse) {
-                        // TODO
-                        continue;
+                        mouse_ih();
                     }
                     break;
                 default:

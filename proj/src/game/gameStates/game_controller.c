@@ -488,12 +488,6 @@ void draw_score() {
     char score_str[10];
     char points[3];
     sprintf(points, "%d", score);
-    for (int i = 0; i < 3; i++) {
-        if (points[i] == '3')
-            points[i] = 'E';
-        else if (points[i] == '5')
-            points[i] = 'S';
-    }
     strcpy(score_str, "SCORE ");
     strcat(score_str, points);
     draw_text(score_str, mode_info.XResolution/2 - 300, 10);
@@ -503,12 +497,6 @@ void draw_ammo() {
     char ammo_str[10];
     char ammo_count[3];
     sprintf(ammo_count, "%d", ammo);
-    for (int i = 0; i < 3; i++) {
-        if (ammo_count[i] == '3')
-            ammo_count[i] = 'E';
-        else if (ammo_count[i] == '5')
-            ammo_count[i] = 'S';
-    }
     strcpy(ammo_str, "AMMO ");
     strcat(ammo_str, ammo_count);
     draw_text(ammo_str, mode_info.XResolution/2 + 100, 10);

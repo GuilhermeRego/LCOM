@@ -17,6 +17,8 @@
 
 #include "difficulty_controller.c"
 
+#include "gameStates/mouse_controller.c"
+
 int run_game();
 
 void interpret_scancode();
