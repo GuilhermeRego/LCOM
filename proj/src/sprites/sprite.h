@@ -6,6 +6,14 @@
 #include "../imgs/menu/menu_instructions_selected.xpm"
 #include "../imgs/menu/menu_exit_selected.xpm"
 
+#include "../imgs/menu/settings/options_480_selected.xpm"
+#include "../imgs/menu/settings/options_600_selected.xpm"
+#include "../imgs/menu/settings/options_768_selected.xpm"
+#include "../imgs/menu/settings/options_864_selected.xpm"
+#include "../imgs/menu/settings/options_1024_selected.xpm"
+#include "../imgs/menu/settings/options_clear_selected.xpm"
+#include "../imgs/menu/settings/options_exit_selected.xpm"
+
 #include "../imgs/player.xpm"
 #include "../imgs/background.xpm"
 #include "../imgs/laser.xpm"

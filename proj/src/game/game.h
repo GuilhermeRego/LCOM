@@ -19,6 +19,8 @@
 
 #include "gameStates/mouse_controller.c"
 
+#include "gameStates/settings.c"
+
 int run_game();
 
 void interpret_scancode();

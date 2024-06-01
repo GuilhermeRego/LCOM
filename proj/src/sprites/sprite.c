@@ -7,6 +7,14 @@ Sprite *menu_settings_selected;
 Sprite *menu_instructions_selected;
 Sprite *menu_exit_selected;
 
+Sprite *settings_resolution_480_selected;
+Sprite *settings_resolution_600_selected;
+Sprite *settings_resolution_768_selected;
+Sprite *settings_resolution_864_selected;
+Sprite *settings_resolution_1024_selected;
+Sprite *settings_clear_selected;
+Sprite *settings_back_selected;
+
 Sprite *player;
 Sprite *background;
 Sprite *laser;
@@ -82,6 +90,31 @@ void load_xpms() {
 
     menu_exit_selected = create_sprite((xpm_map_t) menu_exit_selected_xpm);
     if (menu_exit_selected == NULL) printf("menu_exit_selected is NULL\n");
+
+    // Settings
+
+    settings_resolution_480_selected = create_sprite((xpm_map_t) settings_resolution_480_selected_xpm);
+    if (settings_resolution_480_selected == NULL) printf("settings_resolution_480_selected is NULL\n");
+
+    settings_resolution_600_selected = create_sprite((xpm_map_t) settings_resolution_600_selected_xpm);
+    if (settings_resolution_600_selected == NULL) printf("settings_resolution_600_selected is NULL\n");
+
+    settings_resolution_768_selected = create_sprite((xpm_map_t) settings_resolution_768_selected_xpm);
+    if (settings_resolution_768_selected == NULL) printf("settings_resolution_768_selected is NULL\n");
+
+    settings_resolution_864_selected = create_sprite((xpm_map_t) settings_resolution_864_selected_xpm);
+    if (settings_resolution_864_selected == NULL) printf("settings_resolution_864_selected is NULL\n");
+
+    settings_resolution_1024_selected = create_sprite((xpm_map_t) settings_resolution_1024_selected_xpm);
+    if (settings_resolution_1024_selected == NULL) printf("settings_resolution_1024_selected is NULL\n");
+
+    settings_clear_selected = create_sprite((xpm_map_t) settings_clear_selected_xpm);
+    if (settings_clear_selected == NULL) printf("settings_clear_selected is NULL\n");
+
+    settings_back_selected = create_sprite((xpm_map_t) settings_back_selected_xpm);
+    if (settings_back_selected == NULL) printf("settings_back_selected is NULL\n");
+
+    // Game
 
     player = create_sprite((xpm_map_t) player_xpm);
     if (player == NULL) printf("player is NULL\n");
@@ -208,6 +241,13 @@ void destroy_xpms() {
     destroy_sprite(menu_settings_selected);
     destroy_sprite(menu_instructions_selected);
     destroy_sprite(menu_exit_selected);
+    destroy_sprite(settings_resolution_480_selected);
+    destroy_sprite(settings_resolution_600_selected);
+    destroy_sprite(settings_resolution_768_selected);
+    destroy_sprite(settings_resolution_864_selected);
+    destroy_sprite(settings_resolution_1024_selected);
+    destroy_sprite(settings_clear_selected);
+    destroy_sprite(settings_back_selected);
     destroy_sprite(player);
     destroy_sprite(background);
     destroy_sprite(laser);

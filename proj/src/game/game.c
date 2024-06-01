@@ -11,6 +11,9 @@ extern int selected_cannon;
 extern int ammo;
 extern bool out_of_ammo;
 
+extern int settings_option;
+extern int resolution_option;
+
 int freq = 40;
 
 int run_game() {
@@ -51,7 +54,7 @@ int run_game() {
                                 draw_game();
                                 break;
                             case SETTINGS:
-                                printf("Settings running\n");
+                                draw_settings();
                                 break;
                             case INSTRUCTIONS:
                                 printf("Instructions running\n");
@@ -63,7 +66,7 @@ int run_game() {
                                 gameState = MENU;
                                 break;
                         }
-                        draw_mouse();
+                        //draw_mouse();
                         swap_buffers();
                     }
 
@@ -73,7 +76,7 @@ int run_game() {
                     }
 
                     if (msg.m_notify.interrupts & irq_mouse) {
-                        mouse_ih();
+                        // mouse_ih();
                     }
                     break;
                 default:
@@ -160,6 +163,60 @@ void interpret_scancode() {
 
         case SETTINGS: {
             if (scancode == ESC_BREAK) gameState = MENU;
+            switch (scancode) {
+                case ARROW_UP_BREAK:
+                    if (option > 0) settings_option--;
+                    else option = 2;
+                    break;
+                case ARROW_DOWN_BREAK:
+                    if (option < 2) settings_option++;
+                    else option = 0;
+                    break;
+                case ARROW_LEFT_BREAK:
+                    if (option == 0) {
+                        if (resolution_option > 0) resolution_option--;
+                        else resolution_option = 4;
+                    }
+                    break;
+                case ARROW_RIGHT_BREAK:
+                    if (option == 0) {
+                        if (resolution_option < 4) resolution_option++;
+                        else resolution_option = 0;
+                    }
+                    break;
+                case ENTER_BREAK:
+                    switch (settings_option) {
+                        case 0:
+                            switch (resolution_option) {
+                                case 0:
+                                    printf("640x480\n");
+                                    break;
+                                case 1:
+                                    printf("800x600\n");
+                                    break;
+                                case 2:
+                                    printf("1024x768\n");
+                                    break;
+                                case 3:
+                                    printf("1152x864\n");
+                                    break;
+                                case 4:
+                                    printf("1280x1024\n");
+                                    break;
+                            }
+                            break;
+                        case 1:
+                            break;
+                        case 2:
+                            gameState = MENU;
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
             break;
         }
 
