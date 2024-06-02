@@ -20,6 +20,11 @@ extern int byte_index;
 extern struct packet pp;
 extern bool is_mouse_over;
 
+extern powerup_t powerups[100];
+extern int powerup_index;
+
+bool rtc_active = true;
+
 int freq = 40;
 
 int run_game() {
@@ -30,11 +35,12 @@ int run_game() {
 
     int ipc_status;
     message msg;
-    uint8_t irq_timer, irq_mouse, irq_keyboard;
+    uint8_t irq_timer, irq_mouse, irq_keyboard, irq_rtc;
 
     if (timer_subscribe_int(&irq_timer) != 0) return 1;
     if (mouse_subscribe_int(&irq_mouse) != 0) return 1;
     if (keyboard_subscribe_int(&irq_keyboard) != 0) return 1;
+    if (rtc_subscribe_int(&irq_rtc) != 0) {printf("error subscribing rtc\n");return 1;}
 
     while (gameState != EXIT) {
         if (driver_receive(ANY, &msg, &ipc_status) != 0) {
@@ -58,28 +64,48 @@ int run_game() {
                         switch (gameState) {
                             case MENU:
                                 draw_menu();
+                                if (rtc_active) {
+                                    get_date_time();
+                                    draw_date_time();
+                                }
                                 break;
                             case GAME:
                                 update_lasers();
                                 update_asteroids();
                                 update_difficulty();
                                 if (timer_cnt % freq == 0) create_asteroid();
+                                create_powerup();
+                                update_powerups();
                                 draw_game();
                                 break;
                             case SETTINGS:
                                 draw_settings();
+                                if (rtc_active) {
+                                    get_date_time();
+                                    draw_date_time();
+                                }
                                 break;
                             case INSTRUCTIONS:
-                                printf("Instructions running\n");
+                                draw_instructions();
+                                if (rtc_active) {
+                                    get_date_time();
+                                    draw_date_time();
+                                }
                                 break;
                             case GAME_OVER:
                                 draw_game();
                                 draw_game_over();
-                                reset_game();
                                 break;
                             case PAUSE:
                                 draw_game();
                                 draw_pause();
+                                break;
+                            case LEADERBOARD:
+                                draw_leaderboard();
+                                if (rtc_active) {
+                                    get_date_time();
+                                    draw_date_time();
+                                }
                                 break;
                             case EXIT:
                                 break;
@@ -93,6 +119,10 @@ int run_game() {
                         interpret_scancode();
                     }
 
+                    if (msg.m_notify.interrupts & irq_rtc) {
+                       printf("rtc interrupt\n");
+                    }
+
                     break;
                 default:
                     break;
@@ -103,6 +133,7 @@ int run_game() {
     if (timer_unsubscribe_int() != 0) return 1;
     if (mouse_unsubscribe_int() != 0) return 1;
     if (keyboard_unsubscribe_int() != 0) return 1;
+    if (rtc_unsubscribe_int() != 0) return 1;
 
     if (mouse_write(DISABLE_DATA_REPORT) != 0) return 1;
 
@@ -118,11 +149,14 @@ void interpret_scancode() {
                     break;
                 case ARROW_UP_BREAK:
                     if (option > 0) option--;
-                    else option = 3;
+                    else option = 4;
                     break;
                 case ARROW_DOWN_BREAK:
-                    if (option < 3) option++;
+                    if (option < 4) option++;
                     else option = 0;
+                    break;
+                case R_BREAK:
+                    rtc_active = !rtc_active;
                     break;
                 case ENTER_BREAK:
                     switch (option) {
@@ -137,6 +171,9 @@ void interpret_scancode() {
                             break;
                         case 3:
                             gameState = EXIT;
+                            break;
+                        case 4:
+                            gameState = LEADERBOARD;
                             break;
                         default:
                             break;
@@ -197,6 +234,9 @@ void interpret_scancode() {
                         else resolution_option = 0;
                     }
                     break;
+                case R_BREAK:
+                    rtc_active = !rtc_active;
+                    break;
                 case ENTER_BREAK:
                     switch (settings_option) {
                         case 0:
@@ -239,6 +279,7 @@ void interpret_scancode() {
 
         case INSTRUCTIONS: {
             if (scancode == ESC_BREAK) gameState = MENU;
+            else if (scancode == R_BREAK) rtc_active = !rtc_active;
             break;
         }
 
@@ -256,9 +297,11 @@ void interpret_scancode() {
                     switch (game_over_option) {
                         case 0:
                             gameState = GAME;
+                            reset_game();
                             break;
                         case 1:
                             gameState = MENU;
+                            reset_game();
                             break;
                         default:
                             break;
@@ -267,6 +310,11 @@ void interpret_scancode() {
                 default:
                     break;
             }
+            break;
+
+        case LEADERBOARD:
+            if (scancode == ESC_BREAK) gameState = MENU;
+            else if (scancode == R_BREAK) rtc_active = !rtc_active;
             break;
 
         case PAUSE:
@@ -300,8 +348,6 @@ void interpret_scancode() {
 }
 
 void interpret_mouse() {
-    printf("Is mouse over: %d\n", is_mouse_over);
-    printf("Pause option: %d\n\n", pause_option);
     if (is_mouse_over && pp.lb) {
         switch (gameState) {
             case MENU:
@@ -317,6 +363,9 @@ void interpret_mouse() {
                         break;
                     case 3:
                         gameState = EXIT;
+                        break;
+                    case 4:
+                        gameState = LEADERBOARD;
                         break;
                     default:
                         break;
@@ -358,9 +407,11 @@ void interpret_mouse() {
                 switch (game_over_option) {
                     case 0:
                         gameState = GAME;
+                        reset_game();
                         break;
                     case 1:
                         gameState = MENU;
+                        reset_game();
                         break;
                     default:
                         break;
@@ -374,6 +425,7 @@ void interpret_mouse() {
                         break;
                     case 1:
                         gameState = MENU;
+                        reset_game();
                         break;
                     default:
                         break;
@@ -381,8 +433,19 @@ void interpret_mouse() {
                 break;
 
             case GAME:
-                if (!out_of_ammo)
-                    create_laser();
+                break;
+            default:
+                break;
+        }
+    }
+    else if (pp.lb) {
+        switch (gameState) {
+            case GAME:
+                for (int i = 0; i < powerup_index; i++) {
+                    if (cursor->x > powerups[i].x - 50 && cursor->x < powerups[i].x + 50 && cursor->y > powerups[i].y - 50 && cursor->y < powerups[i].y + 50) {
+                        powerups[i].is_consumed = true;
+                    }
+                }
                 break;
             default:
                 break;

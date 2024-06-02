@@ -49,7 +49,7 @@ static char *char_9_xpm[] = {
 "j c #5B5B5B",
 "k c #5D5D5D",
 "l c #5E5E5E",
-"z c #626262",
+"z c #FFFFFF",
 "x c #656565",
 "c c #676767",
 "v c #6A6A6A",
@@ -61,7 +61,7 @@ static char *char_9_xpm[] = {
 "B c #797979",
 "V c #7C7C7C",
 "C c #808080",
-"Z c #828282",
+"Z c #FFFFFF",
 "A c #858585",
 /* pixels */
 "                                ",

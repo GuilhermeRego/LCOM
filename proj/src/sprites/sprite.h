@@ -5,6 +5,11 @@
 #include "../imgs/menu/menu_start_selected.xpm"
 #include "../imgs/menu/menu_instructions_selected.xpm"
 #include "../imgs/menu/menu_exit_selected.xpm"
+#include "../imgs/menu/instructions.xpm"
+#include "../imgs/menu/leaderboard.xpm"
+#include "../imgs/menu/leaderboard_selected.xpm"
+#include "../imgs/menu/menu_none_selected.xpm"
+#include "../imgs/menu/leaderboard_background.xpm"
 
 #include "../imgs/menu/settings/options_480_selected.xpm"
 #include "../imgs/menu/settings/options_600_selected.xpm"
@@ -71,6 +76,12 @@
 #include "../imgs/letters/char_x.xpm"
 #include "../imgs/letters/char_y.xpm"
 #include "../imgs/letters/char_z.xpm"
+
+#include "../imgs/specialChars/char_dash.xpm"
+#include "../imgs/specialChars/char_doubledot.xpm"
+
+#include "../imgs/powerups/bomb.xpm"
+#include "../imgs/powerups/coin.xpm"
 
 typedef struct {
     int x, y; // current position

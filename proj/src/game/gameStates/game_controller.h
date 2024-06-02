@@ -7,6 +7,7 @@ typedef enum {
     INSTRUCTIONS,
     EXIT,
     GAME_OVER,
+    LEADERBOARD,
     PAUSE
 } GameState;
 
@@ -35,3 +36,7 @@ void draw_text(char text[], int x, int y);
 void draw_score();
 
 void draw_ammo();
+
+void create_powerup();
+
+void draw_powerups();

@@ -6,6 +6,8 @@
 #include "utils/keyboardMouse/i8042.h"
 #include "utils/keyboardMouse/keyboard.c"
 #include "utils/keyboardMouse/mouse.c"
+#include "utils/rtc/rtc.c"
+#include "utils/rtc/Date.c"
 
 #include "utils/timer/i8254.h"
 #include "utils/timer/timer.c"
@@ -14,18 +16,14 @@
 
 #include "gameStates/menu.c"
 #include "gameStates/game_controller.c"
-
 #include "difficulty_controller.c"
-
 #include "gameStates/mouse_controller.c"
+#include "gameStates/date_controller.c"
+#include "gameStates/instructions.c"
 
 #include "gameStates/settings.c"
-
 #include "gameStates/game_over.c"
-
 #include "gameStates/pause.c"
-
-#include "gameStates/mouse_controller.h"
 
 int run_game();
 

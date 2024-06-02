@@ -6,6 +6,10 @@ Sprite *menu_start_selected;
 Sprite *menu_settings_selected;
 Sprite *menu_instructions_selected;
 Sprite *menu_exit_selected;
+Sprite *menu_none_selected;
+Sprite *leaderboard;
+Sprite *leaderboard_selected;
+Sprite *leaderboard_background;
 
 Sprite *settings_resolution_480_selected;
 Sprite *settings_resolution_600_selected;
@@ -14,6 +18,9 @@ Sprite *settings_resolution_864_selected;
 Sprite *settings_resolution_1024_selected;
 Sprite *settings_clear_selected;
 Sprite *settings_back_selected;
+
+Sprite *instructions;
+
 
 Sprite *gameover_exit_selected;
 Sprite *gameover_tryagain_selected;
@@ -38,6 +45,9 @@ Sprite *cursor;
 Sprite *letters[26];
 Sprite *numbers[10];
 Sprite *special_chars[3];
+
+Sprite *coin;
+Sprite *bomb;
 
 Sprite *create_sprite(xpm_map_t pic) {
     //allocate space for the "object"
@@ -97,8 +107,10 @@ void load_xpms() {
     menu_exit_selected = create_sprite((xpm_map_t) menu_exit_selected_xpm);
     if (menu_exit_selected == NULL) printf("menu_exit_selected is NULL\n");
 
-    // Settings
+    menu_none_selected = create_sprite((xpm_map_t) menu_none_selected_xpm);
+    if (menu_none_selected == NULL) printf("menu_none_selected is NULL\n");
 
+    // Settings
     settings_resolution_480_selected = create_sprite((xpm_map_t) settings_resolution_480_selected_xpm);
     if (settings_resolution_480_selected == NULL) printf("settings_resolution_480_selected is NULL\n");
 
@@ -119,6 +131,20 @@ void load_xpms() {
 
     settings_back_selected = create_sprite((xpm_map_t) settings_back_selected_xpm);
     if (settings_back_selected == NULL) printf("settings_back_selected is NULL\n");
+
+    // Instructions
+    instructions = create_sprite((xpm_map_t) instructions_xpm);
+    if (instructions == NULL) printf("instructions is NULL\n");
+
+    // Leaderboard
+    leaderboard = create_sprite((xpm_map_t) leaderboard_xpm);
+    if (leaderboard == NULL) printf("leaderboard is NULL\n");
+
+    leaderboard_selected = create_sprite((xpm_map_t) leaderboard_selected_xpm);
+    if (leaderboard_selected == NULL) printf("leaderboard_selected is NULL\n");
+
+    leaderboard_background = create_sprite((xpm_map_t) leaderboard_background_xpm);
+    if (leaderboard_background == NULL) printf("leaderboard_background is NULL\n");
 
     // Game Over
     gameover_tryagain_selected = create_sprite((xpm_map_t) gameover_tryagain_selected_xpm);
@@ -253,6 +279,20 @@ void load_xpms() {
     if (letters[24] == NULL) printf("letters[24] is NULL\n");
     letters[25] = create_sprite((xpm_map_t) char_z_xpm);
     if (letters[25] == NULL) printf("letters[25] is NULL\n");
+
+    // Special Characters
+    special_chars[0] = create_sprite((xpm_map_t) char_dash_xpm);
+    if (special_chars[0] == NULL) printf("special_chars[0] is NULL\n");
+
+    special_chars[1] = create_sprite((xpm_map_t) char_doubledot_xpm);
+    if (special_chars[1] == NULL) printf("special_chars[1] is NULL\n");
+
+    // Powerups
+    coin = create_sprite((xpm_map_t) coin_xpm);
+    if (coin == NULL) printf("coin is NULL\n");
+
+    bomb = create_sprite((xpm_map_t) bomb_xpm);
+    if (bomb == NULL) printf("bomb is NULL\n");
 }
 
 void destroy_xpms() {

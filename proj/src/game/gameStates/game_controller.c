@@ -4,6 +4,7 @@
 
 extern GameState gameState;
 extern int freq;
+extern struct packet pp;
 
 typedef struct {
     int x, y;
@@ -20,12 +21,22 @@ typedef struct {
     bool is_destroyed;
 } asteroid_t;
 
+typedef struct {
+    int x, y;
+    Sprite * sprite;
+    int type;
+    bool is_consumed;
+} powerup_t;
+
 laser_t lasers[100];
 int laser_index = 0;
 int selected_cannon = 0;
 
 asteroid_t asteroids[100];
 int asteroid_index = 0;
+
+powerup_t powerups[100];
+int powerup_index = 0;
 
 int score = 0;
 
@@ -51,6 +62,7 @@ void draw_game() {
     draw_cannon();
     draw_lasers();
     draw_asteroids();
+    draw_powerups();
     draw_score();
     draw_ammo();
 }
@@ -400,11 +412,6 @@ void check_collisions() {
             }
         }
     }
-
-    else if (gameState == MENU) {
-        // TODO: check if mouse is over button
-    }
-
 }
 
 void reset_game() {
@@ -419,6 +426,7 @@ void reset_game() {
     l_diagspeed = 7;
     ammo = 5;
     out_of_ammo = false;
+    powerup_index = 0;
 }
 
 bool is_number = false;
@@ -438,13 +446,13 @@ int char_to_index(char c) {
         is_number = true;
         return c - '0';
     }
-    else if (c == ':') {
-        is_special = true;
-        return 37;
-    }
     else if (c == '/') {
         is_special = true;
-        return 38;
+        return 0;
+    }
+    else if (c == ':') {
+        is_special = true;
+        return 1;
     }
     return -1;
 }
@@ -484,19 +492,75 @@ void draw_text(char text[], int x, int y) {
 }
 
 void draw_score() {
-    char score_str[10];
+    char score_str[15];
     char points[3];
     sprintf(points, "%d", score);
-    strcpy(score_str, "SCORE ");
+    strcpy(score_str, "SCORE:");
     strcat(score_str, points);
     draw_text(score_str, mode_info.XResolution/2 - 300, 10);
 }
 
 void draw_ammo() {
-    char ammo_str[10];
+    char ammo_str[15];
     char ammo_count[3];
     sprintf(ammo_count, "%d", ammo);
-    strcpy(ammo_str, "AMMO ");
+    strcpy(ammo_str, "AMMO:");
     strcat(ammo_str, ammo_count);
+    strcat(ammo_str, "/5");
     draw_text(ammo_str, mode_info.XResolution/2 + 100, 10);
+}
+
+void create_powerup() {
+    if (rand() % 500 == 0) {
+        int x = 0;
+        int y = 0;
+        do {
+            x = rand() % mode_info.XResolution;
+            y = rand() % mode_info.YResolution;
+        } while ((x > player->x - (player->width/2)) && (x < player->x + (player->width/2)) && (y > player->y - (player->height/2)) && (y < player->y + (player->height/2)));
+        powerups[powerup_index].x = x;
+        powerups[powerup_index].y = y;
+        int powerup_type = rand() % 2;
+        switch (powerup_type) {
+            case 0:
+                powerups[powerup_index].sprite = bomb;
+                powerups[powerup_index].type = 0;
+                break;
+            case 1:
+                powerups[powerup_index].sprite = coin;
+                powerups[powerup_index].type = 1;
+                break;
+            default:
+                break;
+        }
+        powerups[powerup_index].is_consumed = false;
+        powerup_index++;
+    }
+}
+
+void draw_powerups() {
+    for (int i = 0; i < powerup_index; i++) {
+        draw_sprite(powerups[i].sprite, powerups[i].x, powerups[i].y);
+    }
+}
+
+void update_powerups() {
+    for (int i = 0; i < powerup_index; i++) {
+        if (powerups[i].is_consumed) {
+            switch (powerups[i].type) {
+                case 0:
+                    asteroid_index = 0;
+                    break;
+                case 1:
+                    score += 5;
+                    break;
+                default:
+                    break;
+            }
+            for (int j = i; j < powerup_index - 1; j++) {
+                powerups[j] = powerups[j + 1];
+            }
+            powerup_index--;
+        }
+    }
 }
