@@ -544,6 +544,7 @@ void draw_powerups() {
     }
 }
 
+
 void update_powerups() {
     for (int i = 0; i < powerup_index; i++) {
         if (powerups[i].is_consumed) {
