@@ -1,0 +1,9 @@
+<map id="draw_date_time" name="draw_date_time">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,13,119,38"/>
+<area shape="rect" id="Node000002" href="$sprite_8c.html#a600044d4fb3e3f4c81c7c6b95f90b883" title=" " alt="" coords="167,13,255,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,23,152,23,152,28,119,28"/>
+<area shape="rect" id="Node000003" href="$video_8c.html#a6f895de9725f9f231f9a7f74b6087f60" title=" " alt="" coords="303,13,405,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="255,23,288,23,288,28,255,28"/>
+<area shape="rect" id="Node000004" href="$video_8c.html#a912ba0655a5e1e47b731a214a06764e0" title=" " alt="" coords="453,5,596,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="406,23,438,23,438,28,406,28"/>
+</map>

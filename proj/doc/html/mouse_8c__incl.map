@@ -1,0 +1,23 @@
+<map id="LCOM/MINIX&#45;LCOM/shared/proj/src/utils/keyboardMouse/mouse.c" name="LCOM/MINIX&#45;LCOM/shared/proj/src/utils/keyboardMouse/mouse.c">
+<area shape="rect" id="Node000001" title=" " alt="" coords="31,5,224,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="122,255,200,280"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,63,56,92,25,129,14,148,9,167,10,186,18,205,36,225,58,239,108,256,106,262,56,244,32,229,13,208,4,188,4,167,9,146,20,126,52,89,87,58"/>
+<area shape="rect" id="Node000003" href="$i8042_8h.html" title=" " alt="" coords="28,181,92,207"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="114,62,90,109,69,168,64,166,85,107,109,59"/>
+<area shape="rect" id="Node000004" href="$kbc_8c.html" title=" " alt="" coords="100,108,155,133"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="130,61,130,93,125,93,125,61"/>
+<area shape="rect" id="Node000006" href="$mouse_8h.html" title=" " alt="" coords="180,108,252,133"/>
+<area shape="poly" id="edge9_Node000001_Node000006" title=" " alt="" coords="157,59,195,96,192,100,153,62"/>
+<area shape="rect" id="Node000007" href="$utils_8c.html" title=" " alt="" coords="276,108,345,133"/>
+<area shape="poly" id="edge11_Node000001_Node000007" title=" " alt="" coords="185,58,273,99,271,104,183,63"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="78,205,134,244,131,248,75,210"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="133,133,157,239,152,241,128,134"/>
+<area shape="poly" id="edge8_Node000004_Node000003" title=" " alt="" coords="118,136,83,172,79,169,114,132"/>
+<area shape="rect" id="Node000005" href="$kbc_8h.html" title=" " alt="" coords="167,181,222,207"/>
+<area shape="poly" id="edge6_Node000004_Node000005" title=" " alt="" coords="141,132,175,169,171,172,137,135"/>
+<area shape="poly" id="edge7_Node000005_Node000002" title=" " alt="" coords="191,208,175,242,170,240,186,206"/>
+<area shape="poly" id="edge10_Node000006_Node000002" title=" " alt="" coords="225,133,238,167,240,187,235,208,219,231,198,248,195,244,215,227,230,206,235,187,233,168,220,134"/>
+<area shape="poly" id="edge12_Node000007_Node000002" title=" " alt="" coords="307,135,287,170,256,209,228,231,199,249,197,245,225,227,252,205,282,167,302,132"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="348,181,414,207"/>
+<area shape="poly" id="edge13_Node000007_Node000008" title=" " alt="" coords="324,132,361,169,357,172,320,136"/>
+</map>

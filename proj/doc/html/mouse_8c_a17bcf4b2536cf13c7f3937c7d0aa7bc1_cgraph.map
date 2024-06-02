@@ -1,0 +1,12 @@
+<map id="mouse_disable_data_reporting" name="mouse_disable_data_reporting">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,147,45"/>
+<area shape="rect" id="Node000002" href="$mouse_8c.html#a77621d937bc2fde8bc8fc0fd69fea489" title=" " alt="" coords="195,13,289,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,23,180,23,180,28,147,28"/>
+<area shape="rect" id="Node000003" href="$utils_8c.html#a2b56f50ba159e9d5115ed1a75eff15d9" title=" " alt="" coords="637,13,728,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="290,23,623,23,623,28,290,28"/>
+<area shape="rect" id="Node000004" href="$kbc_8c.html#aee5c2370851934948db8bdb3004e3070" title=" " alt="" coords="337,38,451,63"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="290,31,323,36,322,41,289,36"/>
+<area shape="rect" id="Node000005" href="$kbc_8c.html#a426a732d06bdbae0472db4ccab942e96" title=" " alt="" coords="499,38,589,63"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="451,48,484,48,484,53,451,53"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="589,40,622,34,623,39,590,45"/>
+</map>

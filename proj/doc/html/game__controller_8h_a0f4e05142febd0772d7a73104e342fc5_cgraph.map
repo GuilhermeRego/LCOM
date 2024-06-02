@@ -1,0 +1,9 @@
+<map id="draw_asteroids" name="draw_asteroids">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,13,115,38"/>
+<area shape="rect" id="Node000002" href="$sprite_8c.html#a600044d4fb3e3f4c81c7c6b95f90b883" title=" " alt="" coords="163,13,251,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,23,148,23,148,28,115,28"/>
+<area shape="rect" id="Node000003" href="$video_8c.html#a6f895de9725f9f231f9a7f74b6087f60" title=" " alt="" coords="299,13,401,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="251,23,284,23,284,28,251,28"/>
+<area shape="rect" id="Node000004" href="$video_8c.html#a912ba0655a5e1e47b731a214a06764e0" title=" " alt="" coords="449,5,592,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="402,23,434,23,434,28,402,28"/>
+</map>

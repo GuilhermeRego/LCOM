@@ -1,0 +1,7 @@
+<map id="interpret_scancode" name="interpret_scancode">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,137,56"/>
+<area shape="rect" id="Node000002" href="$game__controller_8c.html#a05f346ae3c931dfa6ebf18c652f272f7" title=" " alt="" coords="185,5,279,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,30,170,25,171,30,138,36"/>
+<area shape="rect" id="Node000003" href="$game__controller_8c.html#a6be2f294a4d060a7a6e445016a151100" title=" " alt="" coords="187,55,277,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="138,51,172,56,172,61,137,56"/>
+</map>

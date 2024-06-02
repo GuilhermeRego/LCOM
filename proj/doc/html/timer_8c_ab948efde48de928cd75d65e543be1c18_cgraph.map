@@ -1,0 +1,9 @@
+<map id="timer_test_int" name="timer_test_int">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,55,107,80"/>
+<area shape="rect" id="Node000002" href="$timer_8c.html#a10fc9c867b15c7da6649311c9987cd17" title=" " alt="" coords="169,5,290,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="102,52,168,33,169,38,104,57"/>
+<area shape="rect" id="Node000003" href="$timer_8c.html#a6f786481e80308348d629d605ffa2d84" title=" " alt="" coords="162,55,297,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="107,65,148,65,148,70,107,70"/>
+<area shape="rect" id="Node000004" href="$timer_8c.html#ab9eea51549744bca5c5c923b388bb4ee" title=" " alt="" coords="155,104,304,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="104,78,169,97,168,102,102,83"/>
+</map>

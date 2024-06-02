@@ -1,0 +1,9 @@
+<map id="draw_powerups" name="draw_powerups">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,13,116,38"/>
+<area shape="rect" id="Node000002" href="$sprite_8c.html#a600044d4fb3e3f4c81c7c6b95f90b883" title=" " alt="" coords="164,13,252,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="116,23,149,23,149,28,116,28"/>
+<area shape="rect" id="Node000003" href="$video_8c.html#a6f895de9725f9f231f9a7f74b6087f60" title=" " alt="" coords="300,13,403,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="252,23,285,23,285,28,252,28"/>
+<area shape="rect" id="Node000004" href="$video_8c.html#a912ba0655a5e1e47b731a214a06764e0" title=" " alt="" coords="451,5,593,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="403,23,436,23,436,28,403,28"/>
+</map>

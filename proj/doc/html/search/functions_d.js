@@ -1,0 +1,12 @@
+var searchData=
+[
+  ['timer_5fdisplay_5fconf_0',['timer_display_conf',['../timer_8c.html#a2f6a1c71f61dce5b3b6eecba83e7d7e9',1,'timer_display_conf(uint8_t timer, uint8_t st, enum timer_status_field field):&#160;timer.c'],['../timer_8h.html#a2f6a1c71f61dce5b3b6eecba83e7d7e9',1,'timer_display_conf(uint8_t timer, uint8_t st, enum timer_status_field field):&#160;timer.c']]],
+  ['timer_5fget_5fconfig_1',['timer_get_config',['../timer_8c.html#a150410efb4139a2624af966b96797110',1,'timer_get_config(uint8_t timer, uint8_t *st):&#160;timer.c'],['../timer_8h.html#a150410efb4139a2624af966b96797110',1,'timer_get_config(uint8_t timer, uint8_t *st):&#160;timer.c']]],
+  ['timer_5fint_5fhandler_2',['timer_int_handler',['../timer_8c.html#a10fc9c867b15c7da6649311c9987cd17',1,'timer_int_handler():&#160;timer.c'],['../timer_8h.html#a10fc9c867b15c7da6649311c9987cd17',1,'timer_int_handler():&#160;timer.c']]],
+  ['timer_5fset_5ffrequency_3',['timer_set_frequency',['../timer_8c.html#aca1506be74dfc71c6f90772ca269c619',1,'timer_set_frequency(uint8_t timer, uint32_t freq):&#160;timer.c'],['../timer_8h.html#aca1506be74dfc71c6f90772ca269c619',1,'timer_set_frequency(uint8_t timer, uint32_t freq):&#160;timer.c']]],
+  ['timer_5fsubscribe_5fint_4',['timer_subscribe_int',['../timer_8c.html#a6f786481e80308348d629d605ffa2d84',1,'timer_subscribe_int(uint8_t *bit_no):&#160;timer.c'],['../timer_8h.html#a6f786481e80308348d629d605ffa2d84',1,'timer_subscribe_int(uint8_t *bit_no):&#160;timer.c']]],
+  ['timer_5ftest_5fint_5',['timer_test_int',['../timer_8c.html#ab948efde48de928cd75d65e543be1c18',1,'timer.c']]],
+  ['timer_5funsubscribe_5fint_6',['timer_unsubscribe_int',['../timer_8c.html#ab9eea51549744bca5c5c923b388bb4ee',1,'timer_unsubscribe_int():&#160;timer.c'],['../timer_8h.html#ab9eea51549744bca5c5c923b388bb4ee',1,'timer_unsubscribe_int():&#160;timer.c']]],
+  ['transform_5fcolor_7',['transform_color',['../video_8c.html#a8a7e0c8729463766cad02510242b5457',1,'transform_color(uint32_t color, uint32_t *new_color):&#160;video.c'],['../video_8h.html#a8a7e0c8729463766cad02510242b5457',1,'transform_color(uint32_t color, uint32_t *new_color):&#160;video.c']]],
+  ['transform_5fcolor_5flittle_5fendian_8',['transform_color_little_endian',['../video_8c.html#a912ba0655a5e1e47b731a214a06764e0',1,'transform_color_little_endian(uint32_t color, uint32_t *new_color):&#160;video.c'],['../video_8h.html#a912ba0655a5e1e47b731a214a06764e0',1,'transform_color_little_endian(uint32_t color, uint32_t *new_color):&#160;video.c']]]
+];

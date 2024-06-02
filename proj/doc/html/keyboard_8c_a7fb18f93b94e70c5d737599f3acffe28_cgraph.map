@@ -1,0 +1,13 @@
+<map id="keyboard_rstr" name="keyboard_rstr">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,107,56"/>
+<area shape="rect" id="Node000002" href="$kbc_8c.html#ab9f7d8e5f46634b58b55c6180eb1393c" title=" " alt="" coords="166,55,257,80"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="108,49,152,55,151,61,107,54"/>
+<area shape="rect" id="Node000005" href="$kbc_8c.html#aee5c2370851934948db8bdb3004e3070" title=" " alt="" coords="155,5,268,31"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="107,32,139,27,140,32,108,38"/>
+<area shape="rect" id="Node000003" href="$kbc_8c.html#a426a732d06bdbae0472db4ccab942e96" title=" " alt="" coords="316,5,407,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="251,52,306,33,308,38,253,57"/>
+<area shape="rect" id="Node000004" href="$utils_8c.html#a2b56f50ba159e9d5115ed1a75eff15d9" title=" " alt="" coords="455,31,545,56"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="257,61,440,46,440,51,257,66"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="408,24,440,30,439,35,407,29"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="268,15,301,15,301,21,268,21"/>
+</map>

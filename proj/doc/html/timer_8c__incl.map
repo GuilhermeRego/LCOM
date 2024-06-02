@@ -1,0 +1,16 @@
+<map id="LCOM/MINIX&#45;LCOM/shared/proj/src/utils/timer/timer.c" name="LCOM/MINIX&#45;LCOM/shared/proj/src/utils/timer/timer.c">
+<area shape="rect" id="Node000001" title=" " alt="" coords="85,5,265,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="225,181,304,207"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="256,58,287,79,311,107,316,124,312,142,291,172,287,169,307,140,310,124,306,109,283,83,253,63"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,181,100,207"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="99,63,69,83,46,109,41,123,39,138,45,167,40,168,34,138,35,122,41,107,65,79,96,58"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="143,108,208,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="178,61,178,93,173,93,173,61"/>
+<area shape="rect" id="Node000005" href="$i8254_8h.html" title=" " alt="" coords="233,108,297,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="205,59,244,96,240,100,201,62"/>
+<area shape="rect" id="Node000006" href="$timer_8h.html" title=" " alt="" coords="56,108,119,133"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="150,62,111,100,108,96,146,59"/>
+<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="267,134,267,166,262,166,262,134"/>
+<area shape="poly" id="edge7_Node000006_Node000002" title=" " alt="" coords="118,132,223,173,221,178,116,136"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="84,135,67,169,62,167,79,132"/>
+</map>

@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['i8042_2eh_0',['i8042.h',['../i8042_8h.html',1,'']]],
+  ['i8254_1',['i8254',['../group__i8254.html',1,'']]],
+  ['i8254_2eh_2',['i8254.h',['../i8254_8h.html',1,'']]],
+  ['i_5fbreak_3',['I_BREAK',['../i8042_8h.html#adbd5495a5a7584ce408afc77053a1a6e',1,'i8042.h']]],
+  ['index_5fmode_4',['index_mode',['../video_8c.html#a62141cdd7a889f93c1ba702c1937ff20',1,'video.c']]],
+  ['indexed_5fmode_5',['indexed_mode',['../video_8h.html#ad7226c421b1e0bf924dc54b2d50a3d03',1,'video.h']]],
+  ['inp_5freg_6',['inp_reg',['../rtc_8h.html#a3feefedf19f4eefc76d254bd5e4732b0',1,'rtc.h']]],
+  ['instructions_7',['instructions',['../sprite_8c.html#a700dac065ff05582537a15411bf9ce63',1,'sprite.c']]],
+  ['instructions_8',['INSTRUCTIONS',['../game__controller_8h.html#a7899b65f1ea0f655e4bbf8d2a5714285a2a3b2d79801adcf99fc1d4565dc6f825',1,'game_controller.h']]],
+  ['instructions_2ec_9',['instructions.c',['../instructions_8c.html',1,'']]],
+  ['instructions_2eh_10',['instructions.h',['../instructions_8h.html',1,'']]],
+  ['interpret_5fmouse_11',['interpret_mouse',['../game_8c.html#a2425caad2e22742c12a46adc0607b98f',1,'interpret_mouse():&#160;game.c'],['../game_8h.html#a2425caad2e22742c12a46adc0607b98f',1,'interpret_mouse():&#160;game.c']]],
+  ['interpret_5fscancode_12',['interpret_scancode',['../game_8c.html#a0781c76cf8f176e2806f0934466454b6',1,'interpret_scancode():&#160;game.c'],['../game_8h.html#a0781c76cf8f176e2806f0934466454b6',1,'interpret_scancode():&#160;game.c']]],
+  ['is_5falpha_13',['is_alpha',['../game__controller_8c.html#a3121b6862875c21a13e1426d9a5f7698',1,'game_controller.c']]],
+  ['is_5fconsumed_14',['is_consumed',['../structpowerup__t.html#a114e75cbd089d2aaaf8e42f814811047',1,'powerup_t']]],
+  ['is_5fdestroyed_15',['is_destroyed',['../structlaser__t.html#a89ebd893cd15aed0929e12e2d7c17c22',1,'laser_t::is_destroyed'],['../structasteroid__t.html#a89ebd893cd15aed0929e12e2d7c17c22',1,'asteroid_t::is_destroyed']]],
+  ['is_5fmouse_5fover_16',['is_mouse_over',['../game_8c.html#a236b0481a1d43848d443c588b800841b',1,'is_mouse_over:&#160;menu.c'],['../menu_8c.html#a236b0481a1d43848d443c588b800841b',1,'is_mouse_over:&#160;menu.c']]],
+  ['is_5fnumber_17',['is_number',['../game__controller_8c.html#a0c5e9f68b74074d7b94f03608be47e0c',1,'game_controller.c']]],
+  ['is_5fspecial_18',['is_special',['../game__controller_8c.html#a3955ae183eed460c2dea60df0a1b55f6',1,'game_controller.c']]]
+];

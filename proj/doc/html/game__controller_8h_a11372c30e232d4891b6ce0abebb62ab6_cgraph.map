@@ -1,0 +1,11 @@
+<map id="draw_text" name="draw_text">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,84,56"/>
+<area shape="rect" id="Node000002" href="$game__controller_8c.html#a393cc9dbebcb87960fdc4d4e292e5684" title=" " alt="" coords="132,5,235,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="84,34,117,27,118,33,85,39"/>
+<area shape="rect" id="Node000003" href="$sprite_8c.html#a600044d4fb3e3f4c81c7c6b95f90b883" title=" " alt="" coords="139,55,227,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="85,48,125,55,124,60,84,53"/>
+<area shape="rect" id="Node000004" href="$video_8c.html#a6f895de9725f9f231f9a7f74b6087f60" title=" " alt="" coords="283,55,385,80"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="228,65,268,65,268,70,228,70"/>
+<area shape="rect" id="Node000005" href="$video_8c.html#a912ba0655a5e1e47b731a214a06764e0" title=" " alt="" coords="433,47,576,87"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="386,65,418,65,418,70,386,70"/>
+</map>

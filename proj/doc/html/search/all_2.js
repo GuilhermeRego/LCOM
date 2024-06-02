@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['c_5fbreak_0',['C_BREAK',['../i8042_8h.html#a1db17ab74e715b3e1265635a2eb94825',1,'i8042.h']]],
+  ['cannon_5fdiag1_1',['cannon_diag1',['../sprite_8c.html#aacb2d75071679d6d5a63725bf6991fdc',1,'sprite.c']]],
+  ['cannon_5fdiag2_2',['cannon_diag2',['../sprite_8c.html#acf04bb023a85563a6767bc4c584dde02',1,'sprite.c']]],
+  ['cannon_5fdiag3_3',['cannon_diag3',['../sprite_8c.html#af29a94b4dc8a0000e3746438f9916e10',1,'sprite.c']]],
+  ['cannon_5fdiag4_4',['cannon_diag4',['../sprite_8c.html#aed5f1aea637fd1cfbbc925ef6dadca19',1,'sprite.c']]],
+  ['cannon_5fdown_5',['cannon_down',['../sprite_8c.html#a4aae64754a0fabeaa2bdd97391d2540d',1,'sprite.c']]],
+  ['cannon_5fleft_6',['cannon_left',['../sprite_8c.html#a3eb4015e01adf3a25445e48527ba0887',1,'sprite.c']]],
+  ['cannon_5fright_7',['cannon_right',['../sprite_8c.html#a395234de2ce7bc426448a4277248176c',1,'sprite.c']]],
+  ['cannon_5fup_8',['cannon_up',['../sprite_8c.html#afc7c0b8622ccaeff1a5121c5fd8c810d',1,'sprite.c']]],
+  ['change_5fdifficulty_9',['change_difficulty',['../difficulty__controller_8c.html#aced38457039a3201666ac18c164f63d2',1,'difficulty_controller.c']]],
+  ['char_5fto_5findex_10',['char_to_index',['../game__controller_8c.html#a393cc9dbebcb87960fdc4d4e292e5684',1,'game_controller.c']]],
+  ['check_5fcollisions_11',['check_collisions',['../game__controller_8c.html#aafbbdba8ad9bfb6108f0238653806062',1,'check_collisions():&#160;game_controller.c'],['../game__controller_8h.html#aafbbdba8ad9bfb6108f0238653806062',1,'check_collisions():&#160;game_controller.c']]],
+  ['cnt_12',['cnt',['../kbc_8c.html#a9cfbb269728dc4185236d28be58d9eab',1,'cnt:&#160;kbc.c'],['../keyboard_8c.html#a9cfbb269728dc4185236d28be58d9eab',1,'cnt:&#160;kbc.c']]],
+  ['coin_13',['coin',['../sprite_8c.html#a34b1b2613be17a566b72dbf887a8fd47',1,'sprite.c']]],
+  ['config_5fframe_5fbuffer_14',['config_frame_buffer',['../video_8c.html#adc26d5dfe653754b8d7e85d11f349117',1,'config_frame_buffer(uint16_t mode):&#160;video.c'],['../video_8h.html#adc26d5dfe653754b8d7e85d11f349117',1,'config_frame_buffer(uint16_t mode):&#160;video.c']]],
+  ['convert_5ftobin_15',['convert_tobin',['../rtc_8c.html#a21ab10789ca68ce96740353a615feab2',1,'convert_tobin(uint8_t bcd):&#160;rtc.c'],['../rtc_8h.html#a21ab10789ca68ce96740353a615feab2',1,'convert_tobin(uint8_t bcd):&#160;rtc.c']]],
+  ['count_5freg_16',['count_reg',['../rtc_8h.html#a3fe51d8a012cb6e31a771301615ad9f9',1,'rtc.h']]],
+  ['create_5fasteroid_17',['create_asteroid',['../game__controller_8c.html#a5659c4e82fe05d692b8a20dadb3265a4',1,'create_asteroid():&#160;game_controller.c'],['../game__controller_8h.html#a5659c4e82fe05d692b8a20dadb3265a4',1,'create_asteroid():&#160;game_controller.c']]],
+  ['create_5flaser_18',['create_laser',['../game__controller_8c.html#a05f346ae3c931dfa6ebf18c652f272f7',1,'create_laser():&#160;game_controller.c'],['../game__controller_8h.html#a05f346ae3c931dfa6ebf18c652f272f7',1,'create_laser():&#160;game_controller.c']]],
+  ['create_5fpowerup_19',['create_powerup',['../game__controller_8c.html#a141501b9ef0d4a61f0dfae486d961e4d',1,'create_powerup():&#160;game_controller.c'],['../game__controller_8h.html#a141501b9ef0d4a61f0dfae486d961e4d',1,'create_powerup():&#160;game_controller.c']]],
+  ['create_5fsprite_20',['create_sprite',['../sprite_8c.html#ab8b348464d3c150e1d472db1a1897ed5',1,'create_sprite(xpm_map_t pic):&#160;sprite.c'],['../sprite_8h.html#ab8b348464d3c150e1d472db1a1897ed5',1,'create_sprite(xpm_map_t pic):&#160;sprite.c']]],
+  ['cursor_21',['cursor',['../sprite_8c.html#a3a7ea4305773abf5347bb261a8a5c16b',1,'sprite.c']]]
+];

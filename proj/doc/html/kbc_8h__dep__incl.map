@@ -1,0 +1,16 @@
+<map id="LCOM/MINIX&#45;LCOM/shared/proj/src/utils/keyboardMouse/kbc.h" name="LCOM/MINIX&#45;LCOM/shared/proj/src/utils/keyboardMouse/kbc.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="97,5,327,45"/>
+<area shape="rect" id="Node000002" href="$kbc_8c.html" title=" " alt="" coords="5,93,235,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,57,142,95,139,91,179,54"/>
+<area shape="rect" id="Node000007" href="$keyboard_8c.html" title=" " alt="" coords="225,181,418,236"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="233,57,308,180,303,182,229,59"/>
+<area shape="rect" id="Node000003" href="$mouse_8c.html" title=" " alt="" coords="7,181,201,236"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="117,149,111,181,106,180,112,148"/>
+<area shape="rect" id="Node000004" href="$game_8h.html" title=" " alt="" coords="122,284,302,324"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="147,244,191,281,188,285,144,248"/>
+<area shape="rect" id="Node000005" href="$game_8c.html" title=" " alt="" coords="122,372,302,412"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="215,339,215,372,209,372,209,339"/>
+<area shape="rect" id="Node000006" href="$proj_8c.html" title=" " alt="" coords="122,460,302,500"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="215,427,215,460,209,460,209,427"/>
+<area shape="poly" id="edge7_Node000007_Node000004" title=" " alt="" coords="281,247,236,285,233,281,278,243"/>
+</map>

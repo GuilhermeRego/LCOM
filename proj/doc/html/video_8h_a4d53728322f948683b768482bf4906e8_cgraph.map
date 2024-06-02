@@ -1,0 +1,9 @@
+<map id="vg_draw_rectangle" name="vg_draw_rectangle">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,13,133,38"/>
+<area shape="rect" id="Node000002" href="$video_8c.html#adb08b276272848bc7f3bccc0f5e770c8" title=" " alt="" coords="181,13,284,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="134,23,166,23,166,28,134,28"/>
+<area shape="rect" id="Node000003" href="$video_8c.html#a6f895de9725f9f231f9a7f74b6087f60" title=" " alt="" coords="332,13,435,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="285,23,317,23,317,28,285,28"/>
+<area shape="rect" id="Node000004" href="$video_8c.html#a912ba0655a5e1e47b731a214a06764e0" title=" " alt="" coords="483,5,625,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="435,23,468,23,468,28,435,28"/>
+</map>

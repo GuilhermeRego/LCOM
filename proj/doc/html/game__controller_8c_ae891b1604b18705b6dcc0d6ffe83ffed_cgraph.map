@@ -1,0 +1,13 @@
+<map id="draw_ammo" name="draw_ammo">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,31,97,56"/>
+<area shape="rect" id="Node000002" href="$game__controller_8c.html#a11372c30e232d4891b6ce0abebb62ab6" title=" " alt="" coords="145,31,224,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,41,130,41,130,46,98,46"/>
+<area shape="rect" id="Node000003" href="$game__controller_8c.html#a393cc9dbebcb87960fdc4d4e292e5684" title=" " alt="" coords="272,5,375,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="224,34,257,27,258,33,225,39"/>
+<area shape="rect" id="Node000004" href="$sprite_8c.html#a600044d4fb3e3f4c81c7c6b95f90b883" title=" " alt="" coords="279,55,367,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="225,48,265,55,264,60,224,53"/>
+<area shape="rect" id="Node000005" href="$video_8c.html#a6f895de9725f9f231f9a7f74b6087f60" title=" " alt="" coords="423,55,525,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="368,65,408,65,408,70,368,70"/>
+<area shape="rect" id="Node000006" href="$video_8c.html#a912ba0655a5e1e47b731a214a06764e0" title=" " alt="" coords="573,47,716,87"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="526,65,558,65,558,70,526,70"/>
+</map>
